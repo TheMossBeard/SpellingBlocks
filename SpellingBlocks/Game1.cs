@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using OpenTK.Graphics.ES20;
 using SpellingBlocks.Objects;
+using SpellingBlocks.Controllers;
 
 namespace SpellingBlocks
 {
@@ -15,7 +16,10 @@ namespace SpellingBlocks
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameContent gameContent;
-        Block blockA;
+        BlockController blocks;
+        Rectangle touchBox;
+        int screenWidth = 0;
+        int screenHeight = 0;
 
         public Game1()
         {
@@ -39,8 +43,13 @@ namespace SpellingBlocks
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameContent = new GameContent(Content);
 
-            blockA = new Block(50, 50, "A", spriteBatch, gameContent);
+            screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
+            float blockPosx = screenWidth / 10;
+            float blockPosy = screenHeight / 10;
+            blocks = new BlockController(spriteBatch, gameContent);
+  
         }
 
         protected override void UnloadContent()
@@ -60,15 +69,16 @@ namespace SpellingBlocks
                 
                 if (TouchLocationState.Pressed == tl.State)
                 {
-                    
-                    Vector2 tmp = blockA.Position * 2;
-                    Rectangle hitBox = new Rectangle((int)blockA.Position.X, (int)blockA.Position.Y, 64,64);
-                    Rectangle touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 64, 64);
-                     if (HitTest( touchBox, hitBox)) //touch offset is fucky
-                    {
-                    blockA.Position = tmp;
+                    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 64, 64);
+                    blocks.Update(touchBox);
+                    //Vector2 tmp = blockA.Position * 2;
+                    //Rectangle hitBox = new Rectangle((int)blockA.Position.X, (int)blockA.Position.Y, 64,64);
+                    //Rectangle touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 64, 64);
+                    // if (HitTest( touchBox, hitBox)) //touch offset is fucky
+                    //{
+                    //blockA.Position = tmp;
 
-                    }
+                    //}
                 }
             }
 
@@ -79,7 +89,8 @@ namespace SpellingBlocks
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            blockA.Draw();
+        
+            blocks.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -88,13 +99,10 @@ namespace SpellingBlocks
         public static bool HitTest(Rectangle r1, Rectangle r2)
         {
             if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
+            
         }
     }
 }

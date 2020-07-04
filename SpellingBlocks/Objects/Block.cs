@@ -17,28 +17,37 @@ namespace SpellingBlocks.Objects
 {
     class Block
     {
-        public float XPosition { get; set; }   
+        public float XPosition { get; set; }
         public float YPosition { get; set; }
+        public Rectangle HitBox { get; set; }
 
         public Vector2 Position;
         public string Value { get; set; }
+        public bool IsSelected { get; set; }
         public Texture2D Sprite { get; set; }
         private SpriteBatch spriteBatch { get; set; }
 
-        public Block (float x, float y, string value, SpriteBatch spriteBatch, GameContent gameContent)
+        public Block(float x, float y, string value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
         {
-            Position = new Vector2(x, y);
             XPosition = x;
             YPosition = y;
+            Position = new Vector2(x, y);
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
             Value = value;
+            IsSelected = false;
             this.spriteBatch = spriteBatch;
-            Sprite = gameContent.spriteA;
+            Sprite = sprite;
         }
 
-        public void Draw ()
+        public void Draw()
         {
-            spriteBatch.Draw(Sprite, Position , null, Color.White, 0, 
-                new Vector2(0, 0), 3f, SpriteEffects.None, 0);
+            spriteBatch.Draw(Sprite, Position, null, Color.White, 0,
+                new Vector2(0, 0), 2.5f, SpriteEffects.None, 0);
+        }
+
+        public void Update()
+        {
+            IsSelected = !IsSelected;
         }
 
     }

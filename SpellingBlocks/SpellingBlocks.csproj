@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity1.cs" />
+    <Compile Include="Controllers\BlockController.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameContent.cs" />
     <Compile Include="Objects\Block.cs" />
