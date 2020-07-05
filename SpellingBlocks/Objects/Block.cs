@@ -22,7 +22,7 @@ namespace SpellingBlocks.Objects
         public Rectangle HitBox { get; set; }
 
         public Vector2 Position;
-        public string Value { get; set; }
+        public char Value { get; set; }
         public bool IsSelected { get; set; }
         public bool IsEmptyBlock { get; set; }
         public Texture2D Sprite { get; set; }
@@ -31,7 +31,7 @@ namespace SpellingBlocks.Objects
 
         Color color;
 
-        public Block(float x, float y, string value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
+        public Block(float x, float y, char value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
         {
             XPosition = x;
             YPosition = y;

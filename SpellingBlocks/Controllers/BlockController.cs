@@ -25,7 +25,10 @@ namespace SpellingBlocks.Controllers
         private int ScreenHeight { get; set; }
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
-        public List<string> ValueList { get; set; }
+        //public List<string> ValueList { get; set; }
+        public LetterValue LetterValues { get; set; }
+
+        public List<LetterValue> WinCheck;
         private SpriteBatch spriteBatch { get; set; }
 
 
@@ -33,19 +36,34 @@ namespace SpellingBlocks.Controllers
         {
             BlockList = new List<Block>();
             EmptyList = new List<Block>();
-            ValueList = new List<string>();
-            ValueList.Add("A");
-            ValueList.Add("B");
-            ValueList.Add("C");
-            ValueList.Add("D");
-            ValueList.Add("E");
-            ValueList.Add("F");
-            ValueList.Add("G");
-            ValueList.Add("H");
-            ValueList.Add("I");
+            //testing parse
+            LetterValues = new LetterValue(gameContent);
+            List<LetterValue> parsedWord = new List<LetterValue>();
+            WinCheck = new List<LetterValue>();
+            string current = "SNAKE";
+            ParseWord(current, parsedWord);
+            ParseWord(current, WinCheck);
+            //after parse, add random letters to parse so parse.length = 9
+            Random random = new Random();
+            int wordLength = parsedWord.Count;
+            while (parsedWord.Count < 9)
+            {
+                random.Next(0, 25);
+                parsedWord.Add(LetterValues.LetterValueList[random.Next(0, 25)]);
+            }
+            int ran1;
+            int ran2;
+            LetterValue tmp;
+            for (int ii = 0; ii < 49; ii++)
+            {
+                ran1 = random.Next(0, 8);
+                ran2 = random.Next(0, 8);
+                tmp = parsedWord[ran1];
+                parsedWord[ran1] = parsedWord[ran2];
+                parsedWord[ran2] = tmp;
+            }
 
             this.spriteBatch = spriteBatch;
-            //get screen size
             ScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             ScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
@@ -53,19 +71,18 @@ namespace SpellingBlocks.Controllers
             BlockPositionY = ScreenHeight * .80f;
 
             Block block;
-            for (int ii = 0; ii < 9; ii++)
+            for (int ii = 0; ii < parsedWord.Count; ii++)
             {
-                block = new Block(BlockPositionX, BlockPositionY, ValueList[ii], gameContent.SpriteList[ii], spriteBatch, gameContent);
+                block = new Block(BlockPositionX, BlockPositionY, parsedWord[ii].Value, parsedWord[ii].Sprite, spriteBatch, gameContent);
                 BlockList.Add(block);
                 BlockPositionX += (ScreenWidth / 12);
             }
-           // Shuffle();
             BlockPositionX = ScreenWidth * .25f;
             BlockPositionY = ScreenHeight / 3;
 
-            for (int ii = 0; ii < 4; ii++)
+            for (int ii = 0; ii < wordLength; ii++)
             {
-                block = new Block(BlockPositionX, BlockPositionY, "", gameContent.emptySprite, spriteBatch, gameContent);
+                block = new Block(BlockPositionX, BlockPositionY, '0', gameContent.emptySprite, spriteBatch, gameContent);
                 block.IsEmptyBlock = true;
                 EmptyList.Add(block);
                 BlockPositionX += (ScreenWidth / 12);
@@ -102,7 +119,7 @@ namespace SpellingBlocks.Controllers
             }
         }
 
-        public void MoveHighlightedBlock(TouchLocation tl)
+        public bool MoveHighlightedBlock(TouchLocation tl)
         {
             Rectangle touchBox;
             foreach (Block emptyblock in EmptyList)
@@ -124,6 +141,8 @@ namespace SpellingBlocks.Controllers
 
                             emptyblock.Position = tmpV;
                             emptyblock.HitBox = tmpR;
+                            //assign value to emptylist
+                            emptyblock.Value = block.Value;
                         }
                     }
                 }
@@ -150,7 +169,9 @@ namespace SpellingBlocks.Controllers
                         }
                     }
                 }
+                            
             }
+            return (CheckWin(EmptyList, WinCheck));
         }
 
         public bool HitTest(Rectangle r1, Rectangle r2)
@@ -160,24 +181,33 @@ namespace SpellingBlocks.Controllers
             else
                 return false;
         }
-
-        public void Shuffle()
+        public void ParseWord(string current, List<LetterValue> parsedWord)
         {
-            Random ran = new Random(6);
-            int random1;
-            int random2;
-            Block tmp;
-            for (int ii = 0; ii < 49; ii++)
+            for(int ii = 0; ii < current.Length; ii++)
             {
-                random1 = ran.Next(0, 6);
-                random2 = ran.Next(0, 6);
-                while (random1 == random2)
-                    random2 = ran.Next(0, 6);
-
-                tmp = BlockList[random1];
-                BlockList[random1] = BlockList[random2];
-                BlockList[random2] = tmp;
+               
+                for(int jj = 0; jj <  LetterValues.LetterValueList.Count(); jj++)
+                {
+                    if (current[ii] == LetterValues.LetterValueList[jj].Value)
+                    {
+                        parsedWord.Add(LetterValues.LetterValueList[jj]);
+                        jj = LetterValues.LetterValueList.Count();
+                    }
+                }
             }
+        }
+        public bool CheckWin(List<Block> emptyList, List<LetterValue> winCheck)
+        {
+            bool win = true;
+            for (int ii = 0; ii < winCheck.Count(); ii++)
+            {
+                if (emptyList[ii].Value != winCheck[ii].Value)
+                {
+                    win = false;
+                    ii = winCheck.Count();
+                }
+            }
+            return win;
         }
     }
 

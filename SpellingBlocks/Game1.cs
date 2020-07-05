@@ -18,6 +18,8 @@ namespace SpellingBlocks
         GameContent gameContent;
         BlockController blocks;
         Rectangle touchBox;
+        Winner winnerBlocks;
+        bool winner;
         int screenWidth = 0;
         int screenHeight = 0;
 
@@ -49,6 +51,8 @@ namespace SpellingBlocks
             float blockPosx = screenWidth / 10;
             float blockPosy = screenHeight / 10;
             blocks = new BlockController(spriteBatch, gameContent);
+            winner = false;
+            winnerBlocks = new Winner(spriteBatch, gameContent);
   
         }
 
@@ -70,7 +74,7 @@ namespace SpellingBlocks
                 if (TouchLocationState.Pressed == tl.State)
                 {
                     touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
-                    blocks.MoveHighlightedBlock(tl);
+                    winner = blocks.MoveHighlightedBlock(tl);
                     blocks.Update(touchBox);
                     System.Console.WriteLine(touchBox);
           
@@ -90,6 +94,8 @@ namespace SpellingBlocks
             //                1f);
             spriteBatch.Begin();
             blocks.Draw();
+            if (winner)
+                winnerBlocks.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
