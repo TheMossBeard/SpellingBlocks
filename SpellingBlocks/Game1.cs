@@ -69,16 +69,11 @@ namespace SpellingBlocks
                 
                 if (TouchLocationState.Pressed == tl.State)
                 {
-                    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 64, 64);
+                    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+                    blocks.MoveHighlightedBlock(tl);
                     blocks.Update(touchBox);
-                    //Vector2 tmp = blockA.Position * 2;
-                    //Rectangle hitBox = new Rectangle((int)blockA.Position.X, (int)blockA.Position.Y, 64,64);
-                    //Rectangle touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 64, 64);
-                    // if (HitTest( touchBox, hitBox)) //touch offset is fucky
-                    //{
-                    //blockA.Position = tmp;
-
-                    //}
+                    System.Console.WriteLine(touchBox);
+          
                 }
             }
 
@@ -88,8 +83,12 @@ namespace SpellingBlocks
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            
+            //Matrix scaleMatrix = Matrix.CreateScale(
+            //                screenWidth / 720,
+            //                screenHeight / 1080,
+            //                1f);
             spriteBatch.Begin();
-        
             blocks.Draw();
             spriteBatch.End();
 

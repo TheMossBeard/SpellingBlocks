@@ -20,7 +20,7 @@ namespace SpellingBlocks
     {
         public Texture2D spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG, spriteH, spriteI, spriteJ, spriteK,
             spriteL, spriteM, spriteN, spriteO, spriteP, spriteQ, spriteR, spriteS, spriteT, spriteU, spriteV, spriteW,
-            spriteX, spriteY, spriteZ;
+            spriteX, spriteY, spriteZ, emptySprite;
 
         public List<Texture2D> SpriteList { get; set; }
 
@@ -80,6 +80,7 @@ namespace SpellingBlocks
             spriteZ = Content.Load<Texture2D>("Z-Sprite");
             SpriteList.Add(spriteZ);
 
+            emptySprite = Content.Load<Texture2D>("Empty-Sprite");
 
 
         }
