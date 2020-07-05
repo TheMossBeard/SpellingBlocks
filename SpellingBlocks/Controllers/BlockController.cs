@@ -59,7 +59,7 @@ namespace SpellingBlocks.Controllers
                 BlockList.Add(block);
                 BlockPositionX += (ScreenWidth / 12);
             }
-
+           // Shuffle();
             BlockPositionX = ScreenWidth * .25f;
             BlockPositionY = ScreenHeight / 3;
 
@@ -159,7 +159,25 @@ namespace SpellingBlocks.Controllers
                 return true;
             else
                 return false;
+        }
 
+        public void Shuffle()
+        {
+            Random ran = new Random(6);
+            int random1;
+            int random2;
+            Block tmp;
+            for (int ii = 0; ii < 49; ii++)
+            {
+                random1 = ran.Next(0, 6);
+                random2 = ran.Next(0, 6);
+                while (random1 == random2)
+                    random2 = ran.Next(0, 6);
+
+                tmp = BlockList[random1];
+                BlockList[random1] = BlockList[random2];
+                BlockList[random2] = tmp;
+            }
         }
     }
 
