@@ -29,6 +29,7 @@ namespace SpellingBlocks.Controllers
         public LetterValue LetterValues { get; set; }
 
         public List<LetterValue> WinCheck;
+        public List<Block> PlayField { get; set; } 
         private SpriteBatch spriteBatch { get; set; }
 
 
@@ -36,11 +37,12 @@ namespace SpellingBlocks.Controllers
         {
             BlockList = new List<Block>();
             EmptyList = new List<Block>();
+            PlayField = new List<Block>();
             //testing parse
             LetterValues = new LetterValue(gameContent);
             List<LetterValue> parsedWord = new List<LetterValue>();
             WinCheck = new List<LetterValue>();
-            string current = "SNAKE";
+            string current = "CAT";
             ParseWord(current, parsedWord);
             ParseWord(current, WinCheck);
             //after parse, add random letters to parse so parse.length = 9
@@ -110,18 +112,134 @@ namespace SpellingBlocks.Controllers
                 {
                     block.ChangeSelect();
                 }
-                else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
-                {
+                //else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
+                //{
+                //    block.ChangeUnSelect();
+                //}
+                else
                     block.ChangeUnSelect();
+            }
+            foreach (Block block in EmptyList)
+            {
+                if (HitTest(block.HitBox, touchPosition) == true && !block.IsSelected)
+                {
+                    block.ChangeSelect();
                 }
+                //else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
+                //{
+                //    block.ChangeUnSelect();
+                //}
                 else
                     block.ChangeUnSelect();
             }
         }
 
-        public bool MoveHighlightedBlock(TouchLocation tl)
+        public void MoveHighlightedBlock(TouchLocation tl)
         {
+            //bool touchEmpty = false;
+            //Rectangle touchBox;
+            //foreach (Block emptyblock in EmptyList)
+            //{
+            //    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            //    if (HitTest(emptyblock.HitBox, touchBox))
+            //    {
+            //        touchEmpty = true;
+            //    }
+            //}
+
+            //Vector2 tmpV;
+            //Rectangle tmpR;
+            //char tmpValue;
+            //if (touchEmpty)
+            //{
+            //    foreach (Block block in EmptyList)
+            //    {
+            //        touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            //        if (HitTest(block.HitBox, touchBox))
+            //        {
+
+            //            foreach (Block block1 in BlockList)
+            //            {
+            //                if (block.IsSelected)
+            //                {
+            //                    tmpV = block.Position;
+            //                    tmpR = block.HitBox;
+
+            //                    block.Position = block1.Position;
+            //                    block.HitBox = block1.HitBox;
+
+            //                    block1.Position = tmpV;
+            //                    block1.HitBox = tmpR;
+            //                    block1.Value = block.Value;
+            //                }
+
+            //            }
+            //            foreach (Block block1 in EmptyList)
+            //            {
+            //                if (block.IsSelected && block.Value != '0')
+            //                {
+            //                    tmpV = block.Position;
+            //                    tmpR = block.HitBox;
+            //                    tmpValue = block.Value;
+
+            //                    block.Position = block1.Position;
+            //                    block.HitBox = block1.HitBox;
+            //                    block.Value = block1.Value;
+
+            //                    block1.Position = tmpV;
+            //                    block1.HitBox = tmpR;
+            //                    block1.Value = tmpValue;
+            //                }
+
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (Block blockHit in BlockList)
+            //    {
+            //        touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            //        if (HitTest(blockHit.HitBox, touchBox))
+            //        {
+            //            foreach (Block blockMove in EmptyList)
+            //            {
+            //                if (blockMove.IsSelected)
+            //                {
+            //                    tmpV = blockHit.Position;
+            //                    tmpR = blockHit.HitBox;
+
+            //                    blockHit.Position = blockMove.Position;
+            //                    blockHit.HitBox = blockMove.HitBox;
+
+            //                    blockMove.Position = tmpV;
+            //                    blockMove.HitBox = tmpR;
+
+            //                }
+            //            }
+            //            //foreach (Block blockMove in BlockList)
+            //            //{
+            //            //    if (blockHit.IsSelected)
+            //            //    {
+            //            //        tmpV = blockHit.Position;
+            //            //        tmpR = blockHit.HitBox;
+
+            //            //        blockHit.Position = blockMove.Position;
+            //            //        blockHit.HitBox = blockMove.HitBox;
+
+            //            //        blockMove.Position = tmpV;
+            //            //        blockMove.HitBox = tmpR;
+            //            //    }
+            //            //}
+            //        }
+            //    }
+            //}
+
+
+
+
             Rectangle touchBox;
+            char tmp;
             foreach (Block emptyblock in EmptyList)
             {
                 touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
@@ -145,8 +263,31 @@ namespace SpellingBlocks.Controllers
                             emptyblock.Value = block.Value;
                         }
                     }
+                    foreach (Block block in EmptyList)
+                    {
+                        Vector2 tmpV;
+                        Rectangle tmpR;
+                        if (block.IsSelected)
+                        {
+                            tmpV = block.Position;
+                            tmpR = block.HitBox;
+                            tmp = block.Value;
+
+                            block.Position = emptyblock.Position;
+                            block.HitBox = emptyblock.HitBox;
+                            block.Value = emptyblock.Value;
+
+                            emptyblock.Position = tmpV;
+                            emptyblock.HitBox = tmpR;
+                            //assign value to emptylist
+                            emptyblock.Value = block.Value;
+
+                        }
+                    }
                 }
+
             }
+            //for fullblock to fullblock movement, is working
             foreach (Block emptyblock in BlockList)
             {
                 touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
@@ -166,12 +307,61 @@ namespace SpellingBlocks.Controllers
 
                             emptyblock.Position = tmpV;
                             emptyblock.HitBox = tmpR;
+
                         }
                     }
                 }
-                            
             }
-            return (CheckWin(EmptyList, WinCheck));
+                PlayField = EmptyList;
+            //foreach (Block emptyblock in EmptyList)
+            //{
+            //    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            //    if (HitTest(emptyblock.HitBox, touchBox))
+            //    {
+            //        int count = 0;
+            //        foreach (Block block in EmptyList)
+            //        {
+            //            Vector2 tmpV;
+            //            Rectangle tmpR;
+            //            if (block.IsSelected)
+            //            {
+            //                tmpV = block.Position;
+            //                tmpR = block.HitBox;
+            //                tmp = block.Value;
+
+            //                block.Position = emptyblock.Position;
+            //                block.HitBox = emptyblock.HitBox;
+            //                block.Value = emptyblock.Value;
+
+            //                emptyblock.Position = tmpV;
+            //                emptyblock.HitBox = tmpR;
+            //                emptyblock.Value = tmp;
+            //                count++;
+            //            }
+            //        }
+            //        //foreach (Block block in BlockList)
+            //        //{
+            //        //    Vector2 tmpV;
+            //        //    Rectangle tmpR;
+            //        //    if (block.IsSelected)
+            //        //    {
+            //        //        tmpV = block.Position;
+            //        //        tmpR = block.HitBox;
+            //        //        char tmp = block.Value;
+
+            //        //        block.Position = emptyblock.Position;
+            //        //        block.HitBox = emptyblock.HitBox;
+            //        //        //block.Value = emptyblock.Value;
+
+            //        //        emptyblock.Position = tmpV;
+            //        //        emptyblock.HitBox = tmpR;
+            //        //        emptyblock.Value = tmp;
+            //        //        count++;
+            //        //    }
+            //        //}
+            //    }
+            //}
+            
         }
 
         public bool HitTest(Rectangle r1, Rectangle r2)
@@ -183,10 +373,10 @@ namespace SpellingBlocks.Controllers
         }
         public void ParseWord(string current, List<LetterValue> parsedWord)
         {
-            for(int ii = 0; ii < current.Length; ii++)
+            for (int ii = 0; ii < current.Length; ii++)
             {
-               
-                for(int jj = 0; jj <  LetterValues.LetterValueList.Count(); jj++)
+
+                for (int jj = 0; jj < LetterValues.LetterValueList.Count(); jj++)
                 {
                     if (current[ii] == LetterValues.LetterValueList[jj].Value)
                     {
@@ -196,15 +386,15 @@ namespace SpellingBlocks.Controllers
                 }
             }
         }
-        public bool CheckWin(List<Block> emptyList, List<LetterValue> winCheck)
+        public bool CheckWin()
         {
             bool win = true;
-            for (int ii = 0; ii < winCheck.Count(); ii++)
+            for (int ii = 0; ii < WinCheck.Count(); ii++)
             {
-                if (emptyList[ii].Value != winCheck[ii].Value)
+                if (PlayField[ii].Value != WinCheck[ii].Value)
                 {
                     win = false;
-                    ii = winCheck.Count();
+                    ii = WinCheck.Count();
                 }
             }
             return win;

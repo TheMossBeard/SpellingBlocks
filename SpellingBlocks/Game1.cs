@@ -60,13 +60,13 @@ namespace SpellingBlocks
         {
 
         }
-
+        int t = 0;
         TouchCollection tc;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
-
+            t++;
             tc = TouchPanel.GetState();
             foreach (TouchLocation tl in tc)
             {
@@ -74,11 +74,24 @@ namespace SpellingBlocks
                 if (TouchLocationState.Pressed == tl.State)
                 {
                     touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
-                    winner = blocks.MoveHighlightedBlock(tl);
+                    blocks.MoveHighlightedBlock(tl);
                     blocks.Update(touchBox);
                     System.Console.WriteLine(touchBox);
+              winner = blocks.CheckWin();
           
                 }
+                //if (TouchLocationState.Released == tl.State)
+                //{
+
+                //}
+                //    blocks.Update(touchBox);
+                //    blocks.MoveHighlightedBlock(tl);
+                //    winner = blocks.CheckWin();
+                //}
+            }
+            if (t > 360)
+            {
+                t = 0;
             }
 
                 base.Update(gameTime);
