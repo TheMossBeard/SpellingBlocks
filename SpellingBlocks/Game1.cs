@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using OpenTK.Graphics.ES20;
 using SpellingBlocks.Objects;
 using SpellingBlocks.Controllers;
+using Android.Text.Method;
 
 namespace SpellingBlocks
 {
@@ -74,9 +75,11 @@ namespace SpellingBlocks
                 if (TouchLocationState.Pressed == tl.State)
                 {
                     touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
-                     blocks.MoveHighlightedBlock(tl, gameContent);
+                     blocks.MoveHighlightedBlock(tl);
+                    blocks.Update(touchBox);
                    //blocks.Update(touchBox);
                     System.Console.WriteLine(touchBox);
+                  
                     winner = blocks.CheckWin();
 
 
@@ -87,13 +90,19 @@ namespace SpellingBlocks
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
             //Matrix scaleMatrix = Matrix.CreateScale(
             //                screenWidth / 720,
             //                screenHeight / 1080,
             //                1f);
             spriteBatch.Begin();
-            blocks.Draw();
+            foreach(Block block in blocks.BlockList)
+            {
+                block.Draw();
+            }
+            foreach(Block block in blocks.EmptyList)
+            {
+                block.Draw();
+            }
             if (winner)
                 winnerBlocks.Draw();
             spriteBatch.End();
