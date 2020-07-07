@@ -54,7 +54,7 @@ namespace SpellingBlocks
             blocks = new BlockController(spriteBatch, gameContent);
             winner = false;
             winnerBlocks = new Winner(spriteBatch, gameContent);
-  
+
         }
 
         protected override void UnloadContent()
@@ -75,11 +75,9 @@ namespace SpellingBlocks
                 if (TouchLocationState.Pressed == tl.State)
                 {
                     touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
-                     blocks.MoveHighlightedBlock(tl);
-                    blocks.Update(touchBox);
-                   //blocks.Update(touchBox);
+                    blocks.MoveHighlightedBlock(tl);
                     System.Console.WriteLine(touchBox);
-                  
+
                     winner = blocks.CheckWin();
 
 
@@ -90,19 +88,9 @@ namespace SpellingBlocks
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //Matrix scaleMatrix = Matrix.CreateScale(
-            //                screenWidth / 720,
-            //                screenHeight / 1080,
-            //                1f);
+
             spriteBatch.Begin();
-            foreach(Block block in blocks.BlockList)
-            {
-                block.Draw();
-            }
-            foreach(Block block in blocks.EmptyList)
-            {
-                block.Draw();
-            }
+            blocks.Draw();
             if (winner)
                 winnerBlocks.Draw();
             spriteBatch.End();
@@ -116,7 +104,7 @@ namespace SpellingBlocks
                 return true;
             else
                 return false;
-            
+
         }
     }
 }
