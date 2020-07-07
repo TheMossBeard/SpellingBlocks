@@ -29,7 +29,7 @@ namespace SpellingBlocks.Controllers
         public LetterValue LetterValues { get; set; }
 
         public List<LetterValue> WinCheck;
-        public List<Block> PlayField { get; set; } 
+        public List<Block> PlayField { get; set; }
         private SpriteBatch spriteBatch { get; set; }
 
 
@@ -94,6 +94,7 @@ namespace SpellingBlocks.Controllers
 
         public void Draw()
         {
+           
             foreach (Block block in BlockList)
             {
                 block.Draw();
@@ -104,43 +105,101 @@ namespace SpellingBlocks.Controllers
             }
         }
 
-        public void Update(Rectangle touchPosition)
-        {
-            foreach (Block block in BlockList)
-            {
-                if (HitTest(block.HitBox, touchPosition) == true && !block.IsSelected)
-                {
-                    block.ChangeSelect();
-                }
-                //else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
-                //{
-                //    block.ChangeUnSelect();
-                //}
-                else
-                    block.ChangeUnSelect();
-            }
-            foreach (Block block in EmptyList)
-            {
-                if (HitTest(block.HitBox, touchPosition) == true && !block.IsSelected)
-                {
-                    block.ChangeSelect();
-                }
-                //else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
-                //{
-                //    block.ChangeUnSelect();
-                //}
-                else
-                    block.ChangeUnSelect();
-            }
-        }
+        //public void Update(Rectangle touchPosition)
+        //{
+        //    foreach (Block block in BlockList)
+        //    {
+        //        if (HitTest(block.HitBox, touchPosition) == true && !block.IsSelected)
+        //        {
+        //            block.ChangeSelect();
+        //        }
+        //        //else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
+        //        //{
+        //        //    block.ChangeUnSelect();
+        //        //}
+        //        else
+        //            block.ChangeUnSelect();
+        //    }
+        //    foreach (Block block in EmptyList)
+        //    {
+        //        if (HitTest(block.HitBox, touchPosition) == true && !block.IsSelected)
+        //        {
+        //            block.ChangeSelect();
+        //        }
+        //        //else if (HitTest(block.HitBox, touchPosition) == true && block.IsSelected)
+        //        //{
+        //        //    block.ChangeUnSelect();
+        //        //}
+        //        else
+        //            block.ChangeUnSelect();
+        //    }
+        //}
 
-        public void MoveHighlightedBlock(TouchLocation tl)
+        public void MoveHighlightedBlock(TouchLocation tl, GameContent gameContent)
         {
+            Rectangle touchBox;
+            int touchIndex = -1;
+            int selectedIndex = -1;
+            int count = EmptyList.Count();
+            touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            List<Block> allBlockList = new List<Block>();
+            Block touchBlock;
+            Block selectBlock;
+            foreach(Block block in BlockList)
+            {
+                allBlockList.Add(block);
+            }
+            foreach(Block block in EmptyList)
+            {
+                allBlockList.Add(block);
+            }
+            for (int ii = 0; ii < allBlockList.Count(); ii++)
+            {
+                if (HitTest(allBlockList[ii].HitBox, touchBox))
+                    touchIndex = ii;
+                if (allBlockList[ii].IsSelected == true)
+                    selectedIndex = ii;
+            }
+            if (selectedIndex == -1 && touchIndex != -1)
+            {
+                allBlockList[touchIndex].ChangeSelect();
+            }
+            else if (selectedIndex != -1 && touchIndex != -1) //not really being moved, need to create new blocks and insert them
+            {
+                selectBlock = new Block(allBlockList[selectedIndex]);
+                touchBlock = new Block(allBlockList[touchIndex]);
+
+                allBlockList.RemoveAt(selectedIndex);
+                allBlockList.RemoveAt(touchIndex);
+
+                allBlockList.Insert(selectedIndex, touchBlock);
+                allBlockList.Insert(touchIndex, selectBlock);
+
+                //tmpBlock = allBlockList[selectedIndex];
+                //allBlockList[selectedIndex] = allBlockList[touchIndex];
+                //allBlockList[touchIndex] = tmpBlock;
+
+                EmptyList = new List<Block>();
+                int index = 0;
+                for (int ii = 9; ii < 9 + count; ii++)
+                {
+                    EmptyList.Add(allBlockList[ii]);
+                    EmptyList[index].ChangeUnSelect();
+                    index++;
+                }
+                BlockList = new List<Block>();
+                for (int ii = 0; ii < 9; ii++)
+                {
+                    BlockList.Add(allBlockList[ii]);
+                    BlockList[ii].ChangeUnSelect();
+                }
+            }
+
+
+
             //bool touchEmpty = false;
-            //Rectangle touchBox;
             //foreach (Block emptyblock in EmptyList)
             //{
-            //    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
             //    if (HitTest(emptyblock.HitBox, touchBox))
             //    {
             //        touchEmpty = true;
@@ -238,81 +297,81 @@ namespace SpellingBlocks.Controllers
 
 
 
-            Rectangle touchBox;
-            char tmp;
-            foreach (Block emptyblock in EmptyList)
-            {
-                touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
-                if (HitTest(emptyblock.HitBox, touchBox))
-                {
-                    foreach (Block block in BlockList)
-                    {
-                        Vector2 tmpV;
-                        Rectangle tmpR;
-                        if (block.IsSelected)
-                        {
-                            tmpV = block.Position;
-                            tmpR = block.HitBox;
+            //Rectangle touchBox;
+            //char tmp;
+            //foreach (Block emptyblock in EmptyList)
+            //{
+            //    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            //    if (HitTest(emptyblock.HitBox, touchBox))
+            //    {
+            //        foreach (Block block in BlockList)
+            //        {
+            //            Vector2 tmpV;
+            //            Rectangle tmpR;
+            //            if (block.IsSelected)
+            //            {
+            //                tmpV = block.Position;
+            //                tmpR = block.HitBox;
 
-                            block.Position = emptyblock.Position;
-                            block.HitBox = emptyblock.HitBox;
+            //                block.Position = emptyblock.Position;
+            //                block.HitBox = emptyblock.HitBox;
 
-                            emptyblock.Position = tmpV;
-                            emptyblock.HitBox = tmpR;
-                            //assign value to emptylist
-                            emptyblock.Value = block.Value;
-                        }
-                    }
-                    foreach (Block block in EmptyList)
-                    {
-                        Vector2 tmpV;
-                        Rectangle tmpR;
-                        if (block.IsSelected)
-                        {
-                            tmpV = block.Position;
-                            tmpR = block.HitBox;
-                            tmp = block.Value;
+            //                emptyblock.Position = tmpV;
+            //                emptyblock.HitBox = tmpR;
+            //                //assign value to emptylist
+            //                emptyblock.Value = block.Value;
+            //            }
+            //        }
+            //        foreach (Block block in EmptyList)
+            //        {
+            //            Vector2 tmpV;
+            //            Rectangle tmpR;
+            //            if (block.IsSelected)
+            //            {
+            //                tmpV = block.Position;
+            //                tmpR = block.HitBox;
+            //                tmp = block.Value;
 
-                            block.Position = emptyblock.Position;
-                            block.HitBox = emptyblock.HitBox;
-                            block.Value = emptyblock.Value;
+            //                block.Position = emptyblock.Position;
+            //                block.HitBox = emptyblock.HitBox;
+            //                block.Value = emptyblock.Value;
 
-                            emptyblock.Position = tmpV;
-                            emptyblock.HitBox = tmpR;
-                            //assign value to emptylist
-                            emptyblock.Value = block.Value;
+            //                emptyblock.Position = tmpV;
+            //                emptyblock.HitBox = tmpR;
+            //                //assign value to emptylist
+            //                emptyblock.Value = block.Value;
 
-                        }
-                    }
-                }
+            //            }
+            //        }
+            //    }
 
-            }
-            //for fullblock to fullblock movement, is working
-            foreach (Block emptyblock in BlockList)
-            {
-                touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
-                if (HitTest(emptyblock.HitBox, touchBox))
-                {
-                    foreach (Block block in BlockList)
-                    {
-                        Vector2 tmpV;
-                        Rectangle tmpR;
-                        if (block.IsSelected)
-                        {
-                            tmpV = block.Position;
-                            tmpR = block.HitBox;
+            //}
+            ////for fullblock to fullblock movement, is working
+            //foreach (Block emptyblock in BlockList)
+            //{
+            //    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+            //    if (HitTest(emptyblock.HitBox, touchBox))
+            //    {
+            //        foreach (Block block in BlockList)
+            //        {
+            //            Vector2 tmpV;
+            //            Rectangle tmpR;
+            //            if (block.IsSelected)
+            //            {
+            //                tmpV = block.Position;
+            //                tmpR = block.HitBox;
 
-                            block.Position = emptyblock.Position;
-                            block.HitBox = emptyblock.HitBox;
+            //                block.Position = emptyblock.Position;
+            //                block.HitBox = emptyblock.HitBox;
 
-                            emptyblock.Position = tmpV;
-                            emptyblock.HitBox = tmpR;
+            //                emptyblock.Position = tmpV;
+            //                emptyblock.HitBox = tmpR;
 
-                        }
-                    }
-                }
-            }
-                PlayField = EmptyList;
+            //            }
+            //        }
+            //    }
+            //}
+            //PlayField = EmptyList;
             //foreach (Block emptyblock in EmptyList)
             //{
             //    touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
@@ -361,7 +420,7 @@ namespace SpellingBlocks.Controllers
             //        //}
             //    }
             //}
-            
+
         }
 
         public bool HitTest(Rectangle r1, Rectangle r2)
@@ -391,7 +450,7 @@ namespace SpellingBlocks.Controllers
             bool win = true;
             for (int ii = 0; ii < WinCheck.Count(); ii++)
             {
-                if (PlayField[ii].Value != WinCheck[ii].Value)
+                if (EmptyList[ii].Value != WinCheck[ii].Value)
                 {
                     win = false;
                     ii = WinCheck.Count();

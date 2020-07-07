@@ -45,6 +45,20 @@ namespace SpellingBlocks.Objects
             color = Color.White;
         }
 
+        public Block(Block old)
+        {
+            XPosition = old.XPosition;
+            YPosition = old.YPosition;
+            Position = new Vector2(XPosition, YPosition);
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(64 * 2.5f), (int)(64 * 2.5f));
+            Value = old.Value;
+            IsSelected = old.IsSelected;
+            IsEmptyBlock = old.IsEmptyBlock;
+            this.spriteBatch = old.spriteBatch;
+            Sprite = old.Sprite;
+            color = Color.White;
+        }
+
         public void Draw()
         {
             spriteBatch.Draw(Sprite, Position, null, color, 0,

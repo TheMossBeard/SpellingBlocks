@@ -25,7 +25,7 @@ namespace SpellingBlocks.Objects
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
         public List<Block> WinnerList { get; set; }
-        Block block;
+       // Block block;
         public Winner(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
