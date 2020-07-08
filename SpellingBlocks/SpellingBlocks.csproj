@@ -64,6 +64,8 @@
     <Compile Include="Objects\Block.cs" />
     <Compile Include="Objects\LetterValue.cs" />
     <Compile Include="Objects\Winner.cs" />
+    <Compile Include="Objects\Word.cs" />
+    <Compile Include="Objects\Words.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -33,6 +33,7 @@ namespace SpellingBlocks
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 480;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+            
         }
 
         protected override void Initialize()

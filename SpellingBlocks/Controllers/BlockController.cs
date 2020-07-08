@@ -26,12 +26,13 @@ namespace SpellingBlocks.Controllers
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
         //public List<string> ValueList { get; set; }
+        public Words AllWords { get; set; }
         public LetterValue LetterValues { get; set; }
 
         public List<LetterValue> WinCheck;
         public List<Block> PlayField { get; set; }
         private SpriteBatch spriteBatch { get; set; }
-
+        private int CurrentWordIndex { get; set; }
 
         public BlockController(SpriteBatch spriteBatch, GameContent gameContent)
         {
@@ -40,14 +41,21 @@ namespace SpellingBlocks.Controllers
             
             LetterValues = new LetterValue(gameContent);
             WinCheck = new List<LetterValue>();
-            string current = "AIRPLANE";
-            ParseWord(current, WinCheck);
+            AllWords = new Words(gameContent);
+            Random random = new Random();
+            CurrentWordIndex = random.Next(0,4);
+          //  string current = "AIRPLANE";
+          //  ParseWord(current, WinCheck);
 
             List<LetterValue> parsedWord = new List<LetterValue>();
-            ParseWord(current, parsedWord);
+            for(int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
+            {
+                parsedWord.Add(AllWords.NatureWordList[CurrentWordIndex].Value[ii]);
+                WinCheck.Add(AllWords.NatureWordList[CurrentWordIndex].Value[ii]);
+            }
+          //  ParseWord(current, parsedWord);
            
-            Random random = new Random();
-            int wordLength = parsedWord.Count;
+        //    int wordLength = parsedWord.Count;
             while (parsedWord.Count < 9)
             {
                 random.Next(0, 25);
@@ -82,7 +90,7 @@ namespace SpellingBlocks.Controllers
             BlockPositionX = ScreenWidth * .15f;
             BlockPositionY = ScreenHeight / 3;
 
-            for (int ii = 0; ii < wordLength; ii++)
+            for (int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
             {
                 block = new Block(BlockPositionX, BlockPositionY, '0', gameContent.emptySprite, spriteBatch, gameContent);
                 block.IsEmptyBlock = true;
@@ -91,7 +99,6 @@ namespace SpellingBlocks.Controllers
             }
 
         }
-
         public void Draw()
         {
             foreach (Block block in BlockList)
@@ -103,7 +110,6 @@ namespace SpellingBlocks.Controllers
                 block.Draw();
             }
         }        
-
         public void MoveHighlightedBlock(TouchLocation tl)
         {
             List<Block> allBlockList = new List<Block>();
@@ -185,7 +191,6 @@ namespace SpellingBlocks.Controllers
         {
             for (int ii = 0; ii < current.Length; ii++)
             {
-
                 for (int jj = 0; jj < LetterValues.LetterValueList.Count(); jj++)
                 {
                     if (current[ii] == LetterValues.LetterValueList[jj].Value)
