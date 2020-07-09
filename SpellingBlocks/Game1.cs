@@ -9,9 +9,13 @@ using Android.Text.Method;
 
 namespace SpellingBlocks
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
+    enum GameState
+    {
+        MainMenu,
+        CategoryMenu,
+        SpellingBlocks
+    }
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -20,6 +24,7 @@ namespace SpellingBlocks
         BlockController blocks;
         Rectangle touchBox;
         Winner winnerBlocks;
+        GameState state;
         bool winner;
         int screenWidth = 0;
         int screenHeight = 0;
@@ -44,17 +49,19 @@ namespace SpellingBlocks
 
         protected override void LoadContent()
         {
+            
+            state = new GameState();
+            state = GameState.SpellingBlocks;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameContent = new GameContent(Content);
 
             screenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             screenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-
-            float blockPosx = screenWidth / 10;
-            float blockPosy = screenHeight / 10;
+        
             blocks = new BlockController(spriteBatch, gameContent);
-            winner = false;
             winnerBlocks = new Winner(spriteBatch, gameContent);
+            winner = false;
+
 
         }
 
@@ -62,50 +69,66 @@ namespace SpellingBlocks
         {
 
         }
-        int t = 0;
         TouchCollection tc;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
-            t++;
+
+            base.Update(gameTime);
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    //call function here
+                    break;
+                case GameState.CategoryMenu:
+                    break;
+                case GameState.SpellingBlocks:
+                    UpdateSpellingBlock(gameTime);
+                    break;
+            }
+
+        }
+
+        public void UpdateSpellingBlock(GameTime gameTime)
+        {
             tc = TouchPanel.GetState();
             foreach (TouchLocation tl in tc)
             {
-
                 if (TouchLocationState.Pressed == tl.State)
                 {
                     touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
                     blocks.MoveHighlightedBlock(tl);
-                    System.Console.WriteLine(touchBox);
-
                     winner = blocks.CheckWin();
-
-
                 }
             }
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            switch (state)
+            {
+                case GameState.MainMenu:
+                    //call function here
+                    break;
+                case GameState.CategoryMenu:
+                    break;
+                case GameState.SpellingBlocks:
+                    DrawSpellingBlocks(gameTime);
+                    break;
+            }
+        }
+
+        public void DrawSpellingBlocks(GameTime gameTime)
+        {
 
             spriteBatch.Begin();
             blocks.Draw();
             if (winner)
                 winnerBlocks.Draw();
             spriteBatch.End();
-
-            base.Draw(gameTime);
-        }
-
-        public static bool HitTest(Rectangle r1, Rectangle r2)
-        {
-            if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
-                return true;
-            else
-                return false;
-
         }
     }
 }

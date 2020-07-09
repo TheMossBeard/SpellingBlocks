@@ -63,6 +63,7 @@
     <Compile Include="GameContent.cs" />
     <Compile Include="Objects\Block.cs" />
     <Compile Include="Objects\LetterValue.cs" />
+    <Compile Include="Objects\MenuButton.cs" />
     <Compile Include="Objects\Winner.cs" />
     <Compile Include="Objects\Word.cs" />
     <Compile Include="Objects\Words.cs" />
