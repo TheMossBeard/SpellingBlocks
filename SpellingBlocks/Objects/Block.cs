@@ -36,7 +36,7 @@ namespace SpellingBlocks.Objects
             XPosition = x;
             YPosition = y;
             Position = new Vector2(x, y);
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(64 * 2.5f), (int)(64 * 2.5f));
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
             Value = value;
             IsSelected = false;
             IsEmptyBlock = false;
@@ -50,7 +50,7 @@ namespace SpellingBlocks.Objects
             XPosition = old.XPosition;
             YPosition = old.YPosition;
             Position = new Vector2(XPosition, YPosition);
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)(64 * 2.5f), (int)(64 * 2.5f));
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, 64, 64);
             Value = old.Value;
             IsSelected = old.IsSelected;
             IsEmptyBlock = old.IsEmptyBlock;
@@ -62,7 +62,7 @@ namespace SpellingBlocks.Objects
         public void Draw()
         {
             spriteBatch.Draw(Sprite, Position, null, color, 0,
-                new Vector2(0, 0), 2.5f, SpriteEffects.None, 0);
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
         }
 
 

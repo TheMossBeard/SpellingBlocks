@@ -25,6 +25,14 @@ namespace SpellingBlocks
 		
 		public static void UpdateIdValues()
 		{
+			global::MatrixExtensions.Android.Resource.String.ApplicationName = global::SpellingBlocks.Resource.String.ApplicationName;
+			global::MatrixExtensions.Android.Resource.String.Hello = global::SpellingBlocks.Resource.String.Hello;
+			global::RandomExtensions.Android.Resource.String.ApplicationName = global::SpellingBlocks.Resource.String.ApplicationName;
+			global::RandomExtensions.Android.Resource.String.Hello = global::SpellingBlocks.Resource.String.Hello;
+			global::ResolutionBuddy.Android.Resource.String.ApplicationName = global::SpellingBlocks.Resource.String.ApplicationName;
+			global::ResolutionBuddy.Android.Resource.String.Hello = global::SpellingBlocks.Resource.String.Hello;
+			global::Vector2Extensions.Android.Resource.String.ApplicationName = global::SpellingBlocks.Resource.String.ApplicationName;
+			global::Vector2Extensions.Android.Resource.String.Hello = global::SpellingBlocks.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

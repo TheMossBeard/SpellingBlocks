@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Icu.Util;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -21,8 +22,8 @@ namespace SpellingBlocks.Controllers
     {
         public List<Block> BlockList { get; set; }
         public List<Block> EmptyList { get; set; }
-        private int ScreenWidth { get; set; }
-        private int ScreenHeight { get; set; }
+        private float ScreenWidth { get; set; }
+        private float ScreenHeight { get; set; }
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
         //public List<string> ValueList { get; set; }
@@ -56,7 +57,7 @@ namespace SpellingBlocks.Controllers
           //  ParseWord(current, parsedWord);
            
         //    int wordLength = parsedWord.Count;
-            while (parsedWord.Count < 9)
+            while (parsedWord.Count < 10)
             {
                 random.Next(0, 25);
                 parsedWord.Add(LetterValues.LetterValueList[random.Next(0, 25)]);
@@ -64,38 +65,36 @@ namespace SpellingBlocks.Controllers
             int ran1;
             int ran2;
             LetterValue tmp;
-            for (int ii = 0; ii < 49; ii++)
+            for (int ii = 0; ii < 50; ii++)
             {
-                ran1 = random.Next(0, 8);
-                ran2 = random.Next(0, 8);
+                ran1 = random.Next(0, 9);
+                ran2 = random.Next(0, 9);
                 tmp = parsedWord[ran1];
                 parsedWord[ran1] = parsedWord[ran2];
                 parsedWord[ran2] = tmp;
             }
 
             this.spriteBatch = spriteBatch;
-            ScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            ScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
-            BlockPositionX = ScreenWidth * .05f;
-            BlockPositionY = ScreenHeight * .80f;
-
+            BlockPositionX = 112;
+            BlockPositionY = 384 + 32;
+              
             Block block;
             for (int ii = 0; ii < parsedWord.Count; ii++)
             {
                 block = new Block(BlockPositionX, BlockPositionY, parsedWord[ii].Value, parsedWord[ii].Sprite, spriteBatch, gameContent);
                 BlockList.Add(block);
-                BlockPositionX += (ScreenWidth / 12);
+                BlockPositionX += 64 + 16;
             }
-            BlockPositionX = ScreenWidth * .15f;
-            BlockPositionY = ScreenHeight / 3;
+            BlockPositionX = 256;
+            BlockPositionY = 256 ;
 
             for (int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
             {
                 block = new Block(BlockPositionX, BlockPositionY, '0', gameContent.emptySprite, spriteBatch, gameContent);
                 block.IsEmptyBlock = true;
                 EmptyList.Add(block);
-                BlockPositionX += (ScreenWidth / 12);
+                BlockPositionX += 64 + 16;
             }
 
         }
@@ -110,19 +109,18 @@ namespace SpellingBlocks.Controllers
                 block.Draw();
             }
         }        
-        public void MoveHighlightedBlock(TouchLocation tl)
+        public void MoveHighlightedBlock(Rectangle touchBox)
         {
             List<Block> allBlockList = new List<Block>();
             Block selectBlock;
             Block selectBlock0;
-            Rectangle touchBox;
             Rectangle tmpHitBox;
             Vector2 tmpPosition;
             int selectedCount = 0;
             int selectedIndex = -1;
             int selectedIndex2 = -1;
             int count = EmptyList.Count();
-            touchBox = new Rectangle((int)tl.Position.X, (int)tl.Position.Y, 2, 2);
+
             foreach (Block block in BlockList)
             {
                 allBlockList.Add(block);
@@ -131,11 +129,22 @@ namespace SpellingBlocks.Controllers
             {
                 allBlockList.Add(block);
             }
+                bool hit = false;
             for (int ii = 0; ii < allBlockList.Count(); ii++)
             {
                 if (HitTest(allBlockList[ii].HitBox, touchBox))
-                    allBlockList[ii].ChangeSelect();          
+                {
+                    allBlockList[ii].ChangeSelect();
+                    hit = true;
+                }
             }
+                if (!hit)
+                {
+                    for (int kk = 0; kk < allBlockList.Count(); kk++)
+                    {
+                        allBlockList[kk].ChangeUnSelect();
+                    }
+                }
             for (int ii = 0; ii < allBlockList.Count(); ii++)
             {
                 if (allBlockList[ii].IsSelected)
@@ -165,14 +174,14 @@ namespace SpellingBlocks.Controllers
 
                 EmptyList = new List<Block>();
                 int index = 0;
-                for (int ii = 9; ii < 9 + count; ii++)
+                for (int ii = 10; ii < 10 + count; ii++)
                 {
                     EmptyList.Add(allBlockList[ii]);
                     EmptyList[index].ChangeUnSelect();
                     index++;
                 }
                 BlockList = new List<Block>();
-                for (int ii = 0; ii < 9; ii++)
+                for (int ii = 0; ii < 10; ii++)
                 {
                     BlockList.Add(allBlockList[ii]);
                     BlockList[ii].ChangeUnSelect();
