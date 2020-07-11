@@ -45,8 +45,7 @@ namespace SpellingBlocks.Controllers
             AllWords = new Words(gameContent);
             Random random = new Random();
             CurrentWordIndex = random.Next(0,4);
-          //  string current = "AIRPLANE";
-          //  ParseWord(current, WinCheck);
+
 
             List<LetterValue> parsedWord = new List<LetterValue>();
             for(int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
@@ -54,9 +53,7 @@ namespace SpellingBlocks.Controllers
                 parsedWord.Add(AllWords.NatureWordList[CurrentWordIndex].Value[ii]);
                 WinCheck.Add(AllWords.NatureWordList[CurrentWordIndex].Value[ii]);
             }
-          //  ParseWord(current, parsedWord);
-           
-        //    int wordLength = parsedWord.Count;
+
             while (parsedWord.Count < 10)
             {
                 random.Next(0, 25);
@@ -77,7 +74,7 @@ namespace SpellingBlocks.Controllers
             this.spriteBatch = spriteBatch;
 
             BlockPositionX = 112;
-            BlockPositionY = 384 + 32;
+            BlockPositionY = 480; //32px from bottom
               
             Block block;
             for (int ii = 0; ii < parsedWord.Count; ii++)
@@ -87,7 +84,7 @@ namespace SpellingBlocks.Controllers
                 BlockPositionX += 64 + 16;
             }
             BlockPositionX = 256;
-            BlockPositionY = 256 ;
+            BlockPositionY = 256 + 64;
 
             for (int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
             {

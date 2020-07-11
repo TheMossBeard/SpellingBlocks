@@ -25,15 +25,13 @@ namespace SpellingBlocks.Objects
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
         public List<Block> WinnerList { get; set; }
-       // Block block;
+        // Block block;
         public Winner(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
-            ScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            ScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
-            BlockPositionX = ScreenWidth * .25f;
-            BlockPositionY = ScreenHeight / 6;
+            BlockPositionX = 272;
+            BlockPositionY = 256 - 64;
 
             WinnerList = new List<Block>();
             LetterValue letter = new LetterValue(gameContent);
@@ -45,7 +43,7 @@ namespace SpellingBlocks.Objects
             {
                 block = new Block(BlockPositionX, BlockPositionY, letter.LetterValueList[letterIndex[jj]].Value, letter.LetterValueList[letterIndex[jj]].Sprite, spriteBatch, gameContent);
                 WinnerList.Add(block);
-                BlockPositionX += (ScreenWidth / 12);
+                BlockPositionX += 64 + 16;
             }
 
 

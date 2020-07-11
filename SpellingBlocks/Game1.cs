@@ -31,8 +31,6 @@ namespace SpellingBlocks
         GameState state;
         bool winner;
 
-        const int BLOCK_SIZE_OFFSET = 64;
-
 
         public Game1()
         {
@@ -40,12 +38,10 @@ namespace SpellingBlocks
             Content.RootDirectory = "Content";
 
             graphics.IsFullScreen = true;
-
-
-
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
-            resolution = new ResolutionComponent(this, graphics, new Point(1024, 576), new Point(1024, 576), true, false);
+            resolution = new ResolutionComponent(this, graphics, new Point(1024, 576), 
+                new Point(1024, 576), false, true);
         }
 
         protected override void Initialize()
@@ -100,15 +96,9 @@ namespace SpellingBlocks
             {
                 if (touch.State == TouchLocationState.Pressed)
                 {
-                    float ScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 1024f;
-                    float ScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 576f;
-                    Vector2 rawTouch = new Vector2(touch.Position.X, touch.Position.Y);
-                    Vector2 scaledTouch;
-                    var matrix = Matrix.CreateScale(ScreenWidth, ScreenHeight, 1f);
-
-                    scaledTouch = Vector2.Transform(rawTouch, Matrix.Invert(matrix));
-                    touchBox = new Rectangle((int)scaledTouch.X, (int)scaledTouch.Y - BLOCK_SIZE_OFFSET, 15, 15);
-
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                    
                     blocks.MoveHighlightedBlock(touchBox);
                     winner = blocks.CheckWin();
                 }
