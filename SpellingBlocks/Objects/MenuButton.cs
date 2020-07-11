@@ -31,6 +31,12 @@ namespace SpellingBlocks.Objects
             this.spriteBatch = spriteBatch;
         }
 
+        public void Draw()
+        {
+            spriteBatch.Draw(Sprite, Position, null, Color.White, 0,
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+        }
+
   
     }
 }

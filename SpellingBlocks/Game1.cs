@@ -27,6 +27,7 @@ namespace SpellingBlocks
         BlockController blocks;
         Rectangle touchBox;
         Winner winnerBlocks;
+        MenuController menu;
         IResolution resolution;
         GameState state;
         bool winner;
@@ -53,13 +54,14 @@ namespace SpellingBlocks
         {
 
             state = new GameState();
-            state = GameState.SpellingBlocks;
+            state = GameState.MainMenu;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameContent = new GameContent(Content);
 
             blocks = new BlockController(spriteBatch, gameContent);
             winnerBlocks = new Winner(spriteBatch, gameContent);
             winner = false;
+            menu = new MenuController(spriteBatch, gameContent);
 
 
 
@@ -113,7 +115,7 @@ namespace SpellingBlocks
             switch (state)
             {
                 case GameState.MainMenu:
-                    //call function here
+                    DrawMenu(gameTime);
                     break;
                 case GameState.CategoryMenu:
                     break;
@@ -125,7 +127,6 @@ namespace SpellingBlocks
 
         public void DrawSpellingBlocks(GameTime gameTime)
         {
-
             spriteBatch.Begin(SpriteSortMode.Immediate,
                       BlendState.AlphaBlend,
                       null, null, null, null,
@@ -133,6 +134,16 @@ namespace SpellingBlocks
             blocks.Draw();
             if (winner)
                 winnerBlocks.Draw();
+            spriteBatch.End();
+        }
+
+        public void DrawMenu(GameTime gameTime)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                      BlendState.AlphaBlend,
+                      null, null, null, null,
+                      Resolution.TransformationMatrix());
+            menu.Draw();
             spriteBatch.End();
         }
     }
