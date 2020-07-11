@@ -7,7 +7,7 @@ namespace SpellingBlocks
 {
     [Activity(Label = "SpellingBlocks"
         , MainLauncher = true
-        , Icon = "@drawable/icon"
+        , Icon = "@drawable/LogoSprite"
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
         , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance

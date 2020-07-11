@@ -26,7 +26,6 @@ namespace SpellingBlocks.Controllers
         private float ScreenHeight { get; set; }
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
-        //public List<string> ValueList { get; set; }
         public Words AllWords { get; set; }
         public LetterValue LetterValues { get; set; }
 
@@ -34,9 +33,14 @@ namespace SpellingBlocks.Controllers
         public List<Block> PlayField { get; set; }
         private SpriteBatch spriteBatch { get; set; }
         private int CurrentWordIndex { get; set; }
+        private Texture2D BackGround { get; set; }
+       
 
         public BlockController(SpriteBatch spriteBatch, GameContent gameContent)
         {
+            this.spriteBatch = spriteBatch;
+            BackGround = gameContent.menuBackground;
+
             BlockList = new List<Block>();
             EmptyList = new List<Block>();
             
@@ -97,6 +101,9 @@ namespace SpellingBlocks.Controllers
         }
         public void Draw()
         {
+            
+            spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
+                new Vector2(0, 0), 4f, SpriteEffects.None, 0);
             foreach (Block block in BlockList)
             {
                 block.Draw();

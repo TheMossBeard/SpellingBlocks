@@ -109,7 +109,7 @@ namespace SpellingBlocks
         {
             base.Draw(gameTime);
 
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             switch (state)
             {
                 case GameState.MainMenu:

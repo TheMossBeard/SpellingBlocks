@@ -20,7 +20,7 @@ namespace SpellingBlocks
     {
         public Texture2D spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG, spriteH, spriteI, spriteJ, spriteK,
             spriteL, spriteM, spriteN, spriteO, spriteP, spriteQ, spriteR, spriteS, spriteT, spriteU, spriteV, spriteW,
-            spriteX, spriteY, spriteZ, emptySprite;
+            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, logoSprite;
 
         public List<Texture2D> SpriteList { get; set; }
 
@@ -81,6 +81,16 @@ namespace SpellingBlocks
             SpriteList.Add(spriteZ);
 
             emptySprite = Content.Load<Texture2D>("Empty-Sprite");
+
+            logoSprite = Content.Load<Texture2D>("Logo-Sprite");
+
+            menuBackground = Content.Load<Texture2D>("MenuBackground");
+
+            menu01 = Content.Load<Texture2D>("Menu01-Sprite");
+            menu02 = Content.Load<Texture2D>("Menu02-Sprite");
+            menu03 = Content.Load<Texture2D>("Menu03-Sprite");
+            menu04 = Content.Load<Texture2D>("Menu04-Sprite");
+
 
 
         }

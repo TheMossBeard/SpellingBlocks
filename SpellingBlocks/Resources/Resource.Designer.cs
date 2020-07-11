@@ -52,10 +52,16 @@ namespace SpellingBlocks
 		{
 			
 			// aapt resource value: 0x7F010000
-			public const int Icon = 2130771968;
+			public const int ABCSplash = 2130771968;
 			
 			// aapt resource value: 0x7F010001
-			public const int Splash = 2130771969;
+			public const int Icon = 2130771969;
+			
+			// aapt resource value: 0x7F010002
+			public const int LogoSprite = 2130771970;
+			
+			// aapt resource value: 0x7F010003
+			public const int Splash = 2130771971;
 			
 			static Drawable()
 			{
