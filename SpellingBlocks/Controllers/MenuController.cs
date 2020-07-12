@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Text.Method;
 using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
@@ -43,6 +44,27 @@ namespace SpellingBlocks.Controllers
             MenuButtonList.Add(ButtonTracing);
             ButtonMatching = new MenuButton(new Vector2(528, 304), "ButtonMatching", gameContent.menu04, spriteBatch, gameContent);
             MenuButtonList.Add(ButtonMatching);
+        }
+
+        public GameState Update(Rectangle touchBox, GameState state)
+        {
+            
+            foreach(MenuButton button in MenuButtonList)
+            {
+                if(HitTest(button.HitBox, touchBox))
+                {
+                    state = GameState.SpellingBlocks;
+                }
+            }
+            return state;
+        }
+
+        public bool HitTest(Rectangle r1, Rectangle r2)
+        {
+            if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
+                return true;
+            else
+                return false;
         }
 
         public void Draw()

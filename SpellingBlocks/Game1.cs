@@ -12,7 +12,7 @@ using Plugin.DeviceInfo.Abstractions;
 
 namespace SpellingBlocks
 {
-    enum GameState
+     public enum GameState
     {
         MainMenu,
         CategoryMenu,
@@ -80,7 +80,7 @@ namespace SpellingBlocks
             switch (state)
             {
                 case GameState.MainMenu:
-                    //call function here
+                    UpdateMenu(gameTime);
                     break;
                 case GameState.CategoryMenu:
                     break;
@@ -103,6 +103,21 @@ namespace SpellingBlocks
                     
                     blocks.MoveHighlightedBlock(touchBox);
                     winner = blocks.CheckWin();
+                }
+            }
+        }
+
+        public void UpdateMenu(GameTime gameTime)
+        {
+            var touchPanelState = TouchPanel.GetState();
+            foreach (var touch in touchPanelState)
+            {
+                if (touch.State == TouchLocationState.Pressed)
+                {
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+
+                    state = menu.Update(touchBox, state);
                 }
             }
         }

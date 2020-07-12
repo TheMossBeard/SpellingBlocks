@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Android.Net.Wifi.Hotspot2.Pps;
 
 namespace SpellingBlocks
 {
@@ -20,7 +21,7 @@ namespace SpellingBlocks
     {
         public Texture2D spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG, spriteH, spriteI, spriteJ, spriteK,
             spriteL, spriteM, spriteN, spriteO, spriteP, spriteQ, spriteR, spriteS, spriteT, spriteU, spriteV, spriteW,
-            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, logoSprite;
+            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, logoSprite, arrorRight, home;
 
         public List<Texture2D> SpriteList { get; set; }
 
@@ -91,6 +92,9 @@ namespace SpellingBlocks
             menu03 = Content.Load<Texture2D>("Menu03-Sprite");
             menu04 = Content.Load<Texture2D>("Menu04-Sprite");
 
+            arrorRight = Content.Load<Texture2D>("Right-Arrow-Sprite");
+
+            home = Content.Load<Texture2D>("Home-Sprite");
 
 
         }

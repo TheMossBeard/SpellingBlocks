@@ -34,25 +34,30 @@ namespace SpellingBlocks.Controllers
         private SpriteBatch spriteBatch { get; set; }
         private int CurrentWordIndex { get; set; }
         private Texture2D BackGround { get; set; }
-       
+
+        private Texture2D Home { get; set; }
+        private Texture2D ArrowRight { get; set; }
+
 
         public BlockController(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
             BackGround = gameContent.menuBackground;
+            Home = gameContent.home;
+            ArrowRight = gameContent.arrorRight;
 
             BlockList = new List<Block>();
             EmptyList = new List<Block>();
-            
+
             LetterValues = new LetterValue(gameContent);
             WinCheck = new List<LetterValue>();
             AllWords = new Words(gameContent);
             Random random = new Random();
-            CurrentWordIndex = random.Next(0,4);
+            CurrentWordIndex = random.Next(0, 4);
 
 
             List<LetterValue> parsedWord = new List<LetterValue>();
-            for(int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
+            for (int ii = 0; ii < AllWords.NatureWordList[CurrentWordIndex].Value.Count(); ii++)
             {
                 parsedWord.Add(AllWords.NatureWordList[CurrentWordIndex].Value[ii]);
                 WinCheck.Add(AllWords.NatureWordList[CurrentWordIndex].Value[ii]);
@@ -79,7 +84,7 @@ namespace SpellingBlocks.Controllers
 
             BlockPositionX = 112;
             BlockPositionY = 480; //32px from bottom
-              
+
             Block block;
             for (int ii = 0; ii < parsedWord.Count; ii++)
             {
@@ -101,9 +106,14 @@ namespace SpellingBlocks.Controllers
         }
         public void Draw()
         {
-            
+
             spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
                 new Vector2(0, 0), 4f, SpriteEffects.None, 0);
+            spriteBatch.Draw(Home, new Vector2(32, 32), null, Color.White, 0,
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(ArrowRight, new Vector2(938, 32), null, Color.White, 0,
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+
             foreach (Block block in BlockList)
             {
                 block.Draw();
@@ -112,7 +122,7 @@ namespace SpellingBlocks.Controllers
             {
                 block.Draw();
             }
-        }        
+        }
         public void MoveHighlightedBlock(Rectangle touchBox)
         {
             List<Block> allBlockList = new List<Block>();
@@ -133,7 +143,7 @@ namespace SpellingBlocks.Controllers
             {
                 allBlockList.Add(block);
             }
-                bool hit = false;
+            bool hit = false;
             for (int ii = 0; ii < allBlockList.Count(); ii++)
             {
                 if (HitTest(allBlockList[ii].HitBox, touchBox))
@@ -142,13 +152,13 @@ namespace SpellingBlocks.Controllers
                     hit = true;
                 }
             }
-                if (!hit)
+            if (!hit)
+            {
+                for (int kk = 0; kk < allBlockList.Count(); kk++)
                 {
-                    for (int kk = 0; kk < allBlockList.Count(); kk++)
-                    {
-                        allBlockList[kk].ChangeUnSelect();
-                    }
+                    allBlockList[kk].ChangeUnSelect();
                 }
+            }
             for (int ii = 0; ii < allBlockList.Count(); ii++)
             {
                 if (allBlockList[ii].IsSelected)
@@ -160,7 +170,7 @@ namespace SpellingBlocks.Controllers
                         selectedIndex2 = ii;
                 }
             }
-            if (selectedCount == 2) 
+            if (selectedCount == 2)
             {
                 tmpPosition = allBlockList[selectedIndex].Position;
                 tmpHitBox = allBlockList[selectedIndex].HitBox;
@@ -169,7 +179,7 @@ namespace SpellingBlocks.Controllers
                 selectBlock.Position = allBlockList[selectedIndex2].Position;
                 selectBlock.HitBox = allBlockList[selectedIndex2].HitBox;
 
-                selectBlock0 = new Block(allBlockList[selectedIndex2]);  
+                selectBlock0 = new Block(allBlockList[selectedIndex2]);
                 selectBlock0.Position = tmpPosition;
                 selectBlock0.HitBox = tmpHitBox;
 
@@ -190,7 +200,7 @@ namespace SpellingBlocks.Controllers
                     BlockList.Add(allBlockList[ii]);
                     BlockList[ii].ChangeUnSelect();
                 }
-            }            
+            }
         }
 
         public bool HitTest(Rectangle r1, Rectangle r2)

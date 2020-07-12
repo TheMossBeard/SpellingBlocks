@@ -28,6 +28,7 @@ namespace SpellingBlocks.Objects
             Position = position;
             Value = value;
             Sprite = sprite;
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, 384, 128);
             this.spriteBatch = spriteBatch;
         }
 

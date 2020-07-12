@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:G-Sprite.png
 
+#begin Home-Sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Home-Sprite.png
+
 #begin H-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -300,6 +312,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Q-Sprite.png
+
+#begin Right-Arrow-Sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Right-Arrow-Sprite.png
 
 #begin R-Sprite.png
 /importer:TextureImporter
