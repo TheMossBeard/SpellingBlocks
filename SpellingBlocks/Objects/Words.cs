@@ -20,6 +20,7 @@ namespace SpellingBlocks.Objects
         public List<Word> AnimalWordList;
         public List<Word> AutoWordList;
         public List<Word> NatureWordList;
+        public List<List<Word>> WordsLists { get; set; }
 
         string[] category = { "ANIMALS", "AUTOMOBILES", "OBJECTS" };
         string[] wordAnimals = { "SNAKE", "DOG", "CAT", "TIGGER", "ELEPHANT"};
@@ -49,6 +50,11 @@ namespace SpellingBlocks.Objects
                 newWord = new Word(category[2], word, gameContent);
                 NatureWordList.Add(newWord);
             }
+
+            WordsLists = new List<List<Word>>();
+            WordsLists.Add(NatureWordList);
+            WordsLists.Add(AnimalWordList);
+            WordsLists.Add(AutoWordList);
         }
     }
 }

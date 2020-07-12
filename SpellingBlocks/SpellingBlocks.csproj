@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Activity1.cs" />
     <Compile Include="Controllers\BlockController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameContent.cs" />

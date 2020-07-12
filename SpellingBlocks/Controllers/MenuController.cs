@@ -53,7 +53,7 @@ namespace SpellingBlocks.Controllers
             {
                 if(HitTest(button.HitBox, touchBox))
                 {
-                    state = GameState.SpellingBlocks;
+                    state = GameState.CategoryMenu;
                 }
             }
             return state;

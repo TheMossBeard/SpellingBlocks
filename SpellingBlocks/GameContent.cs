@@ -21,7 +21,8 @@ namespace SpellingBlocks
     {
         public Texture2D spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG, spriteH, spriteI, spriteJ, spriteK,
             spriteL, spriteM, spriteN, spriteO, spriteP, spriteQ, spriteR, spriteS, spriteT, spriteU, spriteV, spriteW,
-            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, logoSprite, arrorRight, home;
+            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, categoryBackground, 
+            logoSprite, arrorRight, home, MachinesButton, NatureButton, AnimalsButton;
 
         public List<Texture2D> SpriteList { get; set; }
 
@@ -95,6 +96,14 @@ namespace SpellingBlocks
             arrorRight = Content.Load<Texture2D>("Right-Arrow-Sprite");
 
             home = Content.Load<Texture2D>("Home-Sprite");
+
+            categoryBackground = Content.Load<Texture2D>("BackgroundCatergory");
+
+            MachinesButton = Content.Load<Texture2D>("MachinesButton");
+            NatureButton = Content.Load<Texture2D>("NatureButton");
+            AnimalsButton = Content.Load<Texture2D>("AnimalsButton");
+
+
 
 
         }

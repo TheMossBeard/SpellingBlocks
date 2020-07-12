@@ -16,8 +16,12 @@ namespace SpellingBlocks
     {
         MainMenu,
         CategoryMenu,
-        SpellingBlocks
+        SpellingBlocksNature,
+        SpellingBlocksAnimals,
+        SpellingBlocksMachines
     }
+
+
 
     public class Game1 : Game
     {
@@ -28,6 +32,7 @@ namespace SpellingBlocks
         Rectangle touchBox;
         Winner winnerBlocks;
         MenuController menu;
+        CategoryController category;
         IResolution resolution;
         GameState state;
         bool winner;
@@ -58,11 +63,11 @@ namespace SpellingBlocks
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameContent = new GameContent(Content);
 
-            blocks = new BlockController(spriteBatch, gameContent);
+            blocks = new BlockController(spriteBatch, gameContent, state);
             winnerBlocks = new Winner(spriteBatch, gameContent);
             winner = false;
             menu = new MenuController(spriteBatch, gameContent);
-
+            category = new CategoryController(spriteBatch, gameContent);
 
 
         }
@@ -83,12 +88,34 @@ namespace SpellingBlocks
                     UpdateMenu(gameTime);
                     break;
                 case GameState.CategoryMenu:
+                    UpdateCategory(gameTime);
                     break;
-                case GameState.SpellingBlocks:
+                case GameState.SpellingBlocksNature:
+                    UpdateSpellingBlock(gameTime);
+                    break;
+                case GameState.SpellingBlocksAnimals:
+                    UpdateSpellingBlock(gameTime);
+                    break;
+                case GameState.SpellingBlocksMachines:
                     UpdateSpellingBlock(gameTime);
                     break;
             }
 
+        }
+
+        public void UpdateCategory(GameTime gameTime)
+        {
+            var touchPanelState = TouchPanel.GetState();
+            foreach (var touch in touchPanelState)
+            {
+                if (touch.State == TouchLocationState.Pressed)
+                {
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+
+                    state = category.Update(touchBox, state);
+                }
+            }
         }
 
         public void UpdateSpellingBlock(GameTime gameTime)
@@ -100,7 +127,7 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-                    
+                    state = blocks.HomeButtonUpdate(touchBox, state);
                     blocks.MoveHighlightedBlock(touchBox);
                     winner = blocks.CheckWin();
                 }
@@ -133,11 +160,28 @@ namespace SpellingBlocks
                     DrawMenu(gameTime);
                     break;
                 case GameState.CategoryMenu:
+                    DrawCategory(gameTime);
                     break;
-                case GameState.SpellingBlocks:
+                case GameState.SpellingBlocksNature:
+                    DrawSpellingBlocks(gameTime);
+                    break;
+                case GameState.SpellingBlocksAnimals:
+                    DrawSpellingBlocks(gameTime);
+                    break;
+                case GameState.SpellingBlocksMachines:
                     DrawSpellingBlocks(gameTime);
                     break;
             }
+        }
+
+        public void DrawCategory(GameTime gameTime)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                      BlendState.AlphaBlend,
+                      null, null, null, null,
+                      Resolution.TransformationMatrix());
+            category.Draw();
+            spriteBatch.End();
         }
 
         public void DrawSpellingBlocks(GameTime gameTime)
