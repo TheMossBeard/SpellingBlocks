@@ -21,12 +21,13 @@ namespace SpellingBlocks
     {
         public Texture2D spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG, spriteH, spriteI, spriteJ, spriteK,
             spriteL, spriteM, spriteN, spriteO, spriteP, spriteQ, spriteR, spriteS, spriteT, spriteU, spriteV, spriteW,
-            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, categoryBackground, 
-            logoSprite, arrorRight, home, MachinesButton, NatureButton, AnimalsButton;
+            spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, categoryBackground,
+            logoSprite, arrorRight, home, MachinesButton, NatureButton, AnimalsButton, airplane, apple, boat, bulldozer, car,
+            dog, elephant, flower, lion, mushroom, snake, train, tree, waterfall, zebra, spellingblocksbackground;
 
         public List<Texture2D> SpriteList { get; set; }
 
-        public GameContent (ContentManager Content)
+        public GameContent(ContentManager Content)
         {
             SpriteList = new List<Texture2D>();
             spriteA = Content.Load<Texture2D>("A-Sprite");
@@ -103,6 +104,23 @@ namespace SpellingBlocks
             NatureButton = Content.Load<Texture2D>("NatureButton");
             AnimalsButton = Content.Load<Texture2D>("AnimalsButton");
 
+            spellingblocksbackground = Content.Load<Texture2D>("SpellingBlocksBackground");
+
+            elephant = Content.Load<Texture2D>("Elephant-Image");
+            airplane = Content.Load<Texture2D>("Airplane");
+            apple = Content.Load<Texture2D>("Apple");
+            boat = Content.Load<Texture2D>("Boat");
+            bulldozer = Content.Load<Texture2D>("Bulldozer");
+            car = Content.Load<Texture2D>("Car");
+            dog = Content.Load<Texture2D>("Dog");
+            flower = Content.Load<Texture2D>("Flower");
+            lion = Content.Load<Texture2D>("Lion");
+            mushroom = Content.Load<Texture2D>("Mushroom");
+            snake = Content.Load<Texture2D>("Snake");
+            train = Content.Load<Texture2D>("Train");
+            tree = Content.Load<Texture2D>("Tree");
+            waterfall = Content.Load<Texture2D>("Waterfall");
+            zebra = Content.Load<Texture2D>("Zebra");
 
 
 

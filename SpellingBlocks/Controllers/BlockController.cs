@@ -22,10 +22,7 @@ namespace SpellingBlocks.Controllers
     {
         public List<Block> BlockList { get; set; }
         public List<Block> EmptyList { get; set; }
-        private float ScreenWidth { get; set; }
-        private float ScreenHeight { get; set; }
-        private float BlockPositionX { get; set; }
-        private float BlockPositionY { get; set; }
+
         public Words AllWords { get; set; }
         public LetterValue LetterValues { get; set; }
 
@@ -34,6 +31,7 @@ namespace SpellingBlocks.Controllers
         private SpriteBatch spriteBatch { get; set; }
         private int CurrentWordIndex { get; set; }
         private Texture2D BackGround { get; set; }
+        private Texture2D Elephant { get; set; }
 
         private MenuButton ArrowRight { get; set; }
 
@@ -41,31 +39,36 @@ namespace SpellingBlocks.Controllers
 
         public bool Skip { get; set; }
 
+        private int CategoryIndex { get; set; }
+
+        public bool IsWinner { get; set; }
 
         public BlockController(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
         {
             this.spriteBatch = spriteBatch;
-            BackGround = gameContent.menuBackground;
+            Elephant = gameContent.elephant;
+            BackGround = gameContent.spellingblocksbackground;
             HomeButton = new MenuButton(new Vector2(32, 32), "HomeButton", gameContent.home, spriteBatch, gameContent);
             ArrowRight = new MenuButton(new Vector2(938, 32), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
             Skip = false;
+            IsWinner = false;
            
         }
 
         public void CreateGame(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
         {
             Skip = false;
-            int categoryIndex = 0; 
+            IsWinner = false;
             switch (state)
             {
                 case GameState.SpellingBlocksNature:
-                    categoryIndex = 0;
+                    CategoryIndex = 0;
                     break;
                 case GameState.SpellingBlocksAnimals:
-                    categoryIndex = 1;
+                    CategoryIndex = 1;
                     break;
                 case GameState.SpellingBlocksMachines:
-                    categoryIndex = 2;
+                    CategoryIndex = 2;
                     break;
 
             }
@@ -76,13 +79,13 @@ namespace SpellingBlocks.Controllers
             WinCheck = new List<LetterValue>();
             AllWords = new Words(gameContent);
             Random random = new Random();
-            CurrentWordIndex = random.Next(0, 4);
+            CurrentWordIndex = random.Next(0, 5);
 
             List<LetterValue> parsedWord = new List<LetterValue>();
-            for (int ii = 0; ii < AllWords.WordsLists[categoryIndex][CurrentWordIndex].Value.Count(); ii++)
+            for (int ii = 0; ii < AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Value.Count(); ii++)
             {
-                parsedWord.Add(AllWords.WordsLists[categoryIndex][CurrentWordIndex].Value[ii]);
-                WinCheck.Add(AllWords.WordsLists[categoryIndex][CurrentWordIndex].Value[ii]);
+                parsedWord.Add(AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Value[ii]);
+                WinCheck.Add(AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Value[ii]);
             }
 
             while (parsedWord.Count < 10)
@@ -93,7 +96,7 @@ namespace SpellingBlocks.Controllers
             int ran1;
             int ran2;
             LetterValue tmp;
-            for (int ii = 0; ii < 50; ii++)
+            for (int ii = 0; ii < 50; ii++) //make this a function
             {
                 ran1 = random.Next(0, 9);
                 ran2 = random.Next(0, 9);
@@ -102,32 +105,45 @@ namespace SpellingBlocks.Controllers
                 parsedWord[ran2] = tmp;
             }
 
-            BlockPositionX = 112;
-            BlockPositionY = 480;
+            int blockPosX = 112;
+            int blockPosY = 480;
 
             Block block;
             for (int ii = 0; ii < parsedWord.Count; ii++)
             {
-                block = new Block(BlockPositionX, BlockPositionY, parsedWord[ii].Value, parsedWord[ii].Sprite, spriteBatch, gameContent);
+                block = new Block(blockPosX, blockPosY, parsedWord[ii].Value, parsedWord[ii].Sprite, spriteBatch, gameContent);
                 BlockList.Add(block);
-                BlockPositionX += 64 + 16;
+                blockPosX += 64 + 16;
             }
-            BlockPositionX = 256;
-            BlockPositionY = 256 + 64;
+            blockPosX = GetBlockPositionX(AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Value.Count());
+            blockPosY = 384;
 
-            for (int ii = 0; ii < AllWords.WordsLists[categoryIndex][CurrentWordIndex].Value.Count(); ii++)
+            for (int ii = 0; ii < AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Value.Count(); ii++)
             {
-                block = new Block(BlockPositionX, BlockPositionY, '0', gameContent.emptySprite, spriteBatch, gameContent);
+                block = new Block(blockPosX, blockPosY, '0', gameContent.emptySprite, spriteBatch, gameContent);
                 block.IsEmptyBlock = true;
                 EmptyList.Add(block);
-                BlockPositionX += 64 + 16;
+                blockPosX += 64 + 16;
             }
         }
+
+        public int GetBlockPositionX(int count)
+        {
+            int x = 512 - 32;
+            for(int ii = 0; ii < count; ii++)
+            {
+                x -= 32;
+            }
+            return x; 
+        }
+
         public void Draw()
         {
-
+            
+            spriteBatch.Draw(AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Image, new Vector2(320, 64), null, Color.White, 0,
+               new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
-                new Vector2(0, 0), 4f, SpriteEffects.None, 0);
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             HomeButton.Draw();
             ArrowRight.Draw();
 
@@ -239,7 +255,8 @@ namespace SpellingBlocks.Controllers
                     ii = WinCheck.Count();
                 }
             }
-            return win;
+            IsWinner = win;
+            return IsWinner;
         }
 
         public GameState HomeButtonUpdate(Rectangle touchBox, GameState state)
@@ -253,7 +270,10 @@ namespace SpellingBlocks.Controllers
         public void ArrowButton(Rectangle touchBox, GameState state)
         {
             if (HitTest(ArrowRight.HitBox, touchBox))
+            {
                 this.Skip = true;
+                this.IsWinner = false;
+            }
 
         }
     }
