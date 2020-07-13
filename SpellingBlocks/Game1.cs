@@ -91,6 +91,7 @@ namespace SpellingBlocks
                     UpdateCategory(gameTime);
                     break;
                 case GameState.SpellingBlocksNature:
+                  
                     UpdateSpellingBlock(gameTime);
                     break;
                 case GameState.SpellingBlocksAnimals:
@@ -113,7 +114,7 @@ namespace SpellingBlocks
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
 
-                    state = category.Update(touchBox, state);
+                    state = category.Update(touchBox, gameContent, blocks, state);
                 }
             }
         }
@@ -127,9 +128,12 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                    blocks.ArrowButton(touchBox, state);
                     state = blocks.HomeButtonUpdate(touchBox, state);
                     blocks.MoveHighlightedBlock(touchBox);
                     winner = blocks.CheckWin();
+                    if (blocks.Skip)
+                        blocks.CreateGame(spriteBatch, gameContent, state);
                 }
             }
         }

@@ -35,16 +35,28 @@ namespace SpellingBlocks.Controllers
         private int CurrentWordIndex { get; set; }
         private Texture2D BackGround { get; set; }
 
-        private Texture2D Home { get; set; }
-        private Texture2D ArrowRight { get; set; }
+        private MenuButton ArrowRight { get; set; }
 
         private MenuButton HomeButton { get; set; }
+
+        public bool Skip { get; set; }
 
 
         public BlockController(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
         {
-            int categoryIndex = 0; //this doesn't work, ctor is called before state is changed and never called again
-            switch(state)
+            this.spriteBatch = spriteBatch;
+            BackGround = gameContent.menuBackground;
+            HomeButton = new MenuButton(new Vector2(32, 32), "HomeButton", gameContent.home, spriteBatch, gameContent);
+            ArrowRight = new MenuButton(new Vector2(938, 32), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
+            Skip = false;
+           
+        }
+
+        public void CreateGame(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
+        {
+            Skip = false;
+            int categoryIndex = 0; 
+            switch (state)
             {
                 case GameState.SpellingBlocksNature:
                     categoryIndex = 0;
@@ -57,21 +69,14 @@ namespace SpellingBlocks.Controllers
                     break;
 
             }
-            this.spriteBatch = spriteBatch;
-            BackGround = gameContent.menuBackground;
-           
-            HomeButton = new MenuButton(new Vector2(32, 32), "HomeButton", gameContent.home, spriteBatch, gameContent);
-            Home = gameContent.home;
-            ArrowRight = gameContent.arrorRight;
+
             BlockList = new List<Block>();
             EmptyList = new List<Block>();
-
             LetterValues = new LetterValue(gameContent);
             WinCheck = new List<LetterValue>();
             AllWords = new Words(gameContent);
             Random random = new Random();
             CurrentWordIndex = random.Next(0, 4);
-            
 
             List<LetterValue> parsedWord = new List<LetterValue>();
             for (int ii = 0; ii < AllWords.WordsLists[categoryIndex][CurrentWordIndex].Value.Count(); ii++)
@@ -97,10 +102,8 @@ namespace SpellingBlocks.Controllers
                 parsedWord[ran2] = tmp;
             }
 
-            this.spriteBatch = spriteBatch;
-
             BlockPositionX = 112;
-            BlockPositionY = 480; //32px from bottom
+            BlockPositionY = 480;
 
             Block block;
             for (int ii = 0; ii < parsedWord.Count; ii++)
@@ -119,7 +122,6 @@ namespace SpellingBlocks.Controllers
                 EmptyList.Add(block);
                 BlockPositionX += 64 + 16;
             }
-
         }
         public void Draw()
         {
@@ -127,8 +129,7 @@ namespace SpellingBlocks.Controllers
             spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
                 new Vector2(0, 0), 4f, SpriteEffects.None, 0);
             HomeButton.Draw();
-            spriteBatch.Draw(ArrowRight, new Vector2(938, 32), null, Color.White, 0,
-                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+            ArrowRight.Draw();
 
             foreach (Block block in BlockList)
             {
@@ -247,6 +248,13 @@ namespace SpellingBlocks.Controllers
                 state = GameState.MainMenu;
 
             return state;
+        }
+
+        public void ArrowButton(Rectangle touchBox, GameState state)
+        {
+            if (HitTest(ArrowRight.HitBox, touchBox))
+                this.Skip = true;
+
         }
     }
 

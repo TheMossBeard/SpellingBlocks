@@ -41,19 +41,23 @@ namespace SpellingBlocks.Controllers
             MenuButtonList.Add(ButtonMachines);
         }
 
-        public GameState Update(Rectangle touchBox, GameState state)
+        public GameState Update(Rectangle touchBox, GameContent gameContent, BlockController blocks, GameState state)
         {
             if (HitTest(ButtonNature.HitBox, touchBox))
             {
                 state = GameState.SpellingBlocksNature;
+                blocks.CreateGame(spriteBatch, gameContent, state);
+                
             }
             else if (HitTest(ButtonAnimals.HitBox, touchBox))
             {
                 state = GameState.SpellingBlocksAnimals;
+                blocks.CreateGame(spriteBatch, gameContent, state);
             }
             else if (HitTest(ButtonMachines.HitBox, touchBox))
             {
                 state = GameState.SpellingBlocksMachines;
+                blocks.CreateGame(spriteBatch, gameContent, state);
             }
 
             return state;
