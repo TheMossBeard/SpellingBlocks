@@ -91,7 +91,6 @@ namespace SpellingBlocks
                     UpdateCategory(gameTime);
                     break;
                 case GameState.SpellingBlocksNature:
-                  
                     UpdateSpellingBlock(gameTime);
                     break;
                 case GameState.SpellingBlocksAnimals:
@@ -195,6 +194,7 @@ namespace SpellingBlocks
                       null, null, null, null,
                       Resolution.TransformationMatrix());
             blocks.Draw();
+            winner = blocks.IsWinner;
             if (winner)
                 winnerBlocks.Draw();
             spriteBatch.End();
