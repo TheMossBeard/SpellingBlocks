@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Android.Net.Wifi.Hotspot2.Pps;
+using System.Reflection;
 
 namespace SpellingBlocks
 {
@@ -24,6 +25,8 @@ namespace SpellingBlocks
             spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, categoryBackground,
             logoSprite, arrorRight, home, MachinesButton, NatureButton, AnimalsButton, airplane, apple, boat, bulldozer, car,
             dog, elephant, flower, lion, mushroom, snake, train, tree, waterfall, zebra, spellingblocksbackground;
+
+        public Texture2D traceA;
 
         public List<Texture2D> SpriteList { get; set; }
 
@@ -122,7 +125,7 @@ namespace SpellingBlocks
             waterfall = Content.Load<Texture2D>("Waterfall");
             zebra = Content.Load<Texture2D>("Zebra");
 
-
+            traceA = Content.Load<Texture2D>("Trace-A");
 
         }
     }

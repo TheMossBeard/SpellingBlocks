@@ -213,7 +213,7 @@ namespace SpellingBlocks
                       BlendState.AlphaBlend,
                       null, null, null, null,
                       Resolution.TransformationMatrix());
-            GraphicsDevice.Clear(Color.Blue);
+            
             draw.Draw();
             spriteBatch.End();
         }
