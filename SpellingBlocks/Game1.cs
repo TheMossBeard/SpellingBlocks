@@ -124,7 +124,7 @@ namespace SpellingBlocks
                 if (touch.State == TouchLocationState.Released)
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
-                    draw.Clear();
+                    draw.NewDraw();
                 }
             }
         }
