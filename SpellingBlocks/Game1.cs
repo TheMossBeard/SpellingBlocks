@@ -18,7 +18,9 @@ namespace SpellingBlocks
         CategoryMenu,
         SpellingBlocksNature,
         SpellingBlocksAnimals,
-        SpellingBlocksMachines
+        SpellingBlocksMachines,
+        Draw
+            
     }
 
 
@@ -36,6 +38,7 @@ namespace SpellingBlocks
         IResolution resolution;
         GameState state;
         bool winner;
+        Drawing draw;
 
 
         public Game1()
@@ -68,7 +71,7 @@ namespace SpellingBlocks
             winner = false;
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
-
+            draw = new Drawing(spriteBatch, gameContent);
 
         }
 
@@ -100,9 +103,33 @@ namespace SpellingBlocks
                 case GameState.SpellingBlocksMachines:
                     UpdateSpellingBlock(gameTime);
                     break;
+                case GameState.Draw:
+                    Drawing(gameTime);
+                    break;
             }
 
         }
+
+        public void Drawing(GameTime gameTime)
+        {
+            var touchPanelState = TouchPanel.GetState();
+            foreach (var touch in touchPanelState)
+            {
+                if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
+                {
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+
+                    draw.DrawUpdate(touchBox, gameContent, spriteBatch);
+                }
+                if (touch.State == TouchLocationState.Released)
+                {
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    draw.Clear();
+                }
+            }
+        }
+
 
         public void UpdateCategory(GameTime gameTime)
         {
@@ -175,7 +202,21 @@ namespace SpellingBlocks
                 case GameState.SpellingBlocksMachines:
                     DrawSpellingBlocks(gameTime);
                     break;
+                case GameState.Draw:
+                    DrawDrawing(gameTime);
+                    break;
             }
+        }
+
+        public void DrawDrawing(GameTime gameTime)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                      BlendState.AlphaBlend,
+                      null, null, null, null,
+                      Resolution.TransformationMatrix());
+            GraphicsDevice.Clear(Color.Blue);
+            draw.Draw();
+            spriteBatch.End();
         }
 
         public void DrawCategory(GameTime gameTime)

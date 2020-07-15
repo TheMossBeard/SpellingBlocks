@@ -25,7 +25,7 @@ namespace SpellingBlocks.Controllers
         public MenuButton ButtonWordSearch { get; set; }
         public MenuButton ButtonMatching { get; set; }
         public MenuButton ButtonTracing { get; set; }
-        public Texture2D Background {get ;set;}
+        public Texture2D Background { get; set; }
 
         public SpriteBatch spriteBatch { get; set; }
         public List<MenuButton> MenuButtonList { get; set; }
@@ -48,13 +48,13 @@ namespace SpellingBlocks.Controllers
 
         public GameState Update(Rectangle touchBox, GameState state)
         {
-            
-            foreach(MenuButton button in MenuButtonList)
+            if (HitTest(ButtonSpelling.HitBox, touchBox))
             {
-                if(HitTest(button.HitBox, touchBox))
-                {
-                    state = GameState.CategoryMenu;
-                }
+                state = GameState.CategoryMenu;
+            }
+            else if (HitTest(ButtonTracing.HitBox, touchBox))
+            {
+                state = GameState.Draw;
             }
             return state;
         }
@@ -69,7 +69,7 @@ namespace SpellingBlocks.Controllers
 
         public void Draw()
         {
-            spriteBatch.Draw(Background,new Vector2(0,0), null, Color.White, 0,
+            spriteBatch.Draw(Background, new Vector2(0, 0), null, Color.White, 0,
                 new Vector2(0, 0), 4f, SpriteEffects.None, 0);
 
             foreach (MenuButton button in MenuButtonList)
