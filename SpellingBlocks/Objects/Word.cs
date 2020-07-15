@@ -21,12 +21,14 @@ namespace SpellingBlocks.Objects
         public int WordLength { get; private set; }
         public List<LetterValue> Value { get; private set; }
         public string Category { get; private set; }
+        public Texture2D Image { get; set; }
 
-        public Word(string category, string word, GameContent gameContent)
+        public Word(string category, string word, Texture2D image, GameContent gameContent)
         {
             Letters = new LetterValue(gameContent);
             WordLength = word.Length;
             Category = category;
+            Image = image;
             Value = FormatWord(word, Letters);
         }
 
