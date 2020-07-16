@@ -26,7 +26,6 @@ namespace SpellingBlocks.Controllers
         public MenuButton ButtonMatching { get; set; }
         public MenuButton ButtonTracing { get; set; }
         public Texture2D Background { get; set; }
-
         public SpriteBatch spriteBatch { get; set; }
         public List<MenuButton> MenuButtonList { get; set; }
 
@@ -77,7 +76,5 @@ namespace SpellingBlocks.Controllers
                 button.Draw();
             }
         }
-
-
     }
 }

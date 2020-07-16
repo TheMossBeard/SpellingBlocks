@@ -18,14 +18,12 @@ namespace SpellingBlocks.Objects
 {
     class Winner
     {
-        private int ScreenWidth { get; set; }
-        private int ScreenHeight { get; set; }
         private SpriteBatch spriteBatch { get; set; }
         public List<Block> WinnerBlocks { get; set; }
         private float BlockPositionX { get; set; }
         private float BlockPositionY { get; set; }
         public List<Block> WinnerList { get; set; }
-        // Block block;
+
         public Winner(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
@@ -37,7 +35,6 @@ namespace SpellingBlocks.Objects
             LetterValue letter = new LetterValue(gameContent);
             int[] letterIndex = { 22, 8, 13, 13, 4, 17 };
 
-            // ParseWord(winner, parsedWord);
             Block block;
             for (int jj = 0; jj < 6; jj++)
             {
@@ -45,8 +42,6 @@ namespace SpellingBlocks.Objects
                 WinnerList.Add(block);
                 BlockPositionX += 64 + 16;
             }
-
-
         }
         public void Draw()
         {

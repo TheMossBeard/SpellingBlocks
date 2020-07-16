@@ -86,7 +86,8 @@ namespace SpellingBlocks.Objects
 
         public void Clear()
         {
-            PositionList.Clear();
+            PositionList = new List<Vector2>();
+            ToDrawList = new List<List<Vector2>>();
         }
 
         public void NewDraw()

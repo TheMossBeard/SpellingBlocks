@@ -32,7 +32,6 @@ namespace SpellingBlocks.Objects
             {
                 letter = new LetterValue(ii, values[ii], gameContent.SpriteList[ii]);
                 LetterValueList.Add(letter);
-
             }
         }
         public LetterValue(int id, char value, Texture2D sprite)
@@ -41,7 +40,5 @@ namespace SpellingBlocks.Objects
             Value = value;
             Sprite = sprite;
         }
-
-    
     }
 }

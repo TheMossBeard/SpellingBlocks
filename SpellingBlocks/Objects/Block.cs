@@ -20,16 +20,13 @@ namespace SpellingBlocks.Objects
         public float XPosition { get; set; }
         public float YPosition { get; set; }
         public Rectangle HitBox { get; set; }
-
-        public Vector2 Position;
+        public Vector2 Position { get; set; }
         public char Value { get; set; }
         public bool IsSelected { get; set; }
         public bool IsEmptyBlock { get; set; }
         public Texture2D Sprite { get; set; }
+        public Color color { get; set; }
         private SpriteBatch spriteBatch { get; set; }
-
-
-        Color color;
 
         public Block(float x, float y, char value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
         {
@@ -64,7 +61,6 @@ namespace SpellingBlocks.Objects
             spriteBatch.Draw(Sprite, Position, null, color, 0,
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
         }
-
 
         public void ChangeUnSelect()
         {

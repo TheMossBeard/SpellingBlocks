@@ -43,7 +43,6 @@ namespace SpellingBlocks.Objects
             newWord = new Word(category[0], wordAnimals[4], gameContent.elephant, gameContent);
             AnimalWordList.Add(newWord);
 
-
             AutoWordList = new List<Word>();
 
             newWord = new Word(category[1], wordAuto[0], gameContent.boat, gameContent);
@@ -57,7 +56,6 @@ namespace SpellingBlocks.Objects
             newWord = new Word(category[1], wordAuto[4], gameContent.bulldozer, gameContent);
             AutoWordList.Add(newWord);
 
-
             NatureWordList = new List<Word>();
 
             newWord = new Word(category[2], wordNature[0], gameContent.tree, gameContent);
@@ -70,7 +68,6 @@ namespace SpellingBlocks.Objects
             NatureWordList.Add(newWord);
             newWord = new Word(category[2], wordNature[4], gameContent.apple, gameContent);
             NatureWordList.Add(newWord);
-
 
             WordsLists = new List<List<Word>>();
             WordsLists.Add(NatureWordList);

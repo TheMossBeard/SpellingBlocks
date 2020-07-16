@@ -23,7 +23,6 @@ namespace SpellingBlocks.Controllers
         public MenuButton ButtonAnimals { get; set; }
         public MenuButton ButtonMachines { get; set; }
         public Texture2D Background { get; set; }
-
         public SpriteBatch spriteBatch { get; set; }
         public List<MenuButton> MenuButtonList { get; set; }
 
@@ -47,7 +46,6 @@ namespace SpellingBlocks.Controllers
             {
                 state = GameState.SpellingBlocksNature;
                 blocks.CreateGame(spriteBatch, gameContent, state);
-                
             }
             else if (HitTest(ButtonAnimals.HitBox, touchBox))
             {
@@ -59,7 +57,6 @@ namespace SpellingBlocks.Controllers
                 state = GameState.SpellingBlocksMachines;
                 blocks.CreateGame(spriteBatch, gameContent, state);
             }
-
             return state;
         }
 
@@ -81,6 +78,5 @@ namespace SpellingBlocks.Controllers
                 button.Draw();
             }
         }
-
     }
 }

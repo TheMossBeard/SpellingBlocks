@@ -37,7 +37,6 @@ namespace SpellingBlocks
         CategoryController category;
         IResolution resolution;
         GameState state;
-        bool winner;
         TracingController trace;
 
         public Game1()
@@ -67,7 +66,6 @@ namespace SpellingBlocks
 
             blocks = new BlockController(spriteBatch, gameContent, state);
             winnerBlocks = new Winner(spriteBatch, gameContent);
-            winner = false;
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
             trace = new TracingController(spriteBatch, gameContent);
@@ -110,19 +108,23 @@ namespace SpellingBlocks
 
         public void Drawing(GameTime gameTime)
         {
+
             var touchPanelState = TouchPanel.GetState();
             foreach (var touch in touchPanelState)
             {
-                if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
+                Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                if (touch.State == TouchLocationState.Pressed)
                 {
-                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
-                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-
+                    trace.ArrowButton(touchBox);
+                    state = trace.HomeButtonUpdate(touchBox, state);
+                }
+                else if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
+                {
                     trace.Touch(touchBox, gameContent, spriteBatch);
                 }
                 if (touch.State == TouchLocationState.Released)
                 {
-                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     trace.Release();
                 }
             }
@@ -138,7 +140,6 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-
                     state = category.Update(touchBox, gameContent, blocks, state);
                 }
             }
@@ -153,10 +154,10 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-                    blocks.ArrowButton(touchBox, state);
+                    blocks.ArrowButton(touchBox);
                     state = blocks.HomeButtonUpdate(touchBox, state);
                     blocks.MoveHighlightedBlock(touchBox);
-                    winner = blocks.CheckWin();
+                    blocks.CheckWin();
                     if (blocks.Skip)
                         blocks.CreateGame(spriteBatch, gameContent, state);
                 }
@@ -172,7 +173,6 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-
                     state = menu.Update(touchBox, state);
                 }
             }
@@ -208,10 +208,8 @@ namespace SpellingBlocks
 
         public void DrawDrawing(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate,
-                      BlendState.AlphaBlend,
-                      null, null, null, null,
-                      Resolution.TransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
             
             trace.Draw();
             spriteBatch.End();
@@ -219,33 +217,28 @@ namespace SpellingBlocks
 
         public void DrawCategory(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate,
-                      BlendState.AlphaBlend,
-                      null, null, null, null,
-                      Resolution.TransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
             category.Draw();
             spriteBatch.End();
         }
 
         public void DrawSpellingBlocks(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate,
-                      BlendState.AlphaBlend,
-                      null, null, null, null,
-                      Resolution.TransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
             blocks.Draw();
-            winner = blocks.IsWinner;
-            if (winner)
+
+            if (blocks.IsWinner)
                 winnerBlocks.Draw();
+
             spriteBatch.End();
         }
 
         public void DrawMenu(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate,
-                      BlendState.AlphaBlend,
-                      null, null, null, null,
-                      Resolution.TransformationMatrix());
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
             menu.Draw();
             spriteBatch.End();
         }
