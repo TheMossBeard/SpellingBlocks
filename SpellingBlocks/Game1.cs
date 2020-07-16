@@ -38,8 +38,7 @@ namespace SpellingBlocks
         IResolution resolution;
         GameState state;
         bool winner;
-        Drawing draw;
-
+        TracingController trace;
 
         public Game1()
         {
@@ -71,7 +70,7 @@ namespace SpellingBlocks
             winner = false;
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
-            draw = new Drawing(spriteBatch, gameContent);
+            trace = new TracingController(spriteBatch, gameContent);
 
         }
 
@@ -119,12 +118,12 @@ namespace SpellingBlocks
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
 
-                    draw.DrawUpdate(touchBox, gameContent, spriteBatch);
+                    trace.Touch(touchBox, gameContent, spriteBatch);
                 }
                 if (touch.State == TouchLocationState.Released)
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
-                    draw.NewDraw();
+                    trace.Release();
                 }
             }
         }
@@ -214,7 +213,7 @@ namespace SpellingBlocks
                       null, null, null, null,
                       Resolution.TransformationMatrix());
             
-            draw.Draw();
+            trace.Draw();
             spriteBatch.End();
         }
 

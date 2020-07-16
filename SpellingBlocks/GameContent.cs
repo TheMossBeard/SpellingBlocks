@@ -26,9 +26,11 @@ namespace SpellingBlocks
             logoSprite, arrorRight, home, MachinesButton, NatureButton, AnimalsButton, airplane, apple, boat, bulldozer, car,
             dog, elephant, flower, lion, mushroom, snake, train, tree, waterfall, zebra, spellingblocksbackground;
 
-        public Texture2D traceA;
+        public Texture2D traceA, traceB, traceC, traceD, traceE, traceF, traceG, traceH, traceI, traceJ, traceK, traceL, traceM,
+            traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ;
 
         public List<Texture2D> SpriteList { get; set; }
+        public List<Texture2D> TraceList { get; set; }
 
         public GameContent(ContentManager Content)
         {
@@ -125,7 +127,60 @@ namespace SpellingBlocks
             waterfall = Content.Load<Texture2D>("Waterfall");
             zebra = Content.Load<Texture2D>("Zebra");
 
-            traceA = Content.Load<Texture2D>("Trace-A");
+            TraceList = new List<Texture2D>();
+            traceA = Content.Load<Texture2D>("TraceA");
+            TraceList.Add(traceA);
+            traceB = Content.Load<Texture2D>("TraceB");
+            TraceList.Add(traceB);
+            traceC = Content.Load<Texture2D>("TraceC");
+            TraceList.Add(traceC);
+            traceD = Content.Load<Texture2D>("TraceD");
+            TraceList.Add(traceD);
+            traceE = Content.Load<Texture2D>("TraceE");
+            TraceList.Add(traceE);
+            traceF = Content.Load<Texture2D>("TraceF");
+            TraceList.Add(traceF);
+            traceG = Content.Load<Texture2D>("TraceG");
+            TraceList.Add(traceG);
+            traceH = Content.Load<Texture2D>("TraceH");
+            TraceList.Add(traceH);
+            traceI = Content.Load<Texture2D>("TraceI");
+            TraceList.Add(traceI);
+            traceJ = Content.Load<Texture2D>("TraceJ");
+            TraceList.Add(traceJ);
+            traceK = Content.Load<Texture2D>("TraceK");
+            TraceList.Add(traceK);
+            traceL = Content.Load<Texture2D>("TraceL");
+            TraceList.Add(traceL);
+            traceM = Content.Load<Texture2D>("TraceM");
+            TraceList.Add(traceM);
+            traceN = Content.Load<Texture2D>("TraceN");
+            TraceList.Add(traceN);
+            traceO = Content.Load<Texture2D>("TraceO");
+            TraceList.Add(traceO);
+            traceP = Content.Load<Texture2D>("TraceP");
+            TraceList.Add(traceP);
+            traceQ = Content.Load<Texture2D>("TraceQ");
+            TraceList.Add(traceQ);
+            traceR = Content.Load<Texture2D>("TraceR");
+            TraceList.Add(traceR);
+            traceS = Content.Load<Texture2D>("TraceS");
+            TraceList.Add(traceS);
+            traceT = Content.Load<Texture2D>("TraceT");
+            TraceList.Add(traceT);
+            traceU = Content.Load<Texture2D>("TraceU");
+            TraceList.Add(traceU);
+            traceV = Content.Load<Texture2D>("TraceV");
+            TraceList.Add(traceV);
+            traceW = Content.Load<Texture2D>("TraceW");
+            TraceList.Add(traceW);
+            traceX = Content.Load<Texture2D>("TraceX");
+            TraceList.Add(traceX);
+            traceY = Content.Load<Texture2D>("TraceY");
+            TraceList.Add(traceY);
+            traceZ = Content.Load<Texture2D>("TraceZ");
+            TraceList.Add(traceZ);
+
 
         }
     }

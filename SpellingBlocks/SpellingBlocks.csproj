@@ -82,6 +82,7 @@
     <Compile Include="Controllers\BlockController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\TracingController.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameContent.cs" />
     <Compile Include="Objects\Block.cs" />

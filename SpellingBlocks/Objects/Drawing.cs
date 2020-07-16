@@ -24,7 +24,6 @@ namespace SpellingBlocks.Objects
         public SpriteBatch spriteBatch { get; set; }
         public List<Vector2> PositionList { get; set; }
         public List<List<Vector2>> ToDrawList { get; set; }
-        public Texture2D Background { get; set; }
         Vector2 pointA;
         Vector2 pointB;
         Vector2 deltaVector;
@@ -35,7 +34,6 @@ namespace SpellingBlocks.Objects
 
         public Drawing(SpriteBatch spriteBatch, GameContent gameContent)
         {
-            Background = gameContent.traceA;
             PositionList = new List<Vector2>();
             ToDrawList = new List<List<Vector2>>();
             Position = new Vector2(0, 0);
@@ -45,10 +43,6 @@ namespace SpellingBlocks.Objects
 
         public void Draw()
         {
-            spriteBatch.Draw(Background, new Vector2(0, 0), null, Color.White, 0,
-                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-            
-            
                 for (int ii = 0; ii < PositionList.Count - 1; ii++)
                 {
                     pointA = PositionList[ii];

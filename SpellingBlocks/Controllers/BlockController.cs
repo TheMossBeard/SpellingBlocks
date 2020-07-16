@@ -52,7 +52,7 @@ namespace SpellingBlocks.Controllers
             ArrowRight = new MenuButton(new Vector2(938, 32), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
             Skip = false;
             IsWinner = false;
-           
+
         }
 
         public void CreateGame(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
@@ -129,17 +129,37 @@ namespace SpellingBlocks.Controllers
 
         public int GetBlockPositionX(int count)
         {
-            int x = 512 - 32;
-            for(int ii = 0; ii < count; ii++)
+            int x = 512;
+            switch (count)
             {
-                x -= 32;
+                case 3:
+                    x = 392;
+                    break;
+                case 4:
+                    x = 352;
+                    break;
+                case 5:
+                    x = 312;
+                    break;
+                case 6:
+                    x = 272;
+                    break;
+                case 7:
+                    x = 232;
+                    break;
+                case 8:
+                    x = 192;
+                    break;
+                case 9:
+                    x = 152;
+                    break;
             }
-            return x; 
+            return x;
         }
 
         public void Draw()
         {
-            
+
             spriteBatch.Draw(AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Image, new Vector2(320, 64), null, Color.White, 0,
                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
@@ -243,7 +263,7 @@ namespace SpellingBlocks.Controllers
             else
                 return false;
         }
-  
+
         public bool CheckWin()
         {
             bool win = true;
