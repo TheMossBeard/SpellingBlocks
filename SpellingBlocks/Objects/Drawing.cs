@@ -37,7 +37,7 @@ namespace SpellingBlocks.Objects
             PositionList = new List<Vector2>();
             ToDrawList = new List<List<Vector2>>();
             Position = new Vector2(0, 0);
-            Sprite = gameContent.spriteA;
+            Sprite = gameContent.pencil;
             this.spriteBatch = spriteBatch;
         }
 
@@ -53,7 +53,7 @@ namespace SpellingBlocks.Objects
                     for (float z = 1; z < distance; z++)
                     {
                         newPoint = pointA + direction * (distance * (z / distance));
-                        spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 4, (int)newPoint.Y - 4, 16, 16), Color.Black);
+                        spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White);
                     }
                 }
 
@@ -71,7 +71,7 @@ namespace SpellingBlocks.Objects
                         for (float z = 1; z < distance; z++)
                         {
                             newPoint = pointA + direction * (distance * (z / distance));
-                            spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 4, (int)newPoint.Y - 4, 16, 16), Color.Black);
+                            spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White);
                         }
                     }
                 }
