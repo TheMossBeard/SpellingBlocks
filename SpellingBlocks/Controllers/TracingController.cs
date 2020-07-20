@@ -27,6 +27,7 @@ namespace SpellingBlocks.Controllers
         public Drawing Drawable { get; set; }
         public SpriteBatch spriteBatch { get; set; }
         private MenuButton ArrowRight { get; set; }
+        private MenuButton ArrowLeft { get; set; }
         private MenuButton HomeButton { get; set; }
 
         public TracingController(SpriteBatch spriteBatch, GameContent gameContent)
@@ -41,6 +42,8 @@ namespace SpellingBlocks.Controllers
             HomeButton.HitBox = new Rectangle((int)HomeButton.Position.X, (int)HomeButton.Position.Y, 64, 64);
             ArrowRight = new MenuButton(new Vector2(944, 16), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
             ArrowRight.HitBox = new Rectangle((int)ArrowRight.Position.X, (int)ArrowRight.Position.Y, 64, 64);
+            ArrowLeft = new MenuButton(new Vector2(864, 16), "ArrowLeft", gameContent.arrowLeft, spriteBatch, gameContent);
+            ArrowLeft.HitBox = new Rectangle((int)ArrowLeft.Position.X, (int)ArrowLeft.Position.Y, 64, 64);
         }
 
         public void Fill(GameContent gameContent)
@@ -57,6 +60,7 @@ namespace SpellingBlocks.Controllers
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             HomeButton.Draw();
             ArrowRight.Draw();
+            ArrowLeft.Draw();
             Drawable.Draw();
         }
 
@@ -89,6 +93,19 @@ namespace SpellingBlocks.Controllers
                     index++;
                 else
                     index = 0;
+
+                Drawable.Clear();
+            }
+        }
+
+        public void ArrowButtonBack(Rectangle touchBox)
+        {
+            if (HitTest(ArrowLeft.HitBox, touchBox))
+            {
+                if (index > 0)
+                    index--;
+                else
+                    index = 25;
 
                 Drawable.Clear();
             }

@@ -23,7 +23,7 @@ namespace SpellingBlocks
         public Texture2D spriteA, spriteB, spriteC, spriteD, spriteE, spriteF, spriteG, spriteH, spriteI, spriteJ, spriteK,
             spriteL, spriteM, spriteN, spriteO, spriteP, spriteQ, spriteR, spriteS, spriteT, spriteU, spriteV, spriteW,
             spriteX, spriteY, spriteZ, emptySprite, menu01, menu02, menu03, menu04, menuBackground, categoryBackground,
-            logoSprite, arrorRight, home, MachinesButton, NatureButton, AnimalsButton, airplane, apple, boat, bulldozer, car,
+            logoSprite, arrorRight, arrowLeft, home, MachinesButton, NatureButton, AnimalsButton, airplane, apple, boat, bulldozer, car,
             dog, elephant, flower, lion, mushroom, snake, train, tree, waterfall, zebra, spellingblocksbackground;
 
         public Texture2D traceA, traceB, traceC, traceD, traceE, traceF, traceG, traceH, traceI, traceJ, traceK, traceL, traceM,
@@ -100,6 +100,7 @@ namespace SpellingBlocks
             menu04 = Content.Load<Texture2D>("Menu04-Sprite");
 
             arrorRight = Content.Load<Texture2D>("Right-Arrow-Sprite");
+            arrowLeft = Content.Load<Texture2D>("Left-Arrow-Sprite");
 
             home = Content.Load<Texture2D>("Home-Sprite");
 

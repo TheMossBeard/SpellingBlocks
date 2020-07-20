@@ -289,6 +289,18 @@
 /processorParam:TextureFormat=Color
 /build:K-Sprite.png
 
+#begin Left-Arrow-Sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Left-Arrow-Sprite.png
+
 #begin Lion.png
 /importer:TextureImporter
 /processor:TextureProcessor
