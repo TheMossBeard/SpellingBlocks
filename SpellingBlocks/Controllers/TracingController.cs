@@ -39,11 +39,8 @@ namespace SpellingBlocks.Controllers
             Fill(gameContent);
 
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
-            HomeButton.HitBox = new Rectangle((int)HomeButton.Position.X, (int)HomeButton.Position.Y, 64, 64);
             ArrowRight = new MenuButton(new Vector2(944, 16), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
-            ArrowRight.HitBox = new Rectangle((int)ArrowRight.Position.X, (int)ArrowRight.Position.Y, 64, 64);
             ArrowLeft = new MenuButton(new Vector2(864, 16), "ArrowLeft", gameContent.arrowLeft, spriteBatch, gameContent);
-            ArrowLeft.HitBox = new Rectangle((int)ArrowLeft.Position.X, (int)ArrowLeft.Position.Y, 64, 64);
         }
 
         public void Fill(GameContent gameContent)
