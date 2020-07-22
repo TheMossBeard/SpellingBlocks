@@ -29,11 +29,16 @@ namespace SpellingBlocks
         public Texture2D traceA, traceB, traceC, traceD, traceE, traceF, traceG, traceH, traceI, traceJ, traceK, traceL, traceM,
             traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ, pencil, clear;
 
+        public Texture2D searchA, searchB, searchC, searchD, searchE, searchF, searchG, searchH, searchI, searchJ, searchK, searchL,
+            searchM, searchN, searchO, searchP, searchQ, searchR, searchS, searchT, searchU, searchV, searchW, searchX, searchY, searchZ;
+
         public List<Texture2D> SpriteList { get; set; }
         public List<Texture2D> TraceList { get; set; }
+        public List<Texture2D> SearchList { get; set; }
 
         public GameContent(ContentManager Content)
         {
+            /****************************SPELLING SPRITES**************************************/
             SpriteList = new List<Texture2D>();
             spriteA = Content.Load<Texture2D>("A-Sprite");
             SpriteList.Add(spriteA);
@@ -128,6 +133,7 @@ namespace SpellingBlocks
             waterfall = Content.Load<Texture2D>("Waterfall");
             zebra = Content.Load<Texture2D>("Zebra");
 
+            /****************************TRACING SPRITES**************************************/
             TraceList = new List<Texture2D>();
             traceA = Content.Load<Texture2D>("TraceA");
             TraceList.Add(traceA);
@@ -183,6 +189,63 @@ namespace SpellingBlocks
             TraceList.Add(traceZ);
 
             pencil = Content.Load<Texture2D>("Pencil");
+
+            /****************************WORDSEARCH SPRITES**************************************/
+            SearchList = new List<Texture2D>();
+
+            searchA = Content.Load<Texture2D>("a-search");
+            SearchList.Add(searchA);
+            searchB = Content.Load<Texture2D>("b-search");
+            SearchList.Add(searchB);
+            searchC = Content.Load<Texture2D>("c-search");
+            SearchList.Add(searchC);
+            searchD = Content.Load<Texture2D>("d-search");
+            SearchList.Add(searchD);
+            searchE = Content.Load<Texture2D>("e-search");
+            SearchList.Add(searchE);
+            searchF = Content.Load<Texture2D>("f-search");
+            SearchList.Add(searchF);
+            searchG = Content.Load<Texture2D>("g-search");
+            SearchList.Add(searchG);
+            searchH = Content.Load<Texture2D>("h-search");
+            SearchList.Add(searchH);
+            searchI = Content.Load<Texture2D>("i-search");
+            SearchList.Add(searchI);
+            searchJ = Content.Load<Texture2D>("j-search");
+            SearchList.Add(searchJ);
+            searchK = Content.Load<Texture2D>("k-search");
+            SearchList.Add(searchK);
+            searchL = Content.Load<Texture2D>("l-search");
+            SearchList.Add(searchL);
+            searchM = Content.Load<Texture2D>("m-search");
+            SearchList.Add(searchM);
+            searchN = Content.Load<Texture2D>("n-search");
+            SearchList.Add(searchN);
+            searchO = Content.Load<Texture2D>("o-search");
+            SearchList.Add(searchO);
+            searchP = Content.Load<Texture2D>("p-search");
+            SearchList.Add(searchP);
+            searchQ = Content.Load<Texture2D>("q-search");
+            SearchList.Add(searchQ);
+            searchR = Content.Load<Texture2D>("r-search");
+            SearchList.Add(searchR);
+            searchS = Content.Load<Texture2D>("s-search");
+            SearchList.Add(searchS);
+            searchT = Content.Load<Texture2D>("t-search");
+            SearchList.Add(searchT);
+            searchU = Content.Load<Texture2D>("u-search");
+            SearchList.Add(searchU);
+            searchV = Content.Load<Texture2D>("v-search");
+            SearchList.Add(searchV);
+            searchW = Content.Load<Texture2D>("w-search");
+            SearchList.Add(searchW);
+            searchX = Content.Load<Texture2D>("x-search");
+            SearchList.Add(searchX);
+            searchY = Content.Load<Texture2D>("y-search");
+            SearchList.Add(searchY);
+            searchZ = Content.Load<Texture2D>("z-search");
+            SearchList.Add(searchZ);
+
         }
     }
 }

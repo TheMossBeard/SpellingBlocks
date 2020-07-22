@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:Apple.png
 
+#begin a-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:a-search.png
+
 #begin A-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +96,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Boat.png
+
+#begin b-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:b-search.png
 
 #begin B-Sprite.png
 /importer:TextureImporter
@@ -133,6 +157,18 @@
 /processorParam:TextureFormat=Color
 /build:Clear-Button.png
 
+#begin c-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:c-search.png
+
 #begin C-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -156,6 +192,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Dog.png
+
+#begin d-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:d-search.png
 
 #begin D-Sprite.png
 /importer:TextureImporter
@@ -193,6 +241,18 @@
 /processorParam:TextureFormat=Color
 /build:Empty-Sprite.png
 
+#begin e-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:e-search.png
+
 #begin E-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -217,6 +277,18 @@
 /processorParam:TextureFormat=Color
 /build:Flower.png
 
+#begin f-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:f-search.png
+
 #begin F-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -228,6 +300,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:F-Sprite.png
+
+#begin g-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:g-search.png
 
 #begin G-Sprite.png
 /importer:TextureImporter
@@ -253,6 +337,18 @@
 /processorParam:TextureFormat=Color
 /build:Home-Sprite.png
 
+#begin h-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:h-search.png
+
 #begin H-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -264,6 +360,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:H-Sprite.png
+
+#begin i-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:i-search.png
 
 #begin I-Sprite.png
 /importer:TextureImporter
@@ -277,6 +385,18 @@
 /processorParam:TextureFormat=Color
 /build:I-Sprite.png
 
+#begin j-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:j-search.png
+
 #begin J-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -288,6 +408,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:J-Sprite.png
+
+#begin k-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:k-search.png
 
 #begin K-Sprite.png
 /importer:TextureImporter
@@ -336,6 +468,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Logo-Sprite.png
+
+#begin l-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:l-search.png
 
 #begin L-Sprite.png
 /importer:TextureImporter
@@ -421,6 +565,18 @@
 /processorParam:TextureFormat=Color
 /build:MenuBackground.png
 
+#begin m-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:m-search.png
+
 #begin M-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -457,6 +613,18 @@
 /processorParam:TextureFormat=Color
 /build:NatureButton.png
 
+#begin n-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:n-search.png
+
 #begin N-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -468,6 +636,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:N-Sprite.png
+
+#begin o-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:o-search.png
 
 #begin O-Sprite.png
 /importer:TextureImporter
@@ -493,6 +673,18 @@
 /processorParam:TextureFormat=Color
 /build:Pencil.png
 
+#begin p-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:p-search.png
+
 #begin P-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -504,6 +696,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:P-Sprite.png
+
+#begin q-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:q-search.png
 
 #begin Q-Sprite.png
 /importer:TextureImporter
@@ -528,6 +732,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Right-Arrow-Sprite.png
+
+#begin r-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:r-search.png
 
 #begin R-Sprite.png
 /importer:TextureImporter
@@ -564,6 +780,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SpellingBlocksBackground.png
+
+#begin s-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:s-search.png
 
 #begin S-Sprite.png
 /importer:TextureImporter
@@ -925,6 +1153,18 @@
 /processorParam:TextureFormat=Color
 /build:Tree.png
 
+#begin t-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:t-search.png
+
 #begin T-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -937,6 +1177,18 @@
 /processorParam:TextureFormat=Color
 /build:T-Sprite.png
 
+#begin u-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:u-search.png
+
 #begin U-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -948,6 +1200,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:U-Sprite.png
+
+#begin v-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:v-search.png
 
 #begin V-Sprite.png
 /importer:TextureImporter
@@ -973,6 +1237,18 @@
 /processorParam:TextureFormat=Color
 /build:Waterfall.png
 
+#begin w-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:w-search.png
+
 #begin W-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -985,6 +1261,18 @@
 /processorParam:TextureFormat=Color
 /build:W-Sprite.png
 
+#begin x-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:x-search.png
+
 #begin X-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -996,6 +1284,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:X-Sprite.png
+
+#begin y-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:y-search.png
 
 #begin Y-Sprite.png
 /importer:TextureImporter
@@ -1020,6 +1320,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Zebra.png
+
+#begin z-search.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:z-search.png
 
 #begin Z-Sprite.png
 /importer:TextureImporter
