@@ -95,6 +95,25 @@ namespace SpellingBlocks
 
             emptySprite = Content.Load<Texture2D>("Empty-Sprite");
 
+            spellingblocksbackground = Content.Load<Texture2D>("SpellingBlocksBackground");
+
+            elephant = Content.Load<Texture2D>("Elephant-Image");
+            airplane = Content.Load<Texture2D>("Airplane");
+            apple = Content.Load<Texture2D>("Apple");
+            boat = Content.Load<Texture2D>("Boat");
+            bulldozer = Content.Load<Texture2D>("Bulldozer");
+            car = Content.Load<Texture2D>("Car");
+            dog = Content.Load<Texture2D>("Dog");
+            flower = Content.Load<Texture2D>("Flower");
+            lion = Content.Load<Texture2D>("Lion");
+            mushroom = Content.Load<Texture2D>("Mushroom");
+            snake = Content.Load<Texture2D>("Snake");
+            train = Content.Load<Texture2D>("Train");
+            tree = Content.Load<Texture2D>("Tree");
+            waterfall = Content.Load<Texture2D>("Waterfall");
+            zebra = Content.Load<Texture2D>("Zebra");
+
+            /****************************MENU SPRITES**************************************/
             logoSprite = Content.Load<Texture2D>("Logo-Sprite");
 
             menuBackground = Content.Load<Texture2D>("MenuBackground");
@@ -115,23 +134,6 @@ namespace SpellingBlocks
             NatureButton = Content.Load<Texture2D>("NatureButton");
             AnimalsButton = Content.Load<Texture2D>("AnimalsButton");
 
-            spellingblocksbackground = Content.Load<Texture2D>("SpellingBlocksBackground");
-
-            elephant = Content.Load<Texture2D>("Elephant-Image");
-            airplane = Content.Load<Texture2D>("Airplane");
-            apple = Content.Load<Texture2D>("Apple");
-            boat = Content.Load<Texture2D>("Boat");
-            bulldozer = Content.Load<Texture2D>("Bulldozer");
-            car = Content.Load<Texture2D>("Car");
-            dog = Content.Load<Texture2D>("Dog");
-            flower = Content.Load<Texture2D>("Flower");
-            lion = Content.Load<Texture2D>("Lion");
-            mushroom = Content.Load<Texture2D>("Mushroom");
-            snake = Content.Load<Texture2D>("Snake");
-            train = Content.Load<Texture2D>("Train");
-            tree = Content.Load<Texture2D>("Tree");
-            waterfall = Content.Load<Texture2D>("Waterfall");
-            zebra = Content.Load<Texture2D>("Zebra");
 
             /****************************TRACING SPRITES**************************************/
             TraceList = new List<Texture2D>();
