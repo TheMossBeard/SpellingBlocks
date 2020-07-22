@@ -118,6 +118,7 @@ namespace SpellingBlocks
                 {
                     trace.ArrowButton(touchBox);
                     trace.ArrowButtonBack(touchBox);
+                    trace.ClearButtonClick(touchBox);
                     state = trace.HomeButtonUpdate(touchBox, state);
                 }
                 else if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)

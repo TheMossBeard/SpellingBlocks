@@ -28,6 +28,7 @@ namespace SpellingBlocks.Controllers
         public SpriteBatch spriteBatch { get; set; }
         private MenuButton ArrowRight { get; set; }
         private MenuButton ArrowLeft { get; set; }
+        private MenuButton ClearButton { get; set; }
         private MenuButton HomeButton { get; set; }
 
         public TracingController(SpriteBatch spriteBatch, GameContent gameContent)
@@ -41,6 +42,7 @@ namespace SpellingBlocks.Controllers
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
             ArrowRight = new MenuButton(new Vector2(944, 16), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
             ArrowLeft = new MenuButton(new Vector2(864, 16), "ArrowLeft", gameContent.arrowLeft, spriteBatch, gameContent);
+            ClearButton = new MenuButton(new Vector2(720, 16), "ClearButton", gameContent.clear, spriteBatch, gameContent);
         }
 
         public void Fill(GameContent gameContent)
@@ -58,6 +60,7 @@ namespace SpellingBlocks.Controllers
             HomeButton.Draw();
             ArrowRight.Draw();
             ArrowLeft.Draw();
+            ClearButton.Draw();
             Drawable.Draw();
         }
 
@@ -104,6 +107,14 @@ namespace SpellingBlocks.Controllers
                 else
                     index = 25;
 
+                Drawable.Clear();
+            }
+        }
+
+        public void ClearButtonClick(Rectangle touchBox)
+        {
+            if (HitTest(ClearButton.HitBox, touchBox))
+            {
                 Drawable.Clear();
             }
         }

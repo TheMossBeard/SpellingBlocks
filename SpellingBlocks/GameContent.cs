@@ -27,7 +27,7 @@ namespace SpellingBlocks
             dog, elephant, flower, lion, mushroom, snake, train, tree, waterfall, zebra, spellingblocksbackground;
 
         public Texture2D traceA, traceB, traceC, traceD, traceE, traceF, traceG, traceH, traceI, traceJ, traceK, traceL, traceM,
-            traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ, pencil;
+            traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ, pencil, clear;
 
         public List<Texture2D> SpriteList { get; set; }
         public List<Texture2D> TraceList { get; set; }
@@ -101,7 +101,7 @@ namespace SpellingBlocks
 
             arrorRight = Content.Load<Texture2D>("Right-Arrow-Sprite");
             arrowLeft = Content.Load<Texture2D>("Left-Arrow-Sprite");
-
+            clear = Content.Load<Texture2D>("Clear-Button");
             home = Content.Load<Texture2D>("Home-Sprite");
 
             categoryBackground = Content.Load<Texture2D>("BackgroundCatergory");
