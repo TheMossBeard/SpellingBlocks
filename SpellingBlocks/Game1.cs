@@ -19,7 +19,8 @@ namespace SpellingBlocks
         SpellingBlocksNature,
         SpellingBlocksAnimals,
         SpellingBlocksMachines,
-        Draw
+        Tracing,
+        WordSearch
             
     }
 
@@ -99,14 +100,22 @@ namespace SpellingBlocks
                 case GameState.SpellingBlocksMachines:
                     UpdateSpellingBlock(gameTime);
                     break;
-                case GameState.Draw:
-                    Drawing(gameTime);
+                case GameState.Tracing:
+                    UpdateTracing(gameTime);
+                    break;
+                case GameState.WordSearch:
+                    UpdateTracing(gameTime);
                     break;
             }
 
         }
 
-        public void Drawing(GameTime gameTime)
+        public void UpdateWordSearch(GameTime gameTime)
+        {
+
+        }
+
+        public void UpdateTracing(GameTime gameTime)
         {
 
             var touchPanelState = TouchPanel.GetState();
@@ -202,13 +211,21 @@ namespace SpellingBlocks
                 case GameState.SpellingBlocksMachines:
                     DrawSpellingBlocks(gameTime);
                     break;
-                case GameState.Draw:
-                    DrawDrawing(gameTime);
+                case GameState.Tracing:
+                    DrawTracing(gameTime);
+                    break;
+                case GameState.WordSearch:
+                    DrawTracing(gameTime);
                     break;
             }
         }
 
-        public void DrawDrawing(GameTime gameTime)
+        public void DrawWordSearch(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.Gainsboro);
+        }
+
+        public void DrawTracing(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
                       null, null, null, null, Resolution.TransformationMatrix());

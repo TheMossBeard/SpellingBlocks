@@ -53,7 +53,11 @@ namespace SpellingBlocks.Controllers
             }
             else if (HitTest(ButtonTracing.HitBox, touchBox))
             {
-                state = GameState.Draw;
+                state = GameState.Tracing;
+            }
+            else if (HitTest(ButtonWordSearch.HitBox, touchBox))
+            {
+                state = GameState.WordSearch;
             }
             return state;
         }
