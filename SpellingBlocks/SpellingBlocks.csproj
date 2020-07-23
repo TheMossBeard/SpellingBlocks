@@ -83,12 +83,14 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\TracingController.cs" />
+    <Compile Include="Controllers\WordSearchController.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameContent.cs" />
     <Compile Include="Objects\Block.cs" />
     <Compile Include="Objects\Drawing.cs" />
     <Compile Include="Objects\LetterValue.cs" />
     <Compile Include="Objects\MenuButton.cs" />
+    <Compile Include="Objects\SearchLetter.cs" />
     <Compile Include="Objects\Winner.cs" />
     <Compile Include="Objects\Word.cs" />
     <Compile Include="Objects\Words.cs" />

@@ -39,6 +39,7 @@ namespace SpellingBlocks
         IResolution resolution;
         GameState state;
         TracingController trace;
+        WordSearchController wordSearch;
 
         public Game1()
         {
@@ -70,6 +71,8 @@ namespace SpellingBlocks
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
             trace = new TracingController(spriteBatch, gameContent);
+            wordSearch = new WordSearchController(spriteBatch, gameContent, state);
+            wordSearch.CreateWordSearch(spriteBatch, gameContent, state);
 
         }
 
@@ -215,7 +218,7 @@ namespace SpellingBlocks
                     DrawTracing(gameTime);
                     break;
                 case GameState.WordSearch:
-                    DrawTracing(gameTime);
+                    DrawWordSearch(gameTime);
                     break;
             }
         }
@@ -223,6 +226,10 @@ namespace SpellingBlocks
         public void DrawWordSearch(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Gainsboro);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
+            wordSearch.Draw();
+            spriteBatch.End();
         }
 
         public void DrawTracing(GameTime gameTime)
