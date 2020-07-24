@@ -52,7 +52,7 @@ namespace SpellingBlocks.Objects
         public void Draw()
         {
             spriteBatch.Draw(Sprite, Position, null, color, 0,
-                new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
         }
     }
 }

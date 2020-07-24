@@ -56,12 +56,12 @@ namespace SpellingBlocks.Controllers
             SearchLetter letter;
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
-            int positionY = 16;
+            int positionY = 40;
             int random = 0;
 
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
-                int positionX = 120;
+                int positionX = 200;
                 for (int jj = 0; jj < PlayFieldWidth; jj++)
                 {
                     random = rand.Next(0, 25);
