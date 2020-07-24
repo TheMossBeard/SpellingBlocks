@@ -24,7 +24,7 @@ namespace SpellingBlocks.Objects
         public char Value { get; set; }
         public bool IsSelected { get; set; }
         public Texture2D Sprite { get; set; }
-        public Color color { get; set; }
+        public Color Color { get; set; }
         private SpriteBatch spriteBatch { get; set; }
 
         public SearchLetter(char value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
@@ -37,8 +37,9 @@ namespace SpellingBlocks.Objects
             IsSelected = false;
             this.spriteBatch = spriteBatch;
             Sprite = sprite;
-            color = Color.White;
+            Color = Color.White;
         }
+
 
         public SearchLetter(SearchLetter letter)
         {
@@ -46,12 +47,12 @@ namespace SpellingBlocks.Objects
             IsSelected = false;
             this.spriteBatch = letter.spriteBatch;
             Sprite = letter.Sprite;
-            color = Color.White;
+            Color = Color.White;
         }
 
         public void Draw()
         {
-            spriteBatch.Draw(Sprite, Position, null, color, 0,
+            spriteBatch.Draw(Sprite, Position, null, Color, 0,
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
         }
     }
