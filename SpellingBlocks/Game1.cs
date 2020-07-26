@@ -66,13 +66,13 @@ namespace SpellingBlocks
             spriteBatch = new SpriteBatch(GraphicsDevice);
             gameContent = new GameContent(Content);
 
-            blocks = new BlockController(spriteBatch, gameContent, state);
+            blocks = new BlockController(spriteBatch, gameContent);
             winnerBlocks = new Winner(spriteBatch, gameContent);
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
             trace = new TracingController(spriteBatch, gameContent);
-            wordSearch = new WordSearchController(spriteBatch, gameContent, state);
-            wordSearch.CreateWordSearch(spriteBatch, gameContent, state);
+            wordSearch = new WordSearchController(spriteBatch, gameContent);
+            wordSearch.CreateWordSearch(spriteBatch, gameContent);
 
         }
 

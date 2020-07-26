@@ -27,7 +27,7 @@ namespace SpellingBlocks.Controllers
         private int PlayFieldWidth { get; set; }
         private int PlayFieldHeight { get; set; }
 
-        public WordSearchController(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
+        public WordSearchController(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
             this.gameContent = gameContent;
@@ -52,14 +52,15 @@ namespace SpellingBlocks.Controllers
             }
         }
 
-        public void CreateWordSearch(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
+        public void CreateWordSearch(SpriteBatch spriteBatch, GameContent gameContent)
         {
             Random rand = new Random();
             SearchLetter letter;
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
             int positionY = 40;
-            int random = 0;
+            int random;
+           // string word = "snake";
 
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
@@ -67,18 +68,26 @@ namespace SpellingBlocks.Controllers
                 for (int jj = 0; jj < PlayFieldWidth; jj++)
                 {
                     random = rand.Next(0, 25);
-                    letter = new SearchLetter(LetterList[random]);
-                    letter.Position = new Vector2(positionX, positionY);
-                    letter.Value = '0';
+                    letter = new SearchLetter(LetterList[random])
+                    {
+                        Position = new Vector2(positionX, positionY),
+                        Value = '0'
+                    };
                     CurrentLetter2DArray[jj, ii] = letter;
                     positionX += 64;
                 }
                 positionY += 64;
             }
-            PositionWords(spriteBatch, gameContent);
+            PositionWords(spriteBatch, gameContent, "snake");
+            PositionWords(spriteBatch, gameContent, "bear");
+            PositionWords(spriteBatch, gameContent, "eagle");
+            PositionWords(spriteBatch, gameContent, "zebra");
+            PositionWords(spriteBatch, gameContent, "dog");
+            PositionWords(spriteBatch, gameContent, "donkey");
+            PositionWords(spriteBatch, gameContent, "deer");
         }
 
-        public void PositionWords(SpriteBatch spriteBatch, GameContent gameContent)
+        public void PositionWords(SpriteBatch spriteBatch, GameContent gameContent, string word)
         {
             bool fail = true;
             while (fail)
@@ -87,18 +96,17 @@ namespace SpellingBlocks.Controllers
                 bool down = false;
                 bool right = false;
                 bool left = false;
-                //bool up_right = false;
-                //bool up_left = false;
-                //bool down_left = false;
-                //bool down_right = false;
+                bool up_right = false;
+                bool up_left = false;
+                bool down_left = false;
+                bool down_right = false;
 
-                string word = "snake";
                 int wordLength = word.Length;
 
                 Random rand = new Random();
                 int cordX = rand.Next(0, PlayFieldWidth);
                 int cordY = rand.Next(0, PlayFieldHeight);
-
+                int randomDirection = rand.Next(0, 2);
                 if (PlayFieldWidth - (cordX + wordLength) >= 0)
                     right = true;
                 if (cordX - wordLength >= 0)
@@ -108,63 +116,226 @@ namespace SpellingBlocks.Controllers
                 if (PlayFieldHeight - (cordY + wordLength) >= 0)
                     down = true;
 
-                //if (up && right)
-                //    up_right = true;
-                //if (up && left)
-                //    up_left = true;
-                //if (down && right)
-                //    down_right = true;
-                //if (down && left)
-                //    down_left = true;
+                if (up && right)
+                    up_right = true;
+                if (up && left)
+                    up_left = true;
+                if (down && right)
+                    down_right = true;
+                if (down && left)
+                    down_left = true;
 
                 SearchLetter letter;
 
-                if (up)
+                if (up && fail && randomDirection == 0)
                 {
-                    for (int ii = 0; ii < wordLength; ii++)
+                    if (CheckPlacement(cordX, cordY, word, 0))
                     {
-                        letter = FindLetter(spriteBatch, gameContent, word[ii]);
-                        letter.Position = CurrentLetter2DArray[cordX, cordY - ii].Position;
-                        // letter.color = Color.Red;
-                        CurrentLetter2DArray[cordX, cordY - ii] = letter;
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX, cordY - ii].Position;
+                            CurrentLetter2DArray[cordX, cordY - ii] = letter;
+                        }
+                        fail = false;
                     }
-                    fail = false;
                 }
-                else if (right)
+                if (right && fail && randomDirection == 0)
                 {
-                    for (int ii = 0; ii < wordLength; ii++)
+                    if (CheckPlacement(cordX, cordY, word, 1))
                     {
-                        letter = FindLetter(spriteBatch, gameContent, word[ii]);
-                        letter.Position = CurrentLetter2DArray[cordX + ii, cordY].Position;
-                        //letter.color = Color.Red;
-                        CurrentLetter2DArray[cordX + ii, cordY] = letter;
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX + ii, cordY].Position;
+                            CurrentLetter2DArray[cordX + ii, cordY] = letter;
+                        }
+                        fail = false;
                     }
-                    fail = false;
                 }
-                else if (down)
+                if (down && fail && randomDirection == 0)
                 {
-                    for (int ii = 0; ii < wordLength; ii++)
+                    if (CheckPlacement(cordX, cordY, word, 2))
                     {
-                        letter = FindLetter(spriteBatch, gameContent, word[ii]);
-                        letter.Position = CurrentLetter2DArray[cordX, cordY + ii].Position;
-                        // letter.color = Color.Red;
-                        CurrentLetter2DArray[cordX, cordY + ii] = letter;
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX, cordY + ii].Position;
+                            CurrentLetter2DArray[cordX, cordY + ii] = letter;
+                        }
+                        fail = false;
                     }
-                    fail = false;
                 }
-                else if (left)
+                if (left && fail && randomDirection == 0)
                 {
-                    for (int ii = 0; ii < wordLength; ii++)
+                    if (CheckPlacement(cordX, cordY, word, 3))
                     {
-                        letter = FindLetter(spriteBatch, gameContent, word[ii]);
-                        letter.Position = CurrentLetter2DArray[cordX - ii, cordY].Position;
-                        // letter.color = Color.Red;
-                        CurrentLetter2DArray[cordX - ii, cordY] = letter;
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX - ii, cordY].Position;
+                            CurrentLetter2DArray[cordX - ii, cordY] = letter;
+                        }
+                        fail = false;
                     }
-                    fail = false;
+                }/////////////////////////////////////////////////
+                if (up_right && fail && randomDirection == 1)
+                {
+                    if (CheckPlacement(cordX, cordY, word, 4))
+                    {
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX + ii, cordY - ii].Position;
+                            CurrentLetter2DArray[cordX + ii, cordY - ii] = letter;
+                        }
+                        fail = false;
+                    }
+                }
+                if (up_left && fail && randomDirection == 1)
+                {
+                    if (CheckPlacement(cordX, cordY, word, 5))
+                    {
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX - ii, cordY - ii].Position;
+                            CurrentLetter2DArray[cordX - ii, cordY - ii] = letter;
+                        }
+                        fail = false;
+                    }
+                }
+                if (down_left && fail && randomDirection == 1)
+                {
+                    if (CheckPlacement(cordX, cordY, word, 6))
+                    {
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX - ii, cordY + ii].Position;
+                            CurrentLetter2DArray[cordX - ii, cordY + ii] = letter;
+                        }
+                        fail = false;
+                    }
+                }
+                if (down_right && fail && randomDirection == 1)
+                {
+                    if (CheckPlacement(cordX, cordY, word, 7))
+                    {
+                        for (int ii = 0; ii < wordLength; ii++)
+                        {
+                            letter = FindLetter(spriteBatch, gameContent, word[ii]);
+                            letter.Position = CurrentLetter2DArray[cordX + ii, cordY + ii].Position;
+                            CurrentLetter2DArray[cordX + ii, cordY + ii] = letter;
+                        }
+                        fail = false;
+                    }
                 }
             }
+        }
 
+        public bool CheckPlacement(int cordX, int cordY, string word, int direction)
+        {
+            switch (direction)
+            {
+                case 0:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX, cordY - ii].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX, cordY - ii].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 1:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX + ii, cordY].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX + ii, cordY].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 2:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX, cordY + ii].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX, cordY + ii].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 3:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX - ii, cordY].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX - ii, cordY].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 4:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX + ii, cordY - ii].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX + ii, cordY - ii].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 5:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX - ii, cordY - ii].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX - ii, cordY - ii].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 6:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX - ii, cordY + ii].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX - ii, cordY + ii].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                case 7:
+                    {
+                        for (int ii = 0; ii < word.Length; ii++)
+                        {
+                            if (CurrentLetter2DArray[cordX + ii, cordY + ii].Value != word[ii] &&
+                                CurrentLetter2DArray[cordX + ii, cordY + ii].Value != '0')
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+            }
+            return true;
         }
 
         public void Draw()
@@ -181,11 +352,11 @@ namespace SpellingBlocks.Controllers
             {
                 for (int jj = 0; jj < PlayFieldWidth; jj++)
                 {
-                   if(CurrentLetter2DArray[jj, ii].Value != '0')
+                    if (CurrentLetter2DArray[jj, ii].Value != '0')
                     {
-                        spriteBatch.Draw(gameContent.spriteA, new Rectangle((int)CurrentLetter2DArray[jj, ii].Position.X + 12, 
+                        spriteBatch.Draw(gameContent.spriteA, new Rectangle((int)CurrentLetter2DArray[jj, ii].Position.X + 12,
                             (int)CurrentLetter2DArray[jj, ii].Position.Y + 12, 12, 12), Color.Red);
-                        
+
                     }
                 }
             }

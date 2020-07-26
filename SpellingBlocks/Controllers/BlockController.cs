@@ -38,7 +38,7 @@ namespace SpellingBlocks.Controllers
         private int CategoryIndex { get; set; }
         public bool IsWinner { get; set; }
 
-        public BlockController(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
+        public BlockController(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
             BackGround = gameContent.spellingblocksbackground;
@@ -102,8 +102,10 @@ namespace SpellingBlocks.Controllers
 
             for (int ii = 0; ii < AllWords.WordsLists[CategoryIndex][CurrentWordIndex].Value.Count(); ii++)
             {
-                block = new Block(blockPosX, blockPosY, '0', gameContent.emptySprite, spriteBatch, gameContent);
-                block.IsEmptyBlock = true;
+                block = new Block(blockPosX, blockPosY, '0', gameContent.emptySprite, spriteBatch, gameContent)
+                {
+                    IsEmptyBlock = true
+                };
                 EmptyList.Add(block);
                 blockPosX += 64 + 16;
             }
@@ -224,13 +226,17 @@ namespace SpellingBlocks.Controllers
                 tmpPosition = allBlockList[selectedIndex].Position;
                 tmpHitBox = allBlockList[selectedIndex].HitBox;
 
-                selectBlock = new Block(allBlockList[selectedIndex]);
-                selectBlock.Position = allBlockList[selectedIndex2].Position;
-                selectBlock.HitBox = allBlockList[selectedIndex2].HitBox;
+                selectBlock = new Block(allBlockList[selectedIndex])
+                {
+                    Position = allBlockList[selectedIndex2].Position,
+                    HitBox = allBlockList[selectedIndex2].HitBox
+                };
 
-                selectBlock0 = new Block(allBlockList[selectedIndex2]);
-                selectBlock0.Position = tmpPosition;
-                selectBlock0.HitBox = tmpHitBox;
+                selectBlock0 = new Block(allBlockList[selectedIndex2])
+                {
+                    Position = tmpPosition,
+                    HitBox = tmpHitBox
+                };
 
                 allBlockList[selectedIndex] = selectBlock0;
                 allBlockList[selectedIndex2] = selectBlock;
