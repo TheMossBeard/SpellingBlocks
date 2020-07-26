@@ -65,17 +65,17 @@ namespace SpellingBlocks.Controllers
             if (HitTest(ButtonNature.HitBox, touchBox))
             {
                 state = GameState.WordSearchNature;
-                wordSearch.CreateWordSearch(spriteBatch, gameContent);
+                wordSearch.CreateWordSearch(spriteBatch, gameContent, state);
             }
             else if (HitTest(ButtonAnimals.HitBox, touchBox))
             {
                 state = GameState.WordSearchAnimal;
-                wordSearch.CreateWordSearch(spriteBatch, gameContent);
+                wordSearch.CreateWordSearch(spriteBatch, gameContent, state);
             }
             else if (HitTest(ButtonMachines.HitBox, touchBox))
             {
                 state = GameState.WordSearchMachines;
-                wordSearch.CreateWordSearch(spriteBatch, gameContent);
+                wordSearch.CreateWordSearch(spriteBatch, gameContent, state);
             }
             return state;
         }

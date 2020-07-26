@@ -5,10 +5,12 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Database.Sqlite;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Javax.Net.Ssl;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,10 +29,26 @@ namespace SpellingBlocks.Controllers
         private int PlayFieldWidth { get; set; }
         private int PlayFieldHeight { get; set; }
 
+        const int WORD_COUNT = 7;
+
+        private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
+        "insect", "bug", "smore", "fishing", "snow", "sunset", "sunrise"};
+        private string[] animalWords = { "horse", "dog", "cat", "zebra", "tiger", "lion", "bear", "rat", "mouse", "elk", "deer", "moose",
+        "cow", "bobcat", "monkey", "snake", "eagle", "hawk", "owl", "crow", "buffalo"};
+        private string[] machineWords = { "car", "truck", "train", "fuel", "gear", "tire", "wrench", "airplane", "tractor", "diesel",
+            "boat", "ship", "hose", "funnel", "bike", "wheel", "basket", "shovel", "axe" };
+        private List<string[]> CategoryWordList { get; set; }
+
         public WordSearchController(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
             this.gameContent = gameContent;
+
+            CategoryWordList = new List<string[]>();
+            CategoryWordList.Add(natureWords);
+            CategoryWordList.Add(animalWords);
+            CategoryWordList.Add(machineWords);
+
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
             LetterList = new List<SearchLetter>();
@@ -52,8 +70,28 @@ namespace SpellingBlocks.Controllers
             }
         }
 
-        public void CreateWordSearch(SpriteBatch spriteBatch, GameContent gameContent)
+        public void CreateWordSearch(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
         {
+            int categoryIndex = 0;
+            switch (state)
+            {
+                case GameState.WordSearchNature:
+                    {
+                        categoryIndex = 0;
+                        break;
+                    }
+                case GameState.WordSearchAnimal:
+                    {
+                        categoryIndex = 1;
+                        break;
+                    }
+                case GameState.WordSearchMachines:
+                    {
+                        categoryIndex = 2;
+                        break;
+                    }
+            }
+
             Random rand = new Random();
             SearchLetter letter;
             PlayFieldWidth = 10;
@@ -77,13 +115,38 @@ namespace SpellingBlocks.Controllers
                 }
                 positionY += 64;
             }
-            PositionWords(spriteBatch, gameContent, "snake");
-            PositionWords(spriteBatch, gameContent, "bear");
-            PositionWords(spriteBatch, gameContent, "eagle");
-            PositionWords(spriteBatch, gameContent, "zebra");
-            PositionWords(spriteBatch, gameContent, "dog");
-            PositionWords(spriteBatch, gameContent, "donkey");
-            PositionWords(spriteBatch, gameContent, "deer");
+            //this could be a function////////////////////////////////
+            List<int> randNums = new List<int>();
+            randNums.Add(rand.Next(0, CategoryWordList[categoryIndex].Length - 1));
+            for (int ii = 1; ii < WORD_COUNT; ii++)
+            {
+                bool check = true;
+                int tmp = rand.Next(0, CategoryWordList[categoryIndex].Length - 1);
+                while (check)
+                {
+                    for (int jj = 0; jj < randNums.Count; jj++)
+                    {
+                        if (tmp != randNums[jj])
+                        {
+                            check = false;
+                        }
+                        else
+                        {
+                            check = true;
+                            jj = randNums.Count;
+                        }
+                    }
+
+                    if(check)
+                        tmp = rand.Next(0, CategoryWordList[categoryIndex].Length - 1);
+                }
+                randNums.Add(tmp);
+            }
+            /////////////////////////////////////////////////////////
+            for (int ii = 0; ii < WORD_COUNT; ii++)
+            {
+                PositionWords(spriteBatch, gameContent, CategoryWordList[categoryIndex][randNums[ii]]);
+            }
         }
 
         public void PositionWords(SpriteBatch spriteBatch, GameContent gameContent, string word)
