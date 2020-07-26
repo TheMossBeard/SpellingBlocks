@@ -242,10 +242,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX, cordY - ii].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX, cordY - ii].Value != '0')
+                            if (CurrentLetter2DArray[cordX, cordY - ii].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX, cordY - ii].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -254,10 +254,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX + ii, cordY].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX + ii, cordY].Value != '0')
+                            if (CurrentLetter2DArray[cordX + ii, cordY].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX + ii, cordY].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -266,10 +266,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX, cordY + ii].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX, cordY + ii].Value != '0')
+                            if (CurrentLetter2DArray[cordX, cordY + ii].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX, cordY + ii].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -278,10 +278,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX - ii, cordY].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX - ii, cordY].Value != '0')
+                            if (CurrentLetter2DArray[cordX - ii, cordY].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX - ii, cordY].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -290,10 +290,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX + ii, cordY - ii].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX + ii, cordY - ii].Value != '0')
+                            if (CurrentLetter2DArray[cordX + ii, cordY - ii].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX + ii, cordY - ii].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -302,10 +302,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX - ii, cordY - ii].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX - ii, cordY - ii].Value != '0')
+                            if (CurrentLetter2DArray[cordX - ii, cordY - ii].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX - ii, cordY - ii].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -314,10 +314,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX - ii, cordY + ii].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX - ii, cordY + ii].Value != '0')
+                            if (CurrentLetter2DArray[cordX - ii, cordY + ii].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX - ii, cordY + ii].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
@@ -326,10 +326,10 @@ namespace SpellingBlocks.Controllers
                     {
                         for (int ii = 0; ii < word.Length; ii++)
                         {
-                            if (CurrentLetter2DArray[cordX + ii, cordY + ii].Value != word[ii] &&
-                                CurrentLetter2DArray[cordX + ii, cordY + ii].Value != '0')
+                            if (CurrentLetter2DArray[cordX + ii, cordY + ii].Value != '0')
                             {
-                                return false;
+                                if (CurrentLetter2DArray[cordX + ii, cordY + ii].Value != word[ii])
+                                    return false;
                             }
                         }
                         return true;
