@@ -60,7 +60,6 @@ namespace SpellingBlocks.Controllers
             PlayFieldHeight = 8;
             int positionY = 40;
             int random;
-           // string word = "snake";
 
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
@@ -178,7 +177,7 @@ namespace SpellingBlocks.Controllers
                         }
                         fail = false;
                     }
-                }/////////////////////////////////////////////////
+                }
                 if (up_right && fail && randomDirection == 1)
                 {
                     if (CheckPlacement(cordX, cordY, word, 4))

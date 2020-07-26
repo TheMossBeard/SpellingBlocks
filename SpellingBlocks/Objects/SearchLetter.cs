@@ -29,18 +29,13 @@ namespace SpellingBlocks.Objects
 
         public SearchLetter(char value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
         {
-           // XPosition = x;
-           // YPosition = y;
-           // Position = new Vector2(x, y);
-           // HitBox = new Rectangle((int)Position.X, (int)Position.Y, 32, 32);
             Value = value;
             IsSelected = false;
             this.spriteBatch = spriteBatch;
             Sprite = sprite;
             Color = Color.White;
         }
-
-
+        //need to impliment HITBOX for selecting...
         public SearchLetter(SearchLetter letter)
         {
             Value = letter.Value;

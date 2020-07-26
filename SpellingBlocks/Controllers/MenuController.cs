@@ -57,7 +57,7 @@ namespace SpellingBlocks.Controllers
             }
             else if (HitTest(ButtonWordSearch.HitBox, touchBox))
             {
-                state = GameState.WordSearch;
+                state = GameState.CategoryWord;
             }
             return state;
         }

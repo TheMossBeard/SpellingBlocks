@@ -24,13 +24,13 @@ namespace SpellingBlocks.Objects
         public SpriteBatch spriteBatch { get; set; }
         public List<Vector2> PositionList { get; set; }
         public List<List<Vector2>> ToDrawList { get; set; }
-        Vector2 pointA;
-        Vector2 pointB;
-        Vector2 deltaVector;
-        float distance;
-        Vector2 direction;
-        Vector2 newPoint;
 
+        private Vector2 pointA;
+        private Vector2 pointB;
+        private Vector2 deltaVector;
+        private Vector2 direction;
+        private Vector2 newPoint;
+        private float distance;
 
         public Drawing(SpriteBatch spriteBatch, GameContent gameContent)
         {

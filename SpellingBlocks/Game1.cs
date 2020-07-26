@@ -20,8 +20,10 @@ namespace SpellingBlocks
         SpellingBlocksAnimals,
         SpellingBlocksMachines,
         Tracing,
-        WordSearch
-            
+        WordSearchNature,
+        WordSearchAnimal,
+        WordSearchMachines, 
+        CategoryWord
     }
 
 
@@ -60,7 +62,6 @@ namespace SpellingBlocks
 
         protected override void LoadContent()
         {
-
             state = new GameState();
             state = GameState.MainMenu;
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -70,10 +71,9 @@ namespace SpellingBlocks
             winnerBlocks = new Winner(spriteBatch, gameContent);
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
+            
             trace = new TracingController(spriteBatch, gameContent);
             wordSearch = new WordSearchController(spriteBatch, gameContent);
-            wordSearch.CreateWordSearch(spriteBatch, gameContent);
-
         }
 
         protected override void UnloadContent()
@@ -106,16 +106,38 @@ namespace SpellingBlocks
                 case GameState.Tracing:
                     UpdateTracing(gameTime);
                     break;
-                case GameState.WordSearch:
-                    UpdateTracing(gameTime);
+                case GameState.WordSearchNature:
+                    UpdateWordSearch(gameTime);
+                    break;
+                case GameState.WordSearchAnimal:
+                    UpdateWordSearch(gameTime);
+                    break;
+                case GameState.WordSearchMachines:
+                    UpdateWordSearch(gameTime);
+                    break;
+                case GameState.CategoryWord:
+                    UpdateWordCategory(gameTime); 
                     break;
             }
 
         }
+        public void UpdateWordCategory(GameTime gameTime)
+        {
+            var touchPanelState = TouchPanel.GetState();
+            foreach (var touch in touchPanelState)
+            {
+                if (touch.State == TouchLocationState.Pressed)
+                {
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                    state = category.UpdateSearch(touchBox, gameContent, wordSearch, state);
+                }
+            }
+        }
 
         public void UpdateWordSearch(GameTime gameTime)
         {
-
+            //wordsearch update here
         }
 
         public void UpdateTracing(GameTime gameTime)
@@ -143,7 +165,6 @@ namespace SpellingBlocks
                 }
             }
         }
-
 
         public void UpdateCategory(GameTime gameTime)
         {
@@ -217,10 +238,27 @@ namespace SpellingBlocks
                 case GameState.Tracing:
                     DrawTracing(gameTime);
                     break;
-                case GameState.WordSearch:
+                case GameState.WordSearchNature:
                     DrawWordSearch(gameTime);
                     break;
+                case GameState.WordSearchAnimal:
+                    DrawWordSearch(gameTime);
+                    break;
+                case GameState.WordSearchMachines:
+                    DrawWordSearch(gameTime);
+                    break;
+                case GameState.CategoryWord:
+                    DrawCategory(gameTime); 
+                    break;
             }
+        }
+
+        public void DrawWordCategory(GameTime gameTime)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
+            category.Draw();
+            spriteBatch.End();
         }
 
         public void DrawWordSearch(GameTime gameTime)

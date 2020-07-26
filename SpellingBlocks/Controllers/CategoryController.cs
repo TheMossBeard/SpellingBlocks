@@ -60,6 +60,26 @@ namespace SpellingBlocks.Controllers
             return state;
         }
 
+        public GameState UpdateSearch(Rectangle touchBox, GameContent gameContent, WordSearchController wordSearch, GameState state)
+        {
+            if (HitTest(ButtonNature.HitBox, touchBox))
+            {
+                state = GameState.WordSearchNature;
+                wordSearch.CreateWordSearch(spriteBatch, gameContent);
+            }
+            else if (HitTest(ButtonAnimals.HitBox, touchBox))
+            {
+                state = GameState.WordSearchAnimal;
+                wordSearch.CreateWordSearch(spriteBatch, gameContent);
+            }
+            else if (HitTest(ButtonMachines.HitBox, touchBox))
+            {
+                state = GameState.WordSearchMachines;
+                wordSearch.CreateWordSearch(spriteBatch, gameContent);
+            }
+            return state;
+        }
+
         public bool HitTest(Rectangle r1, Rectangle r2)
         {
             if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
