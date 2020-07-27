@@ -26,6 +26,7 @@ namespace SpellingBlocks.Objects
         public Texture2D Sprite { get; set; }
         public Color Color { get; set; }
         private SpriteBatch spriteBatch { get; set; }
+        public float Size { get; set; }
 
         public SearchLetter(char value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
         {
@@ -34,6 +35,7 @@ namespace SpellingBlocks.Objects
             this.spriteBatch = spriteBatch;
             Sprite = sprite;
             Color = Color.White;
+            Size = 1f;
         }
         //need to impliment HITBOX for selecting...
         public SearchLetter(SearchLetter letter)
@@ -43,12 +45,13 @@ namespace SpellingBlocks.Objects
             this.spriteBatch = letter.spriteBatch;
             Sprite = letter.Sprite;
             Color = Color.White;
+            Size = 1f;
         }
 
         public void Draw()
         {
             spriteBatch.Draw(Sprite, Position, null, Color, 0,
-                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+                new Vector2(0, 0), Size, SpriteEffects.None, 0);
         }
     }
 }

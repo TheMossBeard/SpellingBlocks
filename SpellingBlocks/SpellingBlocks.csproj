@@ -90,6 +90,7 @@
     <Compile Include="Objects\Drawing.cs" />
     <Compile Include="Objects\LetterValue.cs" />
     <Compile Include="Objects\MenuButton.cs" />
+    <Compile Include="Objects\SearchBox.cs" />
     <Compile Include="Objects\SearchLetter.cs" />
     <Compile Include="Objects\Winner.cs" />
     <Compile Include="Objects\Word.cs" />

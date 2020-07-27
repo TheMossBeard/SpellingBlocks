@@ -28,6 +28,7 @@ namespace SpellingBlocks.Controllers
         public GameContent gameContent { get; set; }
         private int PlayFieldWidth { get; set; }
         private int PlayFieldHeight { get; set; }
+        public SearchBox WordBox { get; set; }
 
         const int WORD_COUNT = 7;
 
@@ -48,6 +49,8 @@ namespace SpellingBlocks.Controllers
             CategoryWordList.Add(natureWords);
             CategoryWordList.Add(animalWords);
             CategoryWordList.Add(machineWords);
+
+            WordBox = new SearchBox(spriteBatch, gameContent);
 
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
@@ -97,11 +100,12 @@ namespace SpellingBlocks.Controllers
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
             int positionY = 40;
+            int positionX = 300; //was 200 for centered
             int random;
 
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
-                int positionX = 200;
+                positionX = 300;
                 for (int jj = 0; jj < PlayFieldWidth; jj++)
                 {
                     random = rand.Next(0, 25);
@@ -115,38 +119,57 @@ namespace SpellingBlocks.Controllers
                 }
                 positionY += 64;
             }
-            //this could be a function////////////////////////////////
-            List<int> randNums = new List<int>();
-            randNums.Add(rand.Next(0, CategoryWordList[categoryIndex].Length - 1));
+
+            List<int> randomWordIndexList = new List<int>();
+            randomWordIndexList = GetWords(categoryIndex);
+
+            positionY = 144;
+            for (int ii = 0; ii < WORD_COUNT; ii++)
+            {
+                PositionWords(spriteBatch, gameContent, CategoryWordList[categoryIndex][randomWordIndexList[ii]]);
+                string word = CategoryWordList[categoryIndex][randomWordIndexList[ii]];
+                List<SearchLetter> boxWord = new List<SearchLetter>();
+                positionX = 0;
+                for(int jj = 0; jj < word.Length; jj++)
+                {
+                    SearchLetter boxLetter = FindLetter(spriteBatch, gameContent, word[jj]);
+                    boxLetter.Position = new Vector2(positionX, positionY);
+                    boxLetter.Size = .5f;
+                    boxWord.Add(boxLetter);
+                    positionX += 32;
+                }
+                WordBox.DisplayList.Add(boxWord);
+                positionY += 40;
+            }
+        }
+
+        public List<int> GetWords(int categoryIndex)
+        {
+            Random rand = new Random();
+            List<int> list = new List<int>();
+            list.Add(rand.Next(0, CategoryWordList[categoryIndex].Length - 1));
             for (int ii = 1; ii < WORD_COUNT; ii++)
             {
                 bool check = true;
                 int tmp = rand.Next(0, CategoryWordList[categoryIndex].Length - 1);
                 while (check)
                 {
-                    for (int jj = 0; jj < randNums.Count; jj++)
+                    for (int jj = 0; jj < list.Count; jj++)
                     {
-                        if (tmp != randNums[jj])
-                        {
+                        if (tmp != list[jj])
                             check = false;
-                        }
                         else
                         {
                             check = true;
-                            jj = randNums.Count;
+                            jj = list.Count;
                         }
                     }
-
-                    if(check)
+                    if (check)
                         tmp = rand.Next(0, CategoryWordList[categoryIndex].Length - 1);
                 }
-                randNums.Add(tmp);
+                list.Add(tmp);
             }
-            /////////////////////////////////////////////////////////
-            for (int ii = 0; ii < WORD_COUNT; ii++)
-            {
-                PositionWords(spriteBatch, gameContent, CategoryWordList[categoryIndex][randNums[ii]]);
-            }
+            return list;
         }
 
         public void PositionWords(SpriteBatch spriteBatch, GameContent gameContent, string word)
@@ -402,6 +425,7 @@ namespace SpellingBlocks.Controllers
 
         public void Draw()
         {
+            WordBox.Draw();
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
                 for (int jj = 0; jj < PlayFieldWidth; jj++)
@@ -410,18 +434,18 @@ namespace SpellingBlocks.Controllers
                 }
             }
             //this is temporary, find word cheat
-            for (int ii = 0; ii < PlayFieldHeight; ii++)
-            {
-                for (int jj = 0; jj < PlayFieldWidth; jj++)
-                {
-                    if (CurrentLetter2DArray[jj, ii].Value != '0')
-                    {
-                        spriteBatch.Draw(gameContent.spriteA, new Rectangle((int)CurrentLetter2DArray[jj, ii].Position.X + 12,
-                            (int)CurrentLetter2DArray[jj, ii].Position.Y + 12, 12, 12), Color.Red);
+            //for (int ii = 0; ii < PlayFieldHeight; ii++)
+            //{
+            //    for (int jj = 0; jj < PlayFieldWidth; jj++)
+            //    {
+            //        if (CurrentLetter2DArray[jj, ii].Value != '0')
+            //        {
+            //            spriteBatch.Draw(gameContent.spriteA, new Rectangle((int)CurrentLetter2DArray[jj, ii].Position.X + 12,
+            //                (int)CurrentLetter2DArray[jj, ii].Position.Y + 12, 12, 12), Color.Red);
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
         }
 
         public SearchLetter FindLetter(SpriteBatch spriteBatch, GameContent gameContent, char value)
