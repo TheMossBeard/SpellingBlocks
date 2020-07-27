@@ -137,7 +137,27 @@ namespace SpellingBlocks
 
         public void UpdateWordSearch(GameTime gameTime)
         {
-            //wordsearch update here
+            var touchPanelState = TouchPanel.GetState();
+            foreach (var touch in touchPanelState)
+            {
+                Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                if (touch.State == TouchLocationState.Pressed)
+                {
+                    //trace.ArrowButton(touchBox);
+                    //trace.ArrowButtonBack(touchBox);
+                    //trace.ClearButtonClick(touchBox);
+                    //state = trace.HomeButtonUpdate(touchBox, state);
+                }
+                else if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
+                {
+                    wordSearch.Touch(touchBox, gameContent, spriteBatch);
+                }
+                if (touch.State == TouchLocationState.Released)
+                {
+                    wordSearch.Release();
+                }
+            }
         }
 
         public void UpdateTracing(GameTime gameTime)

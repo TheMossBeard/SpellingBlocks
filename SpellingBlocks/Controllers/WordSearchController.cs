@@ -30,6 +30,8 @@ namespace SpellingBlocks.Controllers
         private int PlayFieldHeight { get; set; }
         public SearchBox WordBox { get; set; }
 
+        public Drawing Drawable { get; set; }
+
         const int WORD_COUNT = 7;
 
         private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
@@ -51,6 +53,7 @@ namespace SpellingBlocks.Controllers
             CategoryWordList.Add(machineWords);
 
             WordBox = new SearchBox(spriteBatch, gameContent);
+            Drawable = new Drawing(spriteBatch, gameContent);
 
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
@@ -423,6 +426,17 @@ namespace SpellingBlocks.Controllers
             return true;
         }
 
+        public void Touch(Rectangle touchBox, GameContent gameContent, SpriteBatch spriteBatch)
+        {
+            Drawable.DrawUpdate(touchBox, gameContent, spriteBatch);
+        }
+
+        public void Release()
+        {
+            Drawable.NewDraw();
+            //Drawable.Clear();
+        }
+
         public void Draw()
         {
             WordBox.Draw();
@@ -433,19 +447,7 @@ namespace SpellingBlocks.Controllers
                     CurrentLetter2DArray[jj, ii].Draw();
                 }
             }
-            //this is temporary, find word cheat
-            //for (int ii = 0; ii < PlayFieldHeight; ii++)
-            //{
-            //    for (int jj = 0; jj < PlayFieldWidth; jj++)
-            //    {
-            //        if (CurrentLetter2DArray[jj, ii].Value != '0')
-            //        {
-            //            spriteBatch.Draw(gameContent.spriteA, new Rectangle((int)CurrentLetter2DArray[jj, ii].Position.X + 12,
-            //                (int)CurrentLetter2DArray[jj, ii].Position.Y + 12, 12, 12), Color.Red);
-
-            //        }
-            //    }
-            //}
+            Drawable.Draw();
         }
 
         public SearchLetter FindLetter(SpriteBatch spriteBatch, GameContent gameContent, char value)
