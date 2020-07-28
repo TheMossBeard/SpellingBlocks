@@ -37,7 +37,6 @@ namespace SpellingBlocks.Objects
             Color = Color.White;
             Size = 1f;
         }
-        //need to impliment HITBOX for selecting...
         public SearchLetter(SearchLetter letter)
         {
             Value = letter.Value;

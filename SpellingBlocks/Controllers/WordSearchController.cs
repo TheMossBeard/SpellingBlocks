@@ -133,7 +133,7 @@ namespace SpellingBlocks.Controllers
                 string word = CategoryWordList[categoryIndex][randomWordIndexList[ii]];
                 List<SearchLetter> boxWord = new List<SearchLetter>();
                 positionX = 0;
-                for(int jj = 0; jj < word.Length; jj++)
+                for (int jj = 0; jj < word.Length; jj++)
                 {
                     SearchLetter boxLetter = FindLetter(spriteBatch, gameContent, word[jj]);
                     boxLetter.Position = new Vector2(positionX, positionY);
@@ -173,6 +173,23 @@ namespace SpellingBlocks.Controllers
                 list.Add(tmp);
             }
             return list;
+        }
+
+        public void DrawSelection(SpriteBatch spriteBatch, GameContent gameContent, Rectangle touchBox)
+        {
+            foreach (SearchLetter letter in CurrentLetter2DArray)
+            {
+                if (HitTest(letter.HitBox, touchBox))
+                    letter.IsSelected = true;
+            }
+        }
+
+        public bool HitTest(Rectangle r1, Rectangle r2)
+        {
+            if (Rectangle.Intersect(r1, r2) != Rectangle.Empty)
+                return true;
+            else
+                return false;
         }
 
         public void PositionWords(SpriteBatch spriteBatch, GameContent gameContent, string word)
@@ -223,6 +240,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX, cordY - ii].Position;
+                            letter.HitBox = new Rectangle(cordX + 8, cordY + 8, 32, 32);
                             CurrentLetter2DArray[cordX, cordY - ii] = letter;
                         }
                         fail = false;
@@ -236,6 +254,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX + ii, cordY].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX + ii, cordY] = letter;
                         }
                         fail = false;
@@ -249,6 +268,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX, cordY + ii].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX, cordY + ii] = letter;
                         }
                         fail = false;
@@ -262,6 +282,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX - ii, cordY].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX - ii, cordY] = letter;
                         }
                         fail = false;
@@ -275,6 +296,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX + ii, cordY - ii].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX + ii, cordY - ii] = letter;
                         }
                         fail = false;
@@ -288,6 +310,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX - ii, cordY - ii].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX - ii, cordY - ii] = letter;
                         }
                         fail = false;
@@ -301,6 +324,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX - ii, cordY + ii].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX - ii, cordY + ii] = letter;
                         }
                         fail = false;
@@ -314,6 +338,7 @@ namespace SpellingBlocks.Controllers
                         {
                             letter = FindLetter(spriteBatch, gameContent, word[ii]);
                             letter.Position = CurrentLetter2DArray[cordX + ii, cordY + ii].Position;
+                            letter.HitBox = new Rectangle((int)letter.Position.X + 8, (int)letter.Position.Y + 8, 32, 32);
                             CurrentLetter2DArray[cordX + ii, cordY + ii] = letter;
                         }
                         fail = false;
@@ -431,10 +456,43 @@ namespace SpellingBlocks.Controllers
             Drawable.DrawUpdate(touchBox, gameContent, spriteBatch);
         }
 
-        public void Release()
+        public void Release() //this is bullshit
         {
-            Drawable.NewDraw();
-            //Drawable.Clear();
+            List<SearchLetter> selectedList = new List<SearchLetter>();
+            SearchLetter selectedLeter;
+            foreach (SearchLetter letter in CurrentLetter2DArray)
+            {
+                if (letter.IsSelected)
+                {
+                    selectedLeter = letter;
+                    selectedList.Add(letter);
+                }
+            }
+            for (int ii = 0; ii < WordBox.DisplayList.Count; ii++)
+            {
+                bool isWord = true;
+                for (int jj = 0; jj < selectedList.Count; jj++)
+                {
+                    if (selectedList.Count == WordBox.DisplayList[ii].Count)
+                    {
+                        if (WordBox.DisplayList[ii][jj].Value != selectedList[jj].Value)
+                            isWord = false;
+                    }
+                    else
+                        isWord = false;
+                }
+                if (isWord)
+                {
+                    Drawable.NewDraw();
+                    ii = WordBox.DisplayList.Count;
+                }
+                else
+                    Drawable.Clear();
+            }
+
+
+
+
         }
 
         public void Draw()
