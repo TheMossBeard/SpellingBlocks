@@ -92,6 +92,7 @@
     <Compile Include="Objects\MenuButton.cs" />
     <Compile Include="Objects\SearchBox.cs" />
     <Compile Include="Objects\SearchLetter.cs" />
+    <Compile Include="Objects\SearchWord.cs" />
     <Compile Include="Objects\Winner.cs" />
     <Compile Include="Objects\Word.cs" />
     <Compile Include="Objects\Words.cs" />

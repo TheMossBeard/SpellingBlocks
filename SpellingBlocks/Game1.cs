@@ -151,12 +151,12 @@ namespace SpellingBlocks
                 }
                 else if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
                 {
-                    wordSearch.Touch(touchBox, gameContent, spriteBatch);
-                    wordSearch.DrawSelection(spriteBatch, gameContent, touchBox);
+                   // wordSearch.Touch(touchBox, gameContent, spriteBatch);
+                  //  wordSearch.DrawSelection(spriteBatch, gameContent, touchBox);
                 }
                 if (touch.State == TouchLocationState.Released)
                 {
-                    wordSearch.Release();
+                  //  wordSearch.Release();
                 }
             }
         }
