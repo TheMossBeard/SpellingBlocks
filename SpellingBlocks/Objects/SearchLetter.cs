@@ -17,8 +17,6 @@ namespace SpellingBlocks.Objects
 {
     class SearchLetter
     {
-        public float XPosition { get; set; }
-        public float YPosition { get; set; }
         public Rectangle HitBox { get; set; }
         public Vector2 Position { get; set; }
         public char Value { get; set; }
@@ -34,7 +32,17 @@ namespace SpellingBlocks.Objects
             IsSelected = false;
             this.spriteBatch = spriteBatch;
             Sprite = FindLetterSprite(value, gameContent);
-            Color = Color.White;            
+            Color = Color.White;
+        }
+
+        public SearchLetter(char value, Vector2 position, SpriteBatch spriteBatch, GameContent gameContent)
+        {
+            Value = value;
+            IsSelected = false;
+            this.spriteBatch = spriteBatch;
+            Sprite = FindLetterSprite(value, gameContent);
+            Color = Color.White;
+            Position = position;
         }
 
         public void SetLetterPosition(Vector2 position, bool word)

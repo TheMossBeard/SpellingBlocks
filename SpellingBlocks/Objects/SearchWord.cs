@@ -22,9 +22,10 @@ namespace SpellingBlocks.Objects
         Down,
         Left,
         Up_Right,
-        Up_Left,
+        Down_Right,
         Down_Left,
-        Down_Right
+        Up_Left,
+        Box
     }
 
     class SearchWord
@@ -37,16 +38,44 @@ namespace SpellingBlocks.Objects
             this.spriteBatch = spriteBatch;
             Word = new List<SearchLetter>();
             SearchLetter letter;
-            foreach(char c in word)
+            foreach (char c in word)
             {
                 letter = new SearchLetter(c, spriteBatch, gameContent);
                 Word.Add(letter);
             }
         }
 
-        public void SetWordPosition(List<SearchLetter> word, Vector2 position, WordDirection dir)
+        public void SetWordPosition(SearchWord word, Vector2 position, WordDirection dir)
         {
-            //call searchletter SetLetterPOsition
+            switch (dir)
+            {
+                case WordDirection.Box:
+                    {
+                        int positionX = 0;
+                        foreach (SearchLetter l in word.Word)
+                        {
+                            l.Position = new Vector2(positionX, position.Y);
+                            positionX += 38;
+                        }
+                        break;
+                    }
+            }
+        }
+
+        public void SetSpriteSize(SearchWord word)
+        {
+            foreach (SearchLetter l in word.Word)
+            {
+                l.Size = .5f;
+            }
+        }
+
+        public void Draw()
+        {
+            foreach (SearchLetter letter in Word)
+            {
+                letter.Draw();
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace SpellingBlocks.Objects
 {
     class SearchBox
     {
-        public List<List<SearchLetter>> DisplayList { get; set; }
+        public List<SearchWord> DisplayList { get; set; }
 
         private SpriteBatch spriteBatch { get; set; }
 
@@ -26,19 +26,17 @@ namespace SpellingBlocks.Objects
         public SearchBox(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
-            Sprite = gameContent.categoryBackground;
-
-            DisplayList = new List<List<SearchLetter>>();
-            
+            DisplayList = new List<SearchWord>();
         }
 
         public void Draw()
         {
-            for(int ii = 0; ii < DisplayList.Count; ii++)
+            for (int ii = 0; ii < DisplayList.Count; ii++)
             {
-                foreach(SearchLetter letter in DisplayList[ii])
+                foreach (SearchWord word in DisplayList)
                 {
-                    letter.Draw();
+                    word.SetSpriteSize(word);
+                    word.Draw();
                 }
             }
         }
