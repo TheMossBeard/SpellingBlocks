@@ -122,7 +122,12 @@ namespace SpellingBlocks.Controllers
                 WordBox.DisplayList.Add(word);
                 pos = new Vector2(0, pos.Y += 64);
             }
-            //got wordbox correct, play board is full, need to check for word positions and set them etc
+            List<WordDirection> possiblePositions = new List<WordDirection>(); //put all this in a function to check + set positions for all words...have a if(possible.count == 0, re-random etc)
+            pos = GetRandomPosition();
+            possiblePositions = CheckDirections(WordList[0], pos);
+            possiblePositions = CheckPosition(possiblePositions, WordList[0], pos);
+
+            //set positions, random index of possible = enum, switch(enum) set positions
 
 
         }
@@ -207,72 +212,168 @@ namespace SpellingBlocks.Controllers
                 {
                     case WordDirection.Up:
                         {
-                            bool check = true;
-                            for(int ii = 0; ii < word.Word.Count; ii++) //needs work, brain is dead
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
                             {
-                                if (CurrentLetter2DArray[(int)position.X, (int)position.Y + ii].Value != word.Word[ii].Value &&
-                                CurrentLetter2DArray[(int)position.X, (int)position.Y + ii].Value != '0')
-                                    if (CurrentLetter2DArray[(int)position.X, (int)position.Y + ii].Value != '0')
-                                    {
-                                        check = false;
-                                    }
+                                if (CurrentLetter2DArray[(int)position.X, (int)position.Y - ii].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X, (int)position.Y - ii].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
                             }
                             if (check)
                                 positionList.Add(WordDirection.Up);
-
                             break;
                         }
                     case WordDirection.Right:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X + ii, (int)position.Y].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X + ii, (int)position.Y].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Right);
                             break;
                         }
                     case WordDirection.Down:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X, (int)position.Y + ii].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X, (int)position.Y + ii].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Down);
                             break;
                         }
                     case WordDirection.Left:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X - ii, (int)position.Y].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X - ii, (int)position.Y].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Left);
                             break;
                         }
                     case WordDirection.Up_Right:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X + ii, (int)position.Y - ii].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X + ii, (int)position.Y - ii].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Up_Right);
                             break;
                         }
                     case WordDirection.Down_Right:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X + ii, (int)position.Y + ii].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X + ii, (int)position.Y + ii].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Down_Right);
                             break;
                         }
                     case WordDirection.Down_Left:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X - ii, (int)position.Y + ii].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X - ii, (int)position.Y + ii].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Down_Left);
                             break;
                         }
                     case WordDirection.Up_Left:
                         {
-
+                            bool check = false;
+                            for (int ii = 0; ii < word.Word.Count; ii++)
+                            {
+                                if (CurrentLetter2DArray[(int)position.X - ii, (int)position.Y - ii].Value == '0')
+                                    check = true;
+                                else if (CurrentLetter2DArray[(int)position.X - ii, (int)position.Y - ii].Value == word.Word[ii].Value)
+                                    check = true;
+                                else
+                                {
+                                    check = false;
+                                    ii = word.Word.Count;
+                                }
+                            }
+                            if (check)
+                                positionList.Add(WordDirection.Up_Left);
                             break;
                         }
                 }
             }
-
             return positionList;
         }
 
         public Vector2 GetRandomPosition()
         {
             Random rand = new Random();
-            Vector2 random = new Vector2(rand.Next(0, PlayFieldWidth + 1), rand.Next(0, PlayFieldHeight + 1));
+            int randX = rand.Next(0, PlayFieldWidth);
+            int randY = rand.Next(0, PlayFieldHeight);
+            Vector2 random = new Vector2(randX, randY);
             return random;
-        }
-
-        public bool CheckPlacement(int cordX, int cordY, string word, int direction)
-        {
-            return true;
         }
 
         public void Touch(Rectangle touchBox, GameContent gameContent, SpriteBatch spriteBatch)
