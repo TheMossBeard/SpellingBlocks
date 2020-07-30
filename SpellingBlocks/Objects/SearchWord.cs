@@ -30,6 +30,9 @@ namespace SpellingBlocks.Objects
 
     class SearchWord
     {
+        const int BASE_POS_Y = 8;
+        const int BASE_POS_X = 300;
+        const int POS_NEXT = 64;
         public List<SearchLetter> Word { get; set; }
         private SpriteBatch spriteBatch { get; set; }
 
@@ -45,8 +48,10 @@ namespace SpellingBlocks.Objects
             }
         }
 
-        public void SetWordPosition(SearchWord word, Vector2 position, WordDirection dir)
+        public void SetWordPosition(SearchWord word, Vector2 position, WordDirection dir, SearchLetter[,] currentLetterArray)
         {
+            int cordX;
+            int cordY;
             switch (dir)
             {
                 case WordDirection.Box:
@@ -56,6 +61,94 @@ namespace SpellingBlocks.Objects
                         {
                             l.Position = new Vector2(positionX, position.Y);
                             positionX += 38;
+                        }
+                        break;
+                    }
+                case WordDirection.Up:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX, cordY - (ii * POS_NEXT)), true);
+                            currentLetterArray[(int)position.X, (int)position.Y - ii] = word.Word[ii];
+                        }
+                        break;
+                    }
+                case WordDirection.Right:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX + (ii * POS_NEXT), cordY), true);
+                            currentLetterArray[(int)position.X + ii, (int)position.Y] = word.Word[ii];
+                        }
+                        break;
+                    }
+                case WordDirection.Down:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX, cordY + (ii * POS_NEXT)), true);
+                            currentLetterArray[(int)position.X, (int)position.Y + ii] = word.Word[ii];
+                        }
+                        break;
+                    }
+                case WordDirection.Left:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX - (ii * POS_NEXT), cordY), true);
+                            currentLetterArray[(int)position.X - ii, (int)position.Y] = word.Word[ii];
+                        }
+                        break;
+                    }
+                case WordDirection.Up_Right:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX + (ii * POS_NEXT), cordY - (ii * POS_NEXT)), true);
+                            currentLetterArray[(int)position.X + ii, (int)position.Y - ii] = word.Word[ii];
+                        }
+                        break;
+                    }
+                case WordDirection.Down_Right:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX + (ii * POS_NEXT), cordY + (ii * POS_NEXT)), true);
+                            currentLetterArray[(int)position.X + ii, (int)position.Y + ii] = word.Word[ii];
+                        }
+                        break;
+                    }
+                case WordDirection.Down_Left:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX - (ii * POS_NEXT), cordY + (ii * POS_NEXT)), true);
+                            currentLetterArray[(int)position.X - ii, (int)position.Y + ii] = word.Word[ii];//
+                        }
+                        break;
+                    }
+                case WordDirection.Up_Left:
+                    {
+                        cordX = BASE_POS_X + (int)position.X * POS_NEXT;
+                        cordY = BASE_POS_Y + (int)position.Y * POS_NEXT;
+                        for (int ii = 0; ii < word.Word.Count; ii++)
+                        {
+                            word.Word[ii].SetLetterPosition(new Vector2(cordX - (ii * POS_NEXT), cordY - (ii * POS_NEXT)), true);
+                            currentLetterArray[(int)position.X - ii, (int)position.Y - ii] = word.Word[ii];
                         }
                         break;
                     }

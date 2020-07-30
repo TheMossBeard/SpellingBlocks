@@ -72,15 +72,15 @@ namespace SpellingBlocks.Controllers
             int randomIndex;
             int positionY = 8;
 
-            for (int ii = 0; ii < PlayFieldWidth; ii++)
+            for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
                 int positionX = 300;
-                for (int jj = 0; jj < PlayFieldHeight; jj++)
+                for (int jj = 0; jj < PlayFieldWidth; jj++)
                 {
                     randomIndex = random.Next(0, 26);
                     letter = new SearchLetter(letterValueArray[randomIndex], new Vector2(positionX, positionY), spriteBatch, gameContent);
                     letter.Value = '0';
-                    CurrentLetter2DArray[ii, jj] = letter;
+                    CurrentLetter2DArray[jj, ii] = letter;
                     positionX += 64;
                 }
                 positionY += 64;
@@ -113,23 +113,38 @@ namespace SpellingBlocks.Controllers
             List<int> wordIndexList = GetWords(categoryIndex);
             WordList = new List<SearchWord>();
             SearchWord word;
+            SearchWord boxWord;
             Vector2 pos = new Vector2(0, 64);
             foreach (int ii in wordIndexList)
             {
                 word = new SearchWord(CategoryWordList[categoryIndex][ii], spriteBatch, gameContent);
+                boxWord = new SearchWord(CategoryWordList[categoryIndex][ii], spriteBatch, gameContent);
                 WordList.Add(word);
-                word.SetWordPosition(word, pos, WordDirection.Box);
-                WordBox.DisplayList.Add(word);
+                boxWord.SetWordPosition(boxWord, pos, WordDirection.Box, CurrentLetter2DArray);
+                WordBox.DisplayList.Add(boxWord);
                 pos = new Vector2(0, pos.Y += 64);
             }
-            List<WordDirection> possiblePositions = new List<WordDirection>(); //put all this in a function to check + set positions for all words...have a if(possible.count == 0, re-random etc)
-            pos = GetRandomPosition();
-            possiblePositions = CheckDirections(WordList[0], pos);
-            possiblePositions = CheckPosition(possiblePositions, WordList[0], pos);
 
-            //set positions, random index of possible = enum, switch(enum) set positions
+            foreach (SearchWord searchword in WordList)
+            {
+                List<WordDirection> possiblePositions = new List<WordDirection>();
+                pos = GetRandomPosition();
+                possiblePositions = CheckControl(searchword, pos);
+                while (possiblePositions.Count  < 1)
+                {
+                    pos = GetRandomPosition();
+                    possiblePositions = CheckControl(searchword, pos);
+                }
+                SetWord(searchword, pos, possiblePositions, CurrentLetter2DArray);
+            }
+        }
 
-
+        public List<WordDirection> CheckControl(SearchWord word, Vector2 pos)
+        {
+            List<WordDirection> possiblePositions = new List<WordDirection>();
+            possiblePositions = CheckDirections(word, pos);
+            possiblePositions = CheckPosition(possiblePositions, word, pos);
+            return possiblePositions;
         }
 
         public List<int> GetWords(int categoryIndex)
@@ -178,17 +193,24 @@ namespace SpellingBlocks.Controllers
                 return false;
         }
 
+        public void SetWord(SearchWord word, Vector2 position, List<WordDirection> directionList, SearchLetter[,] currentLetterArray)
+        {
+            Random rand = new Random();
+            int option = rand.Next(0, directionList.Count);
+            word.SetWordPosition(word, position, directionList[option], currentLetterArray);
+        }
+
         public List<WordDirection> CheckDirections(SearchWord word, Vector2 position)
         {
             List<WordDirection> directionTrueList = new List<WordDirection>();
 
-            if (position.Y - word.Word.Count >= 0)
+            if (position.Y - word.Word.Count > 0)
                 directionTrueList.Add(WordDirection.Up);
-            if (position.X + word.Word.Count <= PlayFieldWidth)
+            if (position.X + word.Word.Count < PlayFieldWidth) //re count this shit
                 directionTrueList.Add(WordDirection.Right);
-            if (position.Y + word.Word.Count <= PlayFieldHeight)
+            if (position.Y + word.Word.Count < PlayFieldHeight)
                 directionTrueList.Add(WordDirection.Down);
-            if (position.X - word.Word.Count >= 0)
+            if (position.X - word.Word.Count > 0)
                 directionTrueList.Add(WordDirection.Left);
 
             if (directionTrueList.Contains(WordDirection.Up) && directionTrueList.Contains(WordDirection.Right))
@@ -388,11 +410,11 @@ namespace SpellingBlocks.Controllers
         public void Draw()
         {
             WordBox.Draw();
-            for (int ii = 0; ii < PlayFieldHeight; ii++)
+            for (int ii = 0; ii < PlayFieldWidth; ii++)
             {
-                for (int jj = 0; jj < PlayFieldWidth; jj++)
+                for (int jj = 0; jj < PlayFieldHeight; jj++)
                 {
-                    CurrentLetter2DArray[jj, ii].Draw();
+                    CurrentLetter2DArray[ii, jj].Draw();
                 }
             }
             Drawable.Draw();
