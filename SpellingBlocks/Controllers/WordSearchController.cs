@@ -92,6 +92,12 @@ namespace SpellingBlocks.Controllers
 
         public void CreateWordSearch(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
         {
+            CurrentLetter2DArray = new SearchLetter[PlayFieldWidth, PlayFieldHeight];
+            PopulateNonWords(spriteBatch, gameContent);
+            WordList = new List<SearchWord>();
+            List<int> wordIndexList = new List<int>();
+            WordBox = new SearchBox(spriteBatch, gameContent);
+
             int categoryIndex = 0;
             switch (state)
             {
@@ -113,9 +119,8 @@ namespace SpellingBlocks.Controllers
             }
 
             //populate words and wordbox
-            //WordBox = new SearchBox(spriteBatch, gameContent);
-            List<int> wordIndexList = GetWords(categoryIndex);
-            WordList = new List<SearchWord>();
+            wordIndexList = GetWords(categoryIndex);
+            
             SearchWord word;
             SearchWord boxWord;
             Vector2 pos = new Vector2(0, 128);
