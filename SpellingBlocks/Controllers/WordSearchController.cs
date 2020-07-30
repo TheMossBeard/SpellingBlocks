@@ -32,6 +32,7 @@ namespace SpellingBlocks.Controllers
         public SearchBox WordBox { get; set; }
         public List<SearchWord> WordList { get; set; }
         public Drawing Drawable { get; set; }
+        private MenuButton HomeButton { get; set; }
 
         const int WORD_COUNT = 7;
 
@@ -47,6 +48,8 @@ namespace SpellingBlocks.Controllers
         {
             this.spriteBatch = spriteBatch;
             this.gameContent = gameContent;
+
+            HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
 
             CategoryWordList = new List<string[]>();
             CategoryWordList.Add(natureWords);
@@ -110,11 +113,12 @@ namespace SpellingBlocks.Controllers
             }
 
             //populate words and wordbox
+            //WordBox = new SearchBox(spriteBatch, gameContent);
             List<int> wordIndexList = GetWords(categoryIndex);
             WordList = new List<SearchWord>();
             SearchWord word;
             SearchWord boxWord;
-            Vector2 pos = new Vector2(0, 64);
+            Vector2 pos = new Vector2(0, 128);
             foreach (int ii in wordIndexList)
             {
                 word = new SearchWord(CategoryWordList[categoryIndex][ii], spriteBatch, gameContent);
@@ -122,7 +126,7 @@ namespace SpellingBlocks.Controllers
                 WordList.Add(word);
                 boxWord.SetWordPosition(boxWord, pos, WordDirection.Box, CurrentLetter2DArray);
                 WordBox.DisplayList.Add(boxWord);
-                pos = new Vector2(0, pos.Y += 64);
+                pos = new Vector2(0, pos.Y += 48);
             }
 
             foreach (SearchWord searchword in WordList)
@@ -130,7 +134,7 @@ namespace SpellingBlocks.Controllers
                 List<WordDirection> possiblePositions = new List<WordDirection>();
                 pos = GetRandomPosition();
                 possiblePositions = CheckControl(searchword, pos);
-                while (possiblePositions.Count  < 1)
+                while (possiblePositions.Count < 1)
                 {
                     pos = GetRandomPosition();
                     possiblePositions = CheckControl(searchword, pos);
@@ -178,10 +182,13 @@ namespace SpellingBlocks.Controllers
 
         public void DrawSelection(SpriteBatch spriteBatch, GameContent gameContent, Rectangle touchBox)
         {
-            foreach (SearchLetter letter in CurrentLetter2DArray)
+            foreach (SearchWord word in WordList)
             {
-                if (HitTest(letter.HitBox, touchBox))
-                    letter.IsSelected = true;
+                for (int ii = 0; ii < word.Word.Count; ii++)
+                {
+                    if (HitTest(word.Word[ii].HitBox, touchBox))
+                        word.Word[ii].IsSelected = true;
+                }
             }
         }
 
@@ -405,6 +412,55 @@ namespace SpellingBlocks.Controllers
 
         public void Release()
         {
+            if (CheckSelected())
+                Drawable.NewDraw();
+            else
+                Drawable.ClearCurrentDraw();
+        }
+
+        public bool CheckSelected()
+        {
+            bool check = false;
+            foreach (SearchWord word in WordList)
+            {
+                if (word.WordIsSelected(word))
+                {
+                    check = true;
+                    List<char> wordValues = word.GetValues(word);
+                    for(int ii = 0; ii < WordBox.DisplayList.Count; ii++)
+                    {
+                        List<char> boxValues = WordBox.DisplayList[ii].GetValues(WordBox.DisplayList[ii]);
+                        bool equal = true;
+                        if(boxValues.Count == wordValues.Count)
+                        {
+                            for(int jj = 0; jj < boxValues.Count; jj++)
+                            {
+                                if (boxValues[jj] != wordValues[jj])
+                                {
+                                    jj = wordValues.Count;
+                                    equal = false;
+                                }
+                            }
+                            if(equal)
+                                WordBox.DisplayList.RemoveAt(ii);
+
+                        }
+                    }
+                }
+            }
+            foreach(SearchWord word in WordList)
+            {
+                word.RefershSelected(word);
+            }
+            return check; ;
+        }
+
+        public GameState HomeButtonUpdate(Rectangle touchBox, GameState state)
+        {
+            if (HitTest(HomeButton.HitBox, touchBox))
+                state = GameState.MainMenu;
+
+            return state;
         }
 
         public void Draw()
@@ -417,6 +473,7 @@ namespace SpellingBlocks.Controllers
                     CurrentLetter2DArray[ii, jj].Draw();
                 }
             }
+            HomeButton.Draw();
             Drawable.Draw();
         }
     }

@@ -145,18 +145,16 @@ namespace SpellingBlocks
                 if (touch.State == TouchLocationState.Pressed)
                 {
                     //trace.ArrowButton(touchBox);
-                    //trace.ArrowButtonBack(touchBox);
-                    //trace.ClearButtonClick(touchBox);
-                    //state = trace.HomeButtonUpdate(touchBox, state);
+                    state = wordSearch.HomeButtonUpdate(touchBox, state);
                 }
                 else if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
                 {
-                   // wordSearch.Touch(touchBox, gameContent, spriteBatch);
-                  //  wordSearch.DrawSelection(spriteBatch, gameContent, touchBox);
+                    wordSearch.Touch(touchBox, gameContent, spriteBatch);
+                    wordSearch.DrawSelection(spriteBatch, gameContent, touchBox);
                 }
                 if (touch.State == TouchLocationState.Released)
                 {
-                  //  wordSearch.Release();
+                    wordSearch.Release();
                 }
             }
         }

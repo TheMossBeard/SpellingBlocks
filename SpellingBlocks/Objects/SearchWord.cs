@@ -155,6 +155,39 @@ namespace SpellingBlocks.Objects
             }
         }
 
+        public bool WordIsSelected(SearchWord word)
+        {
+            bool isSelected = true;
+            for(int ii = 0; ii < word.Word.Count; ii++)
+            {
+                if(!word.Word[ii].IsSelected)
+                {
+                    isSelected = false;
+                    ii = word.Word.Count;
+                }
+            }
+            return isSelected;
+        }
+
+        public List<char> GetValues(SearchWord word)
+        {
+            List<char> valueList = new List<char>();
+            foreach(SearchLetter letter in word.Word)
+            {
+                char v = letter.Value;
+                valueList.Add(v);
+            }
+            return valueList;
+        }
+
+        public void RefershSelected(SearchWord word)
+        {
+            foreach(SearchLetter letter in word.Word)
+            {
+                letter.IsSelected = false;
+            }
+        }
+
         public void SetSpriteSize(SearchWord word)
         {
             foreach (SearchLetter l in word.Word)

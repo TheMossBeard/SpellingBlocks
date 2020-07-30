@@ -95,6 +95,11 @@ namespace SpellingBlocks.Objects
             ToDrawList.Add(PositionList);
             PositionList = new List<Vector2>();
         }
+
+        public void ClearCurrentDraw()
+        {
+            PositionList = new List<Vector2>();
+        }
     }
 
 
