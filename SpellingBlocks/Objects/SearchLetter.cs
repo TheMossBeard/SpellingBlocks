@@ -43,13 +43,14 @@ namespace SpellingBlocks.Objects
             Sprite = FindLetterSprite(value, gameContent);
             Color = Color.White;
             Position = position;
+            HitBox = new Rectangle((int)position.X + 4, (int)position.Y + 4, 40, 40); //messing with hitboxes, adjusting drawing/selecting shit
         }
 
         public void SetLetterPosition(Vector2 position, bool word)
         {
             Position = position;
             if (word)
-                HitBox = new Rectangle((int)position.X, (int)position.Y, 48, 48);
+                HitBox = new Rectangle((int)position.X + 4, (int)position.Y + 4, 40, 40);
         }
 
         public void Draw()

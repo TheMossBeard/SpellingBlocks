@@ -34,6 +34,8 @@ namespace SpellingBlocks.Controllers
         public Drawing Drawable { get; set; }
         private MenuButton HomeButton { get; set; }
 
+        private bool Missed { get; set; }
+
         const int WORD_COUNT = 7;
 
         private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
@@ -73,7 +75,7 @@ namespace SpellingBlocks.Controllers
             SearchLetter letter;
             Random random = new Random();
             int randomIndex;
-            int positionY = 8;
+            int positionY = 32;
 
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
@@ -97,6 +99,8 @@ namespace SpellingBlocks.Controllers
             WordList = new List<SearchWord>();
             List<int> wordIndexList = new List<int>();
             WordBox = new SearchBox(spriteBatch, gameContent);
+            Drawable = new Drawing(spriteBatch, gameContent);
+            Missed = false;
 
             int categoryIndex = 0;
             switch (state)
@@ -120,7 +124,7 @@ namespace SpellingBlocks.Controllers
 
             //populate words and wordbox
             wordIndexList = GetWords(categoryIndex);
-            
+
             SearchWord word;
             SearchWord boxWord;
             Vector2 pos = new Vector2(0, 128);
@@ -195,6 +199,13 @@ namespace SpellingBlocks.Controllers
                         word.Word[ii].IsSelected = true;
                 }
             }
+            foreach (SearchLetter letter in CurrentLetter2DArray)
+            {
+                if (HitTest(letter.HitBox, touchBox) && letter.Value == '0')
+                {
+                    Missed = true;
+                }
+            }
         }
 
         public bool HitTest(Rectangle r1, Rectangle r2)
@@ -218,7 +229,7 @@ namespace SpellingBlocks.Controllers
 
             if (position.Y - word.Word.Count > 0)
                 directionTrueList.Add(WordDirection.Up);
-            if (position.X + word.Word.Count < PlayFieldWidth) //re count this shit
+            if (position.X + word.Word.Count < PlayFieldWidth)
                 directionTrueList.Add(WordDirection.Right);
             if (position.Y + word.Word.Count < PlayFieldHeight)
                 directionTrueList.Add(WordDirection.Down);
@@ -417,10 +428,12 @@ namespace SpellingBlocks.Controllers
 
         public void Release()
         {
-            if (CheckSelected())
+            if (CheckSelected() && !Missed)
                 Drawable.NewDraw();
             else
                 Drawable.ClearCurrentDraw();
+
+            Missed = false;
         }
 
         public bool CheckSelected()
@@ -428,17 +441,17 @@ namespace SpellingBlocks.Controllers
             bool check = false;
             foreach (SearchWord word in WordList)
             {
-                if (word.WordIsSelected(word))
+                if (word.WordIsSelected(word) && !Missed)
                 {
                     check = true;
                     List<char> wordValues = word.GetValues(word);
-                    for(int ii = 0; ii < WordBox.DisplayList.Count; ii++)
+                    for (int ii = 0; ii < WordBox.DisplayList.Count; ii++)
                     {
                         List<char> boxValues = WordBox.DisplayList[ii].GetValues(WordBox.DisplayList[ii]);
                         bool equal = true;
-                        if(boxValues.Count == wordValues.Count)
+                        if (boxValues.Count == wordValues.Count)
                         {
-                            for(int jj = 0; jj < boxValues.Count; jj++)
+                            for (int jj = 0; jj < boxValues.Count; jj++)
                             {
                                 if (boxValues[jj] != wordValues[jj])
                                 {
@@ -446,18 +459,18 @@ namespace SpellingBlocks.Controllers
                                     equal = false;
                                 }
                             }
-                            if(equal)
+                            if (equal && !Missed)
                                 WordBox.DisplayList.RemoveAt(ii);
 
                         }
                     }
                 }
             }
-            foreach(SearchWord word in WordList)
+            foreach (SearchWord word in WordList)
             {
                 word.RefershSelected(word);
             }
-            return check; ;
+            return check;
         }
 
         public GameState HomeButtonUpdate(Rectangle touchBox, GameState state)

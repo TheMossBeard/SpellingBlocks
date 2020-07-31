@@ -43,23 +43,23 @@ namespace SpellingBlocks.Objects
 
         public void Draw()
         {
-                for (int ii = 0; ii < PositionList.Count - 1; ii++)
-                {
-                    pointA = PositionList[ii];
-                    pointB = PositionList[ii + 1];
-                    deltaVector = pointB - pointA;
-                    distance = deltaVector.Length();
-                    direction = deltaVector / distance;
-                    for (float z = 1; z < distance; z++)
-                    {
-                        newPoint = pointA + direction * (distance * (z / distance));
-                        spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White);
-                    }
-                }
-
-            if (ToDrawList.Count > 1)
+            for (int ii = 0; ii < PositionList.Count - 1; ii++)
             {
-                for (int jj = 1; jj < ToDrawList.Count; jj++)
+                pointA = PositionList[ii];
+                pointB = PositionList[ii + 1];
+                deltaVector = pointB - pointA;
+                distance = deltaVector.Length();
+                direction = deltaVector / distance;
+                for (float z = 1; z < distance; z++)
+                {
+                    newPoint = pointA + direction * (distance * (z / distance));
+                    spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White);
+                }
+            }
+
+            if (ToDrawList.Count > 0)
+            {
+                for (int jj = 0; jj < ToDrawList.Count; jj++)
                 {
                     for (int ii = 0; ii < ToDrawList[jj].Count - 1; ii++)
                     {

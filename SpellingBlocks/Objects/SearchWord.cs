@@ -30,7 +30,7 @@ namespace SpellingBlocks.Objects
 
     class SearchWord
     {
-        const int BASE_POS_Y = 8;
+        const int BASE_POS_Y = 32;
         const int BASE_POS_X = 300;
         const int POS_NEXT = 64;
         public List<SearchLetter> Word { get; set; }
@@ -158,9 +158,9 @@ namespace SpellingBlocks.Objects
         public bool WordIsSelected(SearchWord word)
         {
             bool isSelected = true;
-            for(int ii = 0; ii < word.Word.Count; ii++)
+            for (int ii = 0; ii < word.Word.Count; ii++)
             {
-                if(!word.Word[ii].IsSelected)
+                if (!word.Word[ii].IsSelected)
                 {
                     isSelected = false;
                     ii = word.Word.Count;
@@ -172,7 +172,7 @@ namespace SpellingBlocks.Objects
         public List<char> GetValues(SearchWord word)
         {
             List<char> valueList = new List<char>();
-            foreach(SearchLetter letter in word.Word)
+            foreach (SearchLetter letter in word.Word)
             {
                 char v = letter.Value;
                 valueList.Add(v);
@@ -182,7 +182,7 @@ namespace SpellingBlocks.Objects
 
         public void RefershSelected(SearchWord word)
         {
-            foreach(SearchLetter letter in word.Word)
+            foreach (SearchLetter letter in word.Word)
             {
                 letter.IsSelected = false;
             }
