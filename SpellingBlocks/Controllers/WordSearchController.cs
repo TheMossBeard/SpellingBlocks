@@ -33,17 +33,19 @@ namespace SpellingBlocks.Controllers
         public List<SearchWord> WordList { get; set; }
         public Drawing Drawable { get; set; }
         private MenuButton HomeButton { get; set; }
-
+        public bool Won { get; set; }
+        private Winner Win { get; set; }
+        private MenuButton NewButton { get; set; }
         private bool Missed { get; set; }
 
         const int WORD_COUNT = 7;
 
         private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
-        "insect", "bug", "smore", "fishing", "snow", "sunset", "sunrise"};
-        private string[] animalWords = { "horse", "dog", "cat", "zebra", "tiger", "lion", "bear", "rat", "mouse", "elk", "deer", "moose",
-        "cow", "bobcat", "monkey", "snake", "eagle", "hawk", "owl", "crow", "buffalo"};
+        "insect", "bug", "smore", "fishing", "snow", "sunset", "sunrise", "ocean", "beach", "pebble", "leaf", "seed"};
+        private string[] animalWords = { "horse", "dog", "zebra", "tiger", "lion", "bear", "rat", "mouse", "elk", "deer", "moose",
+        "cow", "bobcat", "monkey", "snake", "eagle", "hawk", "owl", "crow", "buffalo", "bison", "donkey", "lizard"};
         private string[] machineWords = { "car", "truck", "train", "fuel", "gear", "tire", "wrench", "airplane", "tractor", "diesel",
-            "boat", "ship", "hose", "funnel", "bike", "wheel", "basket", "shovel", "axe" };
+            "boat", "ship", "hose", "funnel", "bike", "wheel", "basket", "shovel", "axe", "electric", "power" };
         private List<string[]> CategoryWordList { get; set; }
 
         public WordSearchController(SpriteBatch spriteBatch, GameContent gameContent)
@@ -52,6 +54,7 @@ namespace SpellingBlocks.Controllers
             this.gameContent = gameContent;
 
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
+            Win = new Winner(spriteBatch, gameContent);
 
             CategoryWordList = new List<string[]>();
             CategoryWordList.Add(natureWords);
@@ -100,7 +103,9 @@ namespace SpellingBlocks.Controllers
             List<int> wordIndexList = new List<int>();
             WordBox = new SearchBox(spriteBatch, gameContent);
             Drawable = new Drawing(spriteBatch, gameContent);
+            NewButton = new MenuButton();
             Missed = false;
+            Won = false;
 
             int categoryIndex = 0;
             switch (state)
@@ -434,6 +439,8 @@ namespace SpellingBlocks.Controllers
                 Drawable.ClearCurrentDraw();
 
             Missed = false;
+            if (WordBox.DisplayList.Count == 0)
+                Won = true;
         }
 
         public bool CheckSelected()
@@ -481,6 +488,14 @@ namespace SpellingBlocks.Controllers
             return state;
         }
 
+        public GameState NewGameButton(Rectangle touchBox, GameState state)
+        {
+            if (HitTest(NewButton.HitBox, touchBox))
+                state = GameState.CategoryWord;
+
+            return state;
+        }
+
         public void Draw()
         {
             WordBox.Draw();
@@ -493,6 +508,14 @@ namespace SpellingBlocks.Controllers
             }
             HomeButton.Draw();
             Drawable.Draw();
+
+            if (Won)
+            {
+                Win.Draw();
+                NewButton = new MenuButton(new Vector2(570, 256 + 32), "NewButton", gameContent.arrorRight, spriteBatch, gameContent);
+                NewButton.Draw();
+            }
+
         }
     }
 }

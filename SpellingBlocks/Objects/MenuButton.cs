@@ -23,6 +23,11 @@ namespace SpellingBlocks.Objects
         public Texture2D Sprite { get; set; }
         private SpriteBatch spriteBatch { get; set; }
 
+        public MenuButton()
+        {
+
+        }
+
         public MenuButton(Vector2 position, string value, Texture2D sprite, SpriteBatch spriteBatch, GameContent gameContent)
         {
             Position = position;

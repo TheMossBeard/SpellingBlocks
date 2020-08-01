@@ -12,7 +12,7 @@ using Plugin.DeviceInfo.Abstractions;
 
 namespace SpellingBlocks
 {
-     public enum GameState
+    public enum GameState
     {
         MainMenu,
         CategoryMenu,
@@ -22,7 +22,7 @@ namespace SpellingBlocks
         Tracing,
         WordSearchNature,
         WordSearchAnimal,
-        WordSearchMachines, 
+        WordSearchMachines,
         CategoryWord
     }
 
@@ -51,7 +51,7 @@ namespace SpellingBlocks
             graphics.IsFullScreen = true;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
-            resolution = new ResolutionComponent(this, graphics, new Point(1024, 576), 
+            resolution = new ResolutionComponent(this, graphics, new Point(1024, 576),
                 new Point(1024, 576), false, true);
         }
 
@@ -71,7 +71,7 @@ namespace SpellingBlocks
             winnerBlocks = new Winner(spriteBatch, gameContent);
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
-            
+
             trace = new TracingController(spriteBatch, gameContent);
             wordSearch = new WordSearchController(spriteBatch, gameContent);
         }
@@ -116,7 +116,7 @@ namespace SpellingBlocks
                     UpdateWordSearch(gameTime);
                     break;
                 case GameState.CategoryWord:
-                    UpdateWordCategory(gameTime); 
+                    UpdateWordCategory(gameTime);
                     break;
             }
 
@@ -144,7 +144,9 @@ namespace SpellingBlocks
                 touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
                 if (touch.State == TouchLocationState.Pressed)
                 {
-                    //trace.ArrowButton(touchBox);
+                    if (wordSearch.Won)
+                        state = wordSearch.NewGameButton(touchBox, state);
+
                     state = wordSearch.HomeButtonUpdate(touchBox, state);
                 }
                 else if (touch.State == TouchLocationState.Pressed | touch.State == TouchLocationState.Moved)
@@ -267,7 +269,7 @@ namespace SpellingBlocks
                     DrawWordSearch(gameTime);
                     break;
                 case GameState.CategoryWord:
-                    DrawCategory(gameTime); 
+                    DrawCategory(gameTime);
                     break;
             }
         }
