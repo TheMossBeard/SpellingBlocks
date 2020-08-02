@@ -75,10 +75,6 @@ namespace SpellingBlocks
 
             trace = new TracingController(spriteBatch, gameContent);
             wordSearch = new WordSearchController(spriteBatch, gameContent);
-
-            
-            
-
         }
 
         protected override void UnloadContent()

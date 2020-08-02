@@ -57,22 +57,9 @@ namespace SpellingBlocks.Controllers
             this.gameContent = gameContent;
 
             DB = new SqliteDB();
-            //string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Words.db3");
-            //var db = new SQLiteConnection(dbPath);
-            //var table = db.Table<WordDB>();
-
-            //foreach (var s in table)
-            //{
-            //    string t = s.Word;
-            //}
 
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
             Win = new Winner(spriteBatch, gameContent);
-
-           // CategoryWordList = new List<string[]>();
-           // CategoryWordList.Add(natureWords);
-           // CategoryWordList.Add(animalWords);
-           // CategoryWordList.Add(machineWords);
 
             WordBox = new SearchBox(spriteBatch, gameContent);
             Drawable = new Drawing(spriteBatch, gameContent);
@@ -110,37 +97,38 @@ namespace SpellingBlocks.Controllers
 
         public void CreateWordSearch(SpriteBatch spriteBatch, GameContent gameContent, GameState state)
         {
+            List<int> idList = new List<int>();
             CurrentLetter2DArray = new SearchLetter[PlayFieldWidth, PlayFieldHeight];
-            PopulateNonWords(spriteBatch, gameContent);
             WordList = new List<SearchWord>();
-            List<int> wordIndexList = new List<int>();
             WordBox = new SearchBox(spriteBatch, gameContent);
             Drawable = new Drawing(spriteBatch, gameContent);
             NewButton = new MenuButton();
             Missed = false;
             Won = false;
 
-            int categoryIndex = 0;
+            PopulateNonWords(spriteBatch, gameContent);
+
+            int IdMax = 0;
             switch (state)
             {
                 case GameState.WordSearchNature:
                     {
-                        categoryIndex = 24;
+                        IdMax = 24;
                         break;
                     }
                 case GameState.WordSearchAnimal:
                     {
-                        categoryIndex = 49;
+                        IdMax = 49;
                         break;
                     }
                 case GameState.WordSearchMachines:
                     {
-                        categoryIndex = 74;
+                        IdMax = 74;
                         break;
                     }
             }
 
-            wordIndexList = GetWords(categoryIndex);
+            idList = GetRandomIDs(IdMax);
 
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Words.db3");
             var db = new SQLiteConnection(dbPath);
@@ -149,7 +137,7 @@ namespace SpellingBlocks.Controllers
             SearchWord word;
             SearchWord boxWord;
             Vector2 pos = new Vector2(0, 128);
-            foreach (int ii in wordIndexList)
+            foreach (int ii in idList)
             {
                 word = new SearchWord(table.ElementAt(ii).Word, spriteBatch, gameContent);
                 boxWord = new SearchWord(table.ElementAt(ii).Word, spriteBatch, gameContent);
@@ -182,7 +170,7 @@ namespace SpellingBlocks.Controllers
             return possiblePositions;
         }
 
-        public List<int> GetWords(int categoryIndex)
+        public List<int> GetRandomIDs(int categoryIndex)
         {
             Random rand = new Random();
             List<int> list = new List<int>();
@@ -224,9 +212,7 @@ namespace SpellingBlocks.Controllers
             foreach (SearchLetter letter in CurrentLetter2DArray)
             {
                 if (HitTest(letter.HitBox, touchBox) && letter.Value == '0')
-                {
                     Missed = true;
-                }
             }
         }
 
@@ -532,7 +518,6 @@ namespace SpellingBlocks.Controllers
                 NewButton = new MenuButton(new Vector2(570, 256 + 32), "NewButton", gameContent.arrorRight, spriteBatch, gameContent);
                 NewButton.Draw();
             }
-
         }
     }
 }
