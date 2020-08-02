@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -17,6 +18,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using RandomExtensions;
 using SpellingBlocks.Objects;
+using SQLite;
 using Vector2Extensions;
 
 namespace SpellingBlocks.Controllers
@@ -37,15 +39,16 @@ namespace SpellingBlocks.Controllers
         private Winner Win { get; set; }
         private MenuButton NewButton { get; set; }
         private bool Missed { get; set; }
+        private SqliteDB DB { get; set; }
 
         const int WORD_COUNT = 7;
 
-        private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
-        "insect", "bug", "smore", "fishing", "snow", "sunset", "sunrise", "ocean", "beach", "pebble", "leaf", "seed"};
-        private string[] animalWords = { "horse", "dog", "zebra", "tiger", "lion", "bear", "rat", "mouse", "elk", "deer", "moose",
-        "cow", "bobcat", "monkey", "snake", "eagle", "hawk", "owl", "crow", "buffalo", "bison", "donkey", "lizard"};
-        private string[] machineWords = { "car", "truck", "train", "fuel", "gear", "tire", "wrench", "airplane", "tractor", "diesel",
-            "boat", "ship", "hose", "funnel", "bike", "wheel", "basket", "shovel", "axe", "electric", "power" };
+        //private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
+        //"insect", "bug", "smore", "fishing", "snow", "sunset", "sunrise", "ocean", "beach", "pebble", "leaf", "seed"};
+        //private string[] animalWords = { "horse", "dog", "zebra", "tiger", "lion", "bear", "rat", "mouse", "elk", "deer", "moose",
+        //"cow", "bobcat", "monkey", "snake", "eagle", "hawk", "owl", "crow", "buffalo", "bison", "donkey", "lizard"};
+        //private string[] machineWords = { "car", "truck", "train", "fuel", "gear", "tire", "wrench", "airplane", "tractor", "diesel",
+        //    "boat", "ship", "hose", "funnel", "bike", "wheel", "basket", "shovel", "axe", "electric", "power" };
         private List<string[]> CategoryWordList { get; set; }
 
         public WordSearchController(SpriteBatch spriteBatch, GameContent gameContent)
@@ -53,13 +56,23 @@ namespace SpellingBlocks.Controllers
             this.spriteBatch = spriteBatch;
             this.gameContent = gameContent;
 
+            DB = new SqliteDB();
+            //string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Words.db3");
+            //var db = new SQLiteConnection(dbPath);
+            //var table = db.Table<WordDB>();
+
+            //foreach (var s in table)
+            //{
+            //    string t = s.Word;
+            //}
+
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
             Win = new Winner(spriteBatch, gameContent);
 
-            CategoryWordList = new List<string[]>();
-            CategoryWordList.Add(natureWords);
-            CategoryWordList.Add(animalWords);
-            CategoryWordList.Add(machineWords);
+           // CategoryWordList = new List<string[]>();
+           // CategoryWordList.Add(natureWords);
+           // CategoryWordList.Add(animalWords);
+           // CategoryWordList.Add(machineWords);
 
             WordBox = new SearchBox(spriteBatch, gameContent);
             Drawable = new Drawing(spriteBatch, gameContent);
@@ -112,36 +125,40 @@ namespace SpellingBlocks.Controllers
             {
                 case GameState.WordSearchNature:
                     {
-                        categoryIndex = 0;
+                        categoryIndex = 24;
                         break;
                     }
                 case GameState.WordSearchAnimal:
                     {
-                        categoryIndex = 1;
+                        categoryIndex = 49;
                         break;
                     }
                 case GameState.WordSearchMachines:
                     {
-                        categoryIndex = 2;
+                        categoryIndex = 74;
                         break;
                     }
             }
 
-            //populate words and wordbox
             wordIndexList = GetWords(categoryIndex);
+
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Words.db3");
+            var db = new SQLiteConnection(dbPath);
+            var table = db.Table<WordDB>();
 
             SearchWord word;
             SearchWord boxWord;
             Vector2 pos = new Vector2(0, 128);
             foreach (int ii in wordIndexList)
             {
-                word = new SearchWord(CategoryWordList[categoryIndex][ii], spriteBatch, gameContent);
-                boxWord = new SearchWord(CategoryWordList[categoryIndex][ii], spriteBatch, gameContent);
+                word = new SearchWord(table.ElementAt(ii).Word, spriteBatch, gameContent);
+                boxWord = new SearchWord(table.ElementAt(ii).Word, spriteBatch, gameContent);
                 WordList.Add(word);
                 boxWord.SetWordPosition(boxWord, pos, WordDirection.Box, CurrentLetter2DArray);
                 WordBox.DisplayList.Add(boxWord);
                 pos = new Vector2(0, pos.Y += 48);
             }
+            db.Close();
 
             foreach (SearchWord searchword in WordList)
             {
@@ -169,11 +186,11 @@ namespace SpellingBlocks.Controllers
         {
             Random rand = new Random();
             List<int> list = new List<int>();
-            list.Add(rand.Next(0, CategoryWordList[categoryIndex].Length - 1));
+            list.Add(rand.Next(categoryIndex - 24, categoryIndex + 1));
             for (int ii = 1; ii < WORD_COUNT; ii++)
             {
                 bool check = true;
-                int tmp = rand.Next(0, CategoryWordList[categoryIndex].Length - 1);
+                int tmp = rand.Next(categoryIndex - 24, categoryIndex + 1);
                 while (check)
                 {
                     for (int jj = 0; jj < list.Count; jj++)
@@ -187,7 +204,7 @@ namespace SpellingBlocks.Controllers
                         }
                     }
                     if (check)
-                        tmp = rand.Next(0, CategoryWordList[categoryIndex].Length - 1);
+                        tmp = rand.Next(categoryIndex - 24, categoryIndex + 1);
                 }
                 list.Add(tmp);
             }

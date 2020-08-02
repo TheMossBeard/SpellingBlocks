@@ -42,6 +42,7 @@ namespace SpellingBlocks
         GameState state;
         TracingController trace;
         WordSearchController wordSearch;
+        
 
         public Game1()
         {
@@ -74,6 +75,10 @@ namespace SpellingBlocks
 
             trace = new TracingController(spriteBatch, gameContent);
             wordSearch = new WordSearchController(spriteBatch, gameContent);
+
+            
+            
+
         }
 
         protected override void UnloadContent()
