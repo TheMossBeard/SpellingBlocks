@@ -505,6 +505,12 @@
 /processorParam:TextureFormat=Color
 /build:MachinesButton.png
 
+#begin MainMusic.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:MainMusic.wav
+
 #begin Menu01-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
