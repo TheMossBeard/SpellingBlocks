@@ -210,7 +210,7 @@ namespace SpellingBlocks
                 if (touch.State == TouchLocationState.Pressed)
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
-                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 4, 4);
                     blocks.ArrowButton(touchBox);
                     blocks.HintUpdate(touchBox);
                     state = blocks.HomeButtonUpdate(touchBox, state);

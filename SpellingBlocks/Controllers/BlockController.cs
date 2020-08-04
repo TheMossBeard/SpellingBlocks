@@ -119,42 +119,59 @@ namespace SpellingBlocks.Controllers
             }
         }
 
-
         public void Hint()
         {
-            //find empty spot for hint in emptylist
             int hintIndex = -1;
             int replaceIndex = -1;
-            for(int ii = 0; ii < EmptyList.Count; ii++)
+            bool fromEmpty = false;
+            for (int ii = 0; ii < EmptyList.Count; ii++)
             {
-                if(EmptyList[ii].IsEmptyBlock)
+                if (EmptyList[ii].Value != WinCheck[ii].Value || EmptyList[ii].IsEmptyBlock)
                 {
                     hintIndex = ii;
                     ii = EmptyList.Count;
                 }
             }
-            if(hintIndex != -1)
+            if (hintIndex != -1)
             {
-                //find index in blocklist for hint block
                 LetterValue hintValue = WinCheck[hintIndex];
-                for(int ii = 0; ii < BlockList.Count; ii++)
+                for (int ii = 0; ii < BlockList.Count; ii++)
                 {
-                    if(BlockList[ii].Value == hintValue.Value)
+                    if (BlockList[ii].Value == hintValue.Value)
                     {
                         replaceIndex = ii;
                         ii = BlockList.Count;
                     }
                 }
+                if (replaceIndex == -1)
+                {
+                    for (int ii = 0; ii < EmptyList.Count; ii++)
+                    {
+                        if (EmptyList[ii].Value == hintValue.Value)
+                        {
+                            replaceIndex = ii;
+                            ii = EmptyList.Count;
+                            fromEmpty = true;
+                        }
+                    }
+                }
             }
-            if(hintIndex != -1 && replaceIndex != -1)
+            if (hintIndex != -1 && replaceIndex != -1)
             {
-                BlockList[replaceIndex].IsSelected = true;
-                EmptyList[hintIndex].IsSelected = true;
-                MoveHighlightedBlock(BlockList[replaceIndex].HitBox);
+                if (fromEmpty)
+                {
+                    EmptyList[replaceIndex].IsSelected = true;
+                    EmptyList[hintIndex].IsSelected = true;
+                    MoveHighlightedBlock(EmptyList[replaceIndex].HitBox);
+                }
+                else
+                {
+                    BlockList[replaceIndex].IsSelected = true;
+                    EmptyList[hintIndex].IsSelected = true;
+                    MoveHighlightedBlock(BlockList[replaceIndex].HitBox);
+                }
                 UsedHint = true;
-                
             }
-
         }
 
         public int GetBlockPositionX(int count)
@@ -208,7 +225,7 @@ namespace SpellingBlocks.Controllers
                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-                HomeButton.Draw();
+            HomeButton.Draw();
             ArrowRight.Draw();
             if (!UsedHint)
                 HintButton.Draw();
@@ -271,7 +288,7 @@ namespace SpellingBlocks.Controllers
                         selectedIndex2 = ii;
                 }
             }
-            if (selectedCount == 2) 
+            if (selectedCount == 2)
             {
                 tmpPosition = allBlockList[selectedIndex].Position;
                 tmpHitBox = allBlockList[selectedIndex].HitBox;
@@ -342,7 +359,7 @@ namespace SpellingBlocks.Controllers
         {
             if (HitTest(HintButton.HitBox, touchBox))
             {
-                if(!UsedHint)
+                if (!UsedHint)
                     Hint();
             }
         }
