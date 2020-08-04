@@ -8,6 +8,7 @@ using Android.Content;
 using Android.Icu.Util;
 using Android.OS;
 using Android.Runtime;
+using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Xna.Framework;
@@ -34,9 +35,12 @@ namespace SpellingBlocks.Controllers
         private Texture2D BackGround { get; set; }
         private MenuButton ArrowRight { get; set; }
         private MenuButton HomeButton { get; set; }
+        private MenuButton HintButton { get; set; }
+        private MenuButton HintButtonUsed { get; set; }
         public bool Skip { get; set; }
         private int CategoryIndex { get; set; }
         public bool IsWinner { get; set; }
+        public bool UsedHint { get; set; }
 
         public BlockController(SpriteBatch spriteBatch, GameContent gameContent)
         {
@@ -44,6 +48,8 @@ namespace SpellingBlocks.Controllers
             BackGround = gameContent.spellingblocksbackground;
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
             ArrowRight = new MenuButton(new Vector2(944, 16), "ArrowRight", gameContent.arrorRight, spriteBatch, gameContent);
+            HintButton = new MenuButton(new Vector2(800, 16), "HintButton", gameContent.hint1, spriteBatch, gameContent);
+            HintButtonUsed = new MenuButton(new Vector2(800, 16), "HintButtonUsed", gameContent.hint2, spriteBatch, gameContent);
             Skip = false;
             IsWinner = false;
         }
@@ -52,6 +58,8 @@ namespace SpellingBlocks.Controllers
         {
             Skip = false;
             IsWinner = false;
+            UsedHint = false;
+
             switch (state)
             {
                 case GameState.SpellingBlocksNature:
@@ -111,6 +119,44 @@ namespace SpellingBlocks.Controllers
             }
         }
 
+
+        public void Hint()
+        {
+            //find empty spot for hint in emptylist
+            int hintIndex = -1;
+            int replaceIndex = -1;
+            for(int ii = 0; ii < EmptyList.Count; ii++)
+            {
+                if(EmptyList[ii].IsEmptyBlock)
+                {
+                    hintIndex = ii;
+                    ii = EmptyList.Count;
+                }
+            }
+            if(hintIndex != -1)
+            {
+                //find index in blocklist for hint block
+                LetterValue hintValue = WinCheck[hintIndex];
+                for(int ii = 0; ii < BlockList.Count; ii++)
+                {
+                    if(BlockList[ii].Value == hintValue.Value)
+                    {
+                        replaceIndex = ii;
+                        ii = BlockList.Count;
+                    }
+                }
+            }
+            if(hintIndex != -1 && replaceIndex != -1)
+            {
+                BlockList[replaceIndex].IsSelected = true;
+                EmptyList[hintIndex].IsSelected = true;
+                MoveHighlightedBlock(BlockList[replaceIndex].HitBox);
+                UsedHint = true;
+                
+            }
+
+        }
+
         public int GetBlockPositionX(int count)
         {
             int x = 512;
@@ -162,8 +208,12 @@ namespace SpellingBlocks.Controllers
                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             spriteBatch.Draw(BackGround, new Vector2(0, 0), null, Color.White, 0,
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
-            HomeButton.Draw();
+                HomeButton.Draw();
             ArrowRight.Draw();
+            if (!UsedHint)
+                HintButton.Draw();
+            else
+                HintButtonUsed.Draw();
 
             foreach (Block block in BlockList)
             {
@@ -221,7 +271,7 @@ namespace SpellingBlocks.Controllers
                         selectedIndex2 = ii;
                 }
             }
-            if (selectedCount == 2)
+            if (selectedCount == 2) 
             {
                 tmpPosition = allBlockList[selectedIndex].Position;
                 tmpHitBox = allBlockList[selectedIndex].HitBox;
@@ -286,6 +336,15 @@ namespace SpellingBlocks.Controllers
                 state = GameState.MainMenu;
 
             return state;
+        }
+
+        public void HintUpdate(Rectangle touchBox)
+        {
+            if (HitTest(HintButton.HitBox, touchBox))
+            {
+                if(!UsedHint)
+                    Hint();
+            }
         }
 
         public void ArrowButton(Rectangle touchBox)
