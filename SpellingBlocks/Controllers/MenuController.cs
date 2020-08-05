@@ -28,6 +28,7 @@ namespace SpellingBlocks.Controllers
         public Texture2D Background { get; set; }
         public SpriteBatch spriteBatch { get; set; }
         public List<MenuButton> MenuButtonList { get; set; }
+        public MenuButton Exit { get; set; }
 
         public MenuController(SpriteBatch spriteBatch, GameContent gameContent)
         {
@@ -43,6 +44,8 @@ namespace SpellingBlocks.Controllers
             MenuButtonList.Add(ButtonTracing);
             ButtonMatching = new MenuButton(new Vector2(528, 304), "ButtonMatching", gameContent.menu04, spriteBatch, gameContent);
             MenuButtonList.Add(ButtonMatching);
+
+            Exit = new MenuButton(new Vector2(880, 16), "ExitButton", gameContent.exit, spriteBatch, gameContent);
         }
 
         public GameState Update(Rectangle touchBox, GameState state)
@@ -70,6 +73,14 @@ namespace SpellingBlocks.Controllers
                 return false;
         }
 
+        public GameState ExitButton(Rectangle touch, GameState state)
+        {
+            if(HitTest(touch, Exit.HitBox))
+                state = GameState.ExitGame;
+            
+            return state;
+        }
+
         public void Draw()
         {
             spriteBatch.Draw(Background, new Vector2(0, 0), null, Color.White, 0,
@@ -79,6 +90,7 @@ namespace SpellingBlocks.Controllers
             {
                 button.Draw();
             }
+            Exit.Draw();
         }
     }
 }

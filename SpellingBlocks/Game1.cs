@@ -23,7 +23,8 @@ namespace SpellingBlocks
         WordSearchNature,
         WordSearchAnimal,
         WordSearchMachines,
-        CategoryWord
+        CategoryWord,
+        ExitGame
     }
 
 
@@ -231,9 +232,12 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                    state = menu.ExitButton(touchBox, state);
                     state = menu.Update(touchBox, state);
                 }
             }
+            if (state == GameState.ExitGame)
+                System.Environment.Exit(0);
         }
 
         protected override void Draw(GameTime gameTime)
