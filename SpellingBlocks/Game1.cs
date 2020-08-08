@@ -237,7 +237,7 @@ namespace SpellingBlocks
                 }
             }
             if (state == GameState.ExitGame)
-                System.Environment.Exit(0);
+                Game.Activity.Finish();
         }
 
         protected override void Draw(GameTime gameTime)

@@ -15,10 +15,12 @@ namespace SpellingBlocks
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize | ConfigChanges.ScreenLayout)]
     public class Activity1 : Microsoft.Xna.Framework.AndroidGameActivity
     {
+        Game1 g;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var g = new Game1();
+            g = new Game1();
             SetContentView((View)g.Services.GetService(typeof(View)));
 
             int uiOptions = (int)Window.DecorView.SystemUiVisibility;
@@ -29,7 +31,7 @@ namespace SpellingBlocks
             uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
 
             Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
-
+            
             g.Run();
         }
     }
