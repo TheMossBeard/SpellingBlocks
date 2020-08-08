@@ -93,8 +93,8 @@ namespace SpellingBlocks
             spriteZ = Content.Load<Texture2D>("Z-Sprite");
             SpriteList.Add(spriteZ);
 
-            hint1 = Content.Load<Texture2D>("Hint1");
-            hint2 = Content.Load<Texture2D>("Hint2");
+            hint1 = Content.Load<Texture2D>("ButtonHint1");
+            hint2 = Content.Load<Texture2D>("ButtonHint2");
             emptySprite = Content.Load<Texture2D>("Empty-Sprite");
 
             spellingblocksbackground = Content.Load<Texture2D>("SpellingBlocksBackground");
@@ -118,23 +118,23 @@ namespace SpellingBlocks
             /****************************MENU SPRITES**************************************/
             logoSprite = Content.Load<Texture2D>("Logo-Sprite");
 
-            menuBackground = Content.Load<Texture2D>("MenuBackground");
+            menuBackground = Content.Load<Texture2D>("MainBackground");
 
-            menu01 = Content.Load<Texture2D>("Menu01-Sprite");
-            menu02 = Content.Load<Texture2D>("Menu02-Sprite");
-            menu03 = Content.Load<Texture2D>("Menu03-Sprite");
-            menu04 = Content.Load<Texture2D>("Menu04-Sprite");
+            menu01 = Content.Load<Texture2D>("ButtonSpellingBlocks");
+            menu02 = Content.Load<Texture2D>("ButtonWordSearch");
+            menu03 = Content.Load<Texture2D>("ButtonLetterTracing");
+            menu04 = Content.Load<Texture2D>("ButtonMatching");
 
-            arrorRight = Content.Load<Texture2D>("Right-Arrow-Sprite");
-            arrowLeft = Content.Load<Texture2D>("Left-Arrow-Sprite");
-            clear = Content.Load<Texture2D>("Clear-Button");
-            home = Content.Load<Texture2D>("Home-Sprite");
-            exit = Content.Load<Texture2D>("Exit");
+            arrorRight = Content.Load<Texture2D>("ButtonNext");
+            arrowLeft = Content.Load<Texture2D>("ButtonPrev");
+            clear = Content.Load<Texture2D>("ButtonClear");
+            home = Content.Load<Texture2D>("ButtonHome");
+            exit = Content.Load<Texture2D>("ButtonExit");
             categoryBackground = Content.Load<Texture2D>("BackgroundCatergory");
 
-            MachinesButton = Content.Load<Texture2D>("MachinesButton");
-            NatureButton = Content.Load<Texture2D>("NatureButton");
-            AnimalsButton = Content.Load<Texture2D>("AnimalsButton");
+            MachinesButton = Content.Load<Texture2D>("ButtonAutomibles");
+            NatureButton = Content.Load<Texture2D>("ButtonNature");
+            AnimalsButton = Content.Load<Texture2D>("ButtonAnimals");
 
 
             /****************************TRACING SPRITES**************************************/

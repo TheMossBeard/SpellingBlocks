@@ -84,7 +84,7 @@ namespace SpellingBlocks.Controllers
         public void Draw()
         {
             spriteBatch.Draw(Background, new Vector2(0, 0), null, Color.White, 0,
-                new Vector2(0, 0), 4f, SpriteEffects.None, 0);
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
 
             foreach (MenuButton button in MenuButtonList)
             {
