@@ -36,19 +36,13 @@ namespace SpellingBlocks.Controllers
         public Drawing Drawable { get; set; }
         private MenuButton HomeButton { get; set; }
         public bool Won { get; set; }
-        private Winner Win { get; set; }
+        private Texture2D WinnerSplash { get; set; }
         private MenuButton NewButton { get; set; }
         private bool Missed { get; set; }
         private SqliteDB DB { get; set; }
 
         const int WORD_COUNT = 7;
 
-        //private string[] natureWords = { "tree", "river", "creek", "lake", "hiking", "trail", "camping", "tent", "compass", "cloud",
-        //"insect", "bug", "smore", "fishing", "snow", "sunset", "sunrise", "ocean", "beach", "pebble", "leaf", "seed"};
-        //private string[] animalWords = { "horse", "dog", "zebra", "tiger", "lion", "bear", "rat", "mouse", "elk", "deer", "moose",
-        //"cow", "bobcat", "monkey", "snake", "eagle", "hawk", "owl", "crow", "buffalo", "bison", "donkey", "lizard"};
-        //private string[] machineWords = { "car", "truck", "train", "fuel", "gear", "tire", "wrench", "airplane", "tractor", "diesel",
-        //    "boat", "ship", "hose", "funnel", "bike", "wheel", "basket", "shovel", "axe", "electric", "power" };
         private List<string[]> CategoryWordList { get; set; }
 
         public WordSearchController(SpriteBatch spriteBatch, GameContent gameContent)
@@ -59,7 +53,7 @@ namespace SpellingBlocks.Controllers
             DB = new SqliteDB();
 
             HomeButton = new MenuButton(new Vector2(16, 16), "HomeButton", gameContent.home, spriteBatch, gameContent);
-            Win = new Winner(spriteBatch, gameContent);
+            WinnerSplash = gameContent.congrats;
 
             WordBox = new SearchBox(spriteBatch, gameContent);
             Drawable = new Drawing(spriteBatch, gameContent);
@@ -514,8 +508,9 @@ namespace SpellingBlocks.Controllers
 
             if (Won)
             {
-                Win.Draw();
-                NewButton = new MenuButton(new Vector2(570, 256 + 32), "NewButton", gameContent.arrorRight, spriteBatch, gameContent);
+                spriteBatch.Draw(WinnerSplash, new Vector2(256, 144), null, Color.White, 0,
+    new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+                NewButton = new MenuButton(new Vector2(480, 448), "NewButton", gameContent.arrorRight, spriteBatch, gameContent);
                 NewButton.Draw();
             }
         }

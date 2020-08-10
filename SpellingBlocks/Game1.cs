@@ -36,13 +36,13 @@ namespace SpellingBlocks
         GameContent gameContent;
         BlockController blocks;
         Rectangle touchBox;
-        Winner winnerBlocks;
         MenuController menu;
         CategoryController category;
         IResolution resolution;
         GameState state;
         TracingController trace;
         WordSearchController wordSearch;
+        Texture2D winnerSplash;
         
 
         public Game1()
@@ -70,7 +70,7 @@ namespace SpellingBlocks
             gameContent = new GameContent(Content);
 
             blocks = new BlockController(spriteBatch, gameContent);
-            winnerBlocks = new Winner(spriteBatch, gameContent);
+            winnerSplash = gameContent.congrats;
             menu = new MenuController(spriteBatch, gameContent);
             category = new CategoryController(spriteBatch, gameContent);
 
@@ -320,7 +320,8 @@ namespace SpellingBlocks
             blocks.Draw();
 
             if (blocks.IsWinner)
-                winnerBlocks.Draw();
+                spriteBatch.Draw(winnerSplash, new Vector2(256, 144), null, Color.White, 0,
+    new Vector2(0, 0), 1f, SpriteEffects.None, 0);
 
             spriteBatch.End();
         }

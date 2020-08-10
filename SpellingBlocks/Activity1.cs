@@ -25,14 +25,25 @@ namespace SpellingBlocks
 
             int uiOptions = (int)Window.DecorView.SystemUiVisibility;
 
+            SetUi();
+            g.Run();
+        }
+
+        public void SetUi()
+        {
+            int uiOptions = (int)Window.DecorView.SystemUiVisibility;
+
             uiOptions |= (int)SystemUiFlags.LowProfile;
             uiOptions |= (int)SystemUiFlags.Fullscreen;
             uiOptions |= (int)SystemUiFlags.HideNavigation;
             uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
-
             Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
-            
-            g.Run();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            SetUi();
         }
     }
 }
