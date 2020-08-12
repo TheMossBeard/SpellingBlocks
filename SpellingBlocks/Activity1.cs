@@ -1,13 +1,15 @@
 using Android.App;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.OS;
 using Android.Views;
+using Java.Lang;
 
 namespace SpellingBlocks
 {
     [Activity(Label = "SpellingBlocks"
         , MainLauncher = true
-        , Icon = "@drawable/LogoSprite"
+        , Icon = "@drawable/Icon" 
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
         , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
@@ -19,13 +21,14 @@ namespace SpellingBlocks
 
         protected override void OnCreate(Bundle bundle)
         {
+            SetUi();
             base.OnCreate(bundle);
+            Thread.Sleep(1000);
             g = new Game1();
             SetContentView((View)g.Services.GetService(typeof(View)));
 
             int uiOptions = (int)Window.DecorView.SystemUiVisibility;
 
-            SetUi();
             g.Run();
         }
 

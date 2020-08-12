@@ -61,7 +61,7 @@ namespace SpellingBlocks
 			public const int LogoSprite = 2130771970;
 			
 			// aapt resource value: 0x7F010003
-			public const int Splash = 2130771971;
+			public const int SplashScreen = 2130771971;
 			
 			static Drawable()
 			{
