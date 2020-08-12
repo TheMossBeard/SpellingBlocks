@@ -7,10 +7,13 @@ using Java.Lang;
 
 namespace SpellingBlocks
 {
+
+
     [Activity(Label = "SpellingBlocks"
         , MainLauncher = true
         , Icon = "@drawable/Icon" 
         , Theme = "@style/Theme.Splash"
+         
         , AlwaysRetainTaskState = true
         , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
         , ScreenOrientation = ScreenOrientation.Landscape
