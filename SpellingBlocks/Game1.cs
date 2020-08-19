@@ -290,7 +290,6 @@ namespace SpellingBlocks
 
         public void DrawWordSearch(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gainsboro);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
                       null, null, null, null, Resolution.TransformationMatrix());
             wordSearch.Draw();

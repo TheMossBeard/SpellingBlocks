@@ -40,6 +40,7 @@ namespace SpellingBlocks.Controllers
         private MenuButton NewButton { get; set; }
         private bool Missed { get; set; }
         private SqliteDB DB { get; set; }
+        private Texture2D Background { get; set; }
 
         const int WORD_COUNT = 7;
 
@@ -57,6 +58,7 @@ namespace SpellingBlocks.Controllers
 
             WordBox = new SearchBox(spriteBatch, gameContent);
             Drawable = new Drawing(spriteBatch, gameContent);
+            Background = gameContent.wordseachBackground;
 
             PlayFieldWidth = 10;
             PlayFieldHeight = 8;
@@ -495,6 +497,8 @@ namespace SpellingBlocks.Controllers
 
         public void Draw()
         {
+            spriteBatch.Draw(Background, new Vector2(0, 0), null, Color.White, 0,
+                new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             WordBox.Draw();
             for (int ii = 0; ii < PlayFieldWidth; ii++)
             {
@@ -509,7 +513,7 @@ namespace SpellingBlocks.Controllers
             if (Won)
             {
                 spriteBatch.Draw(WinnerSplash, new Vector2(256, 144), null, Color.White, 0,
-    new Vector2(0, 0), 1f, SpriteEffects.None, 0);
+                    new Vector2(0, 0), 1f, SpriteEffects.None, 0);
                 NewButton = new MenuButton(new Vector2(480, 448), "NewButton", gameContent.arrorRight, spriteBatch, gameContent);
                 NewButton.Draw();
             }

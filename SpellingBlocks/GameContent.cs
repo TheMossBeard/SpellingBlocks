@@ -30,7 +30,8 @@ namespace SpellingBlocks
             traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ, pencil, clear;
 
         public Texture2D searchA, searchB, searchC, searchD, searchE, searchF, searchG, searchH, searchI, searchJ, searchK, searchL,
-            searchM, searchN, searchO, searchP, searchQ, searchR, searchS, searchT, searchU, searchV, searchW, searchX, searchY, searchZ;
+            searchM, searchN, searchO, searchP, searchQ, searchR, searchS, searchT, searchU, searchV, searchW, searchX, searchY, searchZ,
+            wordseachBackground;
 
         public List<Texture2D> SpriteList { get; set; }
         public List<Texture2D> TraceList { get; set; }
@@ -130,7 +131,7 @@ namespace SpellingBlocks
             clear = Content.Load<Texture2D>("ButtonClear");
             home = Content.Load<Texture2D>("ButtonHome");
             exit = Content.Load<Texture2D>("ButtonExit");
-            categoryBackground = Content.Load<Texture2D>("BackgroundCatergory");
+            categoryBackground = Content.Load<Texture2D>("CategoryBackground");
 
             MachinesButton = Content.Load<Texture2D>("ButtonAutomibles");
             NatureButton = Content.Load<Texture2D>("ButtonNature");
@@ -197,6 +198,7 @@ namespace SpellingBlocks
             pencil = Content.Load<Texture2D>("Pencil");
 
             /****************************WORDSEARCH SPRITES**************************************/
+            wordseachBackground = Content.Load<Texture2D>("WordsearchBackground");
             SearchList = new List<Texture2D>();
 
             searchA = Content.Load<Texture2D>("a-search");
