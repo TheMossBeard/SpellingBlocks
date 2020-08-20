@@ -78,7 +78,7 @@ namespace SpellingBlocks.Controllers
 
             for (int ii = 0; ii < PlayFieldHeight; ii++)
             {
-                int positionX = 300;
+                int positionX = 364; 
                 for (int jj = 0; jj < PlayFieldWidth; jj++)
                 {
                     randomIndex = random.Next(0, 26);
@@ -132,7 +132,7 @@ namespace SpellingBlocks.Controllers
 
             SearchWord word;
             SearchWord boxWord;
-            Vector2 pos = new Vector2(0, 128);
+            Vector2 pos = new Vector2(16, 130);
             foreach (int ii in idList)
             {
                 word = new SearchWord(table.ElementAt(ii).Word, spriteBatch, gameContent);
@@ -140,7 +140,7 @@ namespace SpellingBlocks.Controllers
                 WordList.Add(word);
                 boxWord.SetWordPosition(boxWord, pos, WordDirection.Box, CurrentLetter2DArray);
                 WordBox.DisplayList.Add(boxWord);
-                pos = new Vector2(0, pos.Y += 48);
+                pos = new Vector2(16, pos.Y += 48);
             }
             db.Close();
 
@@ -467,7 +467,6 @@ namespace SpellingBlocks.Controllers
                             }
                             if (equal && !Missed)
                                 WordBox.DisplayList.RemoveAt(ii);
-
                         }
                     }
                 }

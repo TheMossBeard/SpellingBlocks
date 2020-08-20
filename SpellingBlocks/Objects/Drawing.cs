@@ -53,7 +53,7 @@ namespace SpellingBlocks.Objects
                 for (float z = 1; z < distance; z++)
                 {
                     newPoint = pointA + direction * (distance * (z / distance));
-                    spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White);
+                    spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White * 0.33f);
                 }
             }
 
@@ -71,7 +71,7 @@ namespace SpellingBlocks.Objects
                         for (float z = 1; z < distance; z++)
                         {
                             newPoint = pointA + direction * (distance * (z / distance));
-                            spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White);
+                            spriteBatch.Draw(Sprite, new Rectangle((int)newPoint.X - 8, (int)newPoint.Y - 8, 16, 16), Color.White * 0.33f);
                         }
                     }
                 }

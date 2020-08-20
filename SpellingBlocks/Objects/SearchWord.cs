@@ -31,7 +31,7 @@ namespace SpellingBlocks.Objects
     class SearchWord
     {
         const int BASE_POS_Y = 32;
-        const int BASE_POS_X = 300;
+        const int BASE_POS_X = 364;
         const int POS_NEXT = 64;
         public List<SearchLetter> Word { get; set; }
         private SpriteBatch spriteBatch { get; set; }
@@ -56,7 +56,7 @@ namespace SpellingBlocks.Objects
             {
                 case WordDirection.Box:
                     {
-                        int positionX = 0;
+                        int positionX = 16;
                         foreach (SearchLetter l in word.Word)
                         {
                             l.Position = new Vector2(positionX, position.Y);
