@@ -62,6 +62,10 @@ namespace SpellingBlocks.Controllers
             {
                 state = GameState.CategoryWord;
             }
+            else if (HitTest(ButtonMatching.HitBox, touchBox))
+            {
+                state = GameState.Matching;
+            }
             return state;
         }
 

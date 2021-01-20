@@ -787,6 +787,18 @@
 /processorParam:TextureFormat=Color
 /build:Q-Sprite.png
 
+#begin Question-Sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Question-Sprite.png
+
 #begin Right-Arrow-Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor

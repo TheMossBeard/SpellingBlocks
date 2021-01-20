@@ -20,6 +20,7 @@ namespace SpellingBlocks
         SpellingBlocksAnimals,
         SpellingBlocksMachines,
         Tracing,
+        Matching,
         WordSearchNature,
         WordSearchAnimal,
         WordSearchMachines,
@@ -120,6 +121,9 @@ namespace SpellingBlocks
                 case GameState.CategoryWord:
                     UpdateWordCategory(gameTime);
                     break;
+                case GameState.Matching:
+                    UpdateMatching(gameTime);
+                    break;
             }
 
         }
@@ -203,6 +207,20 @@ namespace SpellingBlocks
             }
         }
 
+        public void UpdateMatching(GameTime gameTime) //this
+        {
+            var touchPanelState = TouchPanel.GetState();
+            foreach (var touch in touchPanelState)
+            {
+                if (touch.State == TouchLocationState.Pressed)
+                {
+                    Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
+                    touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
+                    state = category.UpdateSearch(touchBox, gameContent, wordSearch, state);
+                }
+            }
+        }
+
         public void UpdateSpellingBlock(GameTime gameTime)
         {
             var touchPanelState = TouchPanel.GetState();
@@ -277,10 +295,21 @@ namespace SpellingBlocks
                 case GameState.CategoryWord:
                     DrawCategory(gameTime);
                     break;
+                case GameState.Matching:
+                    DrawMatching(gameTime); //this
+                    break;
             }
         }
 
         public void DrawWordCategory(GameTime gameTime)
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                      null, null, null, null, Resolution.TransformationMatrix());
+            category.Draw();
+            spriteBatch.End();
+        }
+
+        public void DrawMatching(GameTime gameTime) //change this
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
                       null, null, null, null, Resolution.TransformationMatrix());
