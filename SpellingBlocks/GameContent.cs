@@ -27,7 +27,8 @@ namespace SpellingBlocks
             dog, elephant, flower, lion, mushroom, snake, train, tree, waterfall, zebra, spellingblocksbackground, hint1, hint2, exit, congrats;
 
         public Texture2D traceA, traceB, traceC, traceD, traceE, traceF, traceG, traceH, traceI, traceJ, traceK, traceL, traceM,
-            traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ, pencil, clear, question;
+            traceN, traceO, traceP, traceQ, traceR, traceS, traceT, traceU, traceV, traceW, traceX, traceY, traceZ, pencil, clear, 
+            question, matchingBackground;
 
         public Texture2D searchA, searchB, searchC, searchD, searchE, searchF, searchG, searchH, searchI, searchJ, searchK, searchL,
             searchM, searchN, searchO, searchP, searchQ, searchR, searchS, searchT, searchU, searchV, searchW, searchX, searchY, searchZ,
@@ -95,7 +96,7 @@ namespace SpellingBlocks
             SpriteList.Add(spriteZ);
 
             question = Content.Load<Texture2D>("Question-Sprite");
-            SpriteList.Add(question);
+            //SpriteList.Add(question);
 
             hint1 = Content.Load<Texture2D>("ButtonHint1");
             hint2 = Content.Load<Texture2D>("ButtonHint2");
@@ -256,6 +257,11 @@ namespace SpellingBlocks
             SearchList.Add(searchY);
             searchZ = Content.Load<Texture2D>("z-search");
             SearchList.Add(searchZ);
+
+            //***********************MATCHING SPRITES*********************//
+            matchingBackground = Content.Load<Texture2D>("MatchingBackground");
+
+
 
         }
     }

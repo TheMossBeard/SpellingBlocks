@@ -112,6 +112,7 @@
     <Compile Include="Activity1.cs" />
     <Compile Include="Controllers\BlockController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\MatchingController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\TracingController.cs" />
     <Compile Include="Controllers\WordSearchController.cs" />

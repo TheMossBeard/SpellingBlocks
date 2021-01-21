@@ -95,7 +95,7 @@ namespace SpellingBlocks.Controllers
             }
             Randomize(wordPreBlocks);
 
-            int blockPosX = 112;
+            int blockPosX = 112; //remove this ?
             int blockPosY = 480;
 
             Block block;

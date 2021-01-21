@@ -62,6 +62,12 @@ namespace SpellingBlocks.Objects
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
         }
 
+        public void DrawBig()
+        {
+            spriteBatch.Draw(Sprite, Position, null, color, 0,
+                new Vector2(0, 0), 2f, SpriteEffects.None, 0);
+        }
+
         public void ChangeUnSelect()
         {
             IsSelected = false;

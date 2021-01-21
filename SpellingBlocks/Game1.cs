@@ -44,6 +44,7 @@ namespace SpellingBlocks
         TracingController trace;
         WordSearchController wordSearch;
         Texture2D winnerSplash;
+        MatchingController matching;
         
 
         public Game1()
@@ -77,6 +78,7 @@ namespace SpellingBlocks
 
             trace = new TracingController(spriteBatch, gameContent);
             wordSearch = new WordSearchController(spriteBatch, gameContent);
+            matching = new MatchingController(spriteBatch, gameContent);
         }
 
         protected override void UnloadContent()
@@ -216,7 +218,8 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-                    state = category.UpdateSearch(touchBox, gameContent, wordSearch, state);
+                    state = trace.HomeButtonUpdate(touchBox, state);
+                    // state = category.UpdateSearch(touchBox, gameContent, wordSearch, state);
                 }
             }
         }
@@ -313,7 +316,7 @@ namespace SpellingBlocks
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
                       null, null, null, null, Resolution.TransformationMatrix());
-            category.Draw();
+            matching.Draw();
             spriteBatch.End();
         }
 
