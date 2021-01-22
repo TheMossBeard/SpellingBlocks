@@ -218,7 +218,8 @@ namespace SpellingBlocks
                 {
                     Vector2 Screen = resolution.ScreenToGameCoord(touch.Position);
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
-                    state = trace.HomeButtonUpdate(touchBox, state);
+                    state = matching.HomeButtonUpdate(touchBox, state);
+                    matching.SelectBlock(touchBox);
                     // state = category.UpdateSearch(touchBox, gameContent, wordSearch, state);
                 }
             }

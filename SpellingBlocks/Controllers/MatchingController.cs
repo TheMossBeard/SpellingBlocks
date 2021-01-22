@@ -23,6 +23,8 @@ namespace SpellingBlocks.Controllers
         private List<Block> BlockList { get; set; }
         private List<Block> HiddenList { get; set; }
 
+        private const int XCORD = 160, YCORD = 24, YCORDPLUS = 136, XCORDPLUS = 160, BSIZE = 128, GAP = 8, ROW = 5;
+
         public MatchingController(SpriteBatch spriteBatch, GameContent gameContent)
         {
             this.spriteBatch = spriteBatch;
@@ -35,47 +37,108 @@ namespace SpellingBlocks.Controllers
 
         private void PopulateBlockList(GameContent gameContent)
         {
-             BlockList = new List<Block>();
+            BlockList = new List<Block>();
             HiddenList = new List<Block>();
             LetterValue letterValue = new LetterValue(gameContent);
-            //List<int> randomList = Random();
 
             Block block;
-            int xcord = 128 + 32;
-            int ycord = 32 - 8;
-            for(int ii = 0; ii < 24; ii++)
+            int xcord = XCORD;
+            int ycord = YCORD;
+            List<int> randomSelectList = Randomize();
+            for (int ii = 0; ii < 24; ii++)
             {
-                block = new Block(xcord, ycord, letterValue.LetterValueList[ii].Value, letterValue.LetterValueList[ii].Sprite, 
-                    spriteBatch, gameContent);
+                block = new Block(xcord, ycord, letterValue.LetterValueList[randomSelectList[ii]].Value,
+                    letterValue.LetterValueList[randomSelectList[ii]].Sprite, spriteBatch, gameContent);
+                block.HitBox = new Rectangle(xcord, ycord, 128, 128);
                 BlockList.Add(block);
 
-                block = new Block(xcord, ycord, letterValue.LetterValueList[ii].Value, gameContent.question,
-                    spriteBatch, gameContent);
+                block = new Block(xcord, ycord, letterValue.LetterValueList[randomSelectList[ii]].Value,
+                    gameContent.question, spriteBatch, gameContent);
+                block.HitBox = new Rectangle(xcord, ycord, 128, 128);
                 HiddenList.Add(block);
 
-                xcord += (128 + 8);
+                xcord += BSIZE + GAP;
 
-                if (ii == 5 || ii == 11 || ii == 17)
+                if (ii == ROW || ii == (ROW * 2) + 1 || ii == (ROW * 3) + 2)
                 {
-                    ycord += (128 + 8);
-                    xcord = 128 + 32;
+                    ycord += BSIZE + GAP;
+                    xcord = XCORD;
                 }
             }
-
         }
 
-        public List<int> Randomize()
+        private List<int> Randomize()
         {
             int ran;
             List<int> list = new List<int>();
-            Random random = new Random();
-            for (int ii = 0; ii < 10; ii++)
+            List<int> possibleList = new List<int>();
+            for (int ii = 0; ii < 25; ii++)
             {
-                ran = random.Next(0, 26);
-                //foreach()
-             
+                possibleList.Add(ii);
+            }
+            Random random = new Random();
+            for (int ii = 0; ii < 12; ii++)
+            {
+                ran = random.Next(0, possibleList.Count);
+                list.Add(possibleList[ran]);
+                possibleList.RemoveAt(ran);
+            }
+            list.AddRange(list);
+
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                int value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
             return list;
+        }
+
+        public void SelectBlock(Rectangle touchBox)
+        {
+            int selectedCount = 0;
+            int index1 = -1;
+            int index2 = -1;
+            for (int ii = 0; ii < HiddenList.Count; ii++)
+            {
+                if (HitTest(HiddenList[ii].HitBox, touchBox))
+                {
+                    foreach (Block block in HiddenList)
+                    {
+                        if (block.IsEmptyBlock == true)
+                            selectedCount++;
+                    }
+                    if (selectedCount == 2)
+                    {
+                        for (int jj = 0; jj < HiddenList.Count; jj++)
+                        {
+                            if (HiddenList[jj].IsEmptyBlock)
+                            {
+                                if (index1 == -1)
+                                    index1 = jj;
+                                else
+                                    index2 = jj;
+                            }
+                        }
+                        if (index1 != -1 && index2 != -1)
+                        {
+                            if (HiddenList[index1].Value == HiddenList[index2].Value)
+                            {
+                                HiddenList[index1].IsSelected = true;
+                                HiddenList[index2].IsSelected = true;
+                            }
+                        }
+                        foreach (Block block in HiddenList)
+                        {
+                            block.IsEmptyBlock = false;
+                        }
+                    }
+                    HiddenList[ii].IsEmptyBlock = true;
+                }
+            }
         }
 
         public bool HitTest(Rectangle r1, Rectangle r2)
@@ -99,13 +162,14 @@ namespace SpellingBlocks.Controllers
             spriteBatch.Draw(Background, new Vector2(0, 0), null, Color.White, 0,
                 new Vector2(0, 0), 1f, SpriteEffects.None, 0);
             HomeButton.Draw();
-            foreach(Block block in BlockList)
+            foreach (Block block in BlockList)
             {
                 block.DrawBig();
             }
             foreach (Block block in HiddenList)
             {
-                block.DrawBig();
+                if (!block.IsSelected && !block.IsEmptyBlock)
+                    block.DrawBig();
             }
         }
     }
