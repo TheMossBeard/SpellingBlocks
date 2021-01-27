@@ -209,7 +209,7 @@ namespace SpellingBlocks
             }
         }
 
-        public void UpdateMatching(GameTime gameTime) //this
+        public void UpdateMatching(GameTime gameTime) 
         {
             var touchPanelState = TouchPanel.GetState();
             foreach (var touch in touchPanelState)
@@ -220,7 +220,8 @@ namespace SpellingBlocks
                     touchBox = new Rectangle((int)Screen.X, (int)Screen.Y, 2, 2);
                     state = matching.HomeButtonUpdate(touchBox, state);
                     matching.SelectBlock(touchBox);
-                    // state = category.UpdateSearch(touchBox, gameContent, wordSearch, state);
+                    if (matching.NewGameButton(touchBox))
+                        matching = new MatchingController(spriteBatch, gameContent);
                 }
             }
         }
